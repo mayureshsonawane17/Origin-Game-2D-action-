@@ -1,0 +1,520 @@
+[gd_scene load_steps=27 format=3]
+
+[ext_resource type="Script" path="res://scripts/characters/player.gd" id="1_player"]
+[ext_resource type="Script" path="res://scripts/characters/player_visuals.gd" id="2_visuals"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="3_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="4_hitbox"]
+[ext_resource type="Script" path="res://scripts/systems/camera_controller.gd" id="5_camera"]
+[ext_resource type="Script" path="res://scripts/combat/state_machine.gd" id="6_fsm"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_idle_state.gd" id="7_idle"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_run_state.gd" id="8_run"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_jump_state.gd" id="9_jump"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_fall_state.gd" id="10_fall"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_attack_state.gd" id="11_attack"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_dodge_state.gd" id="12_dodge"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_cast_state.gd" id="13_cast"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_hurt_state.gd" id="14_hurt"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_die_state.gd" id="15_die"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(14, 30)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(16, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(26, 26)
+
+[sub_resource type="Animation" id="Animation_idle"]
+resource_name = "idle"
+length = 0.5
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["idle"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_run"]
+resource_name = "run"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["run"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.3, -0.3]
+}
+
+[sub_resource type="Animation" id="Animation_jump"]
+resource_name = "jump"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["jump"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.5]
+}
+
+[sub_resource type="Animation" id="Animation_fall"]
+resource_name = "fall"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["fall"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_attack1"]
+resource_name = "attack1"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.17),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/PlayerVisuals:slash_tier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.17),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-0.6, 1.2, 0.2]
+}
+
+[sub_resource type="Animation" id="Animation_attack2"]
+resource_name = "attack2"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.17),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/PlayerVisuals:slash_tier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.05, 0.17),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1.2, -1.0, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_attack3"]
+resource_name = "attack3"
+length = 0.35
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["attack"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:show_slash_arc")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.23),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [false, true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("VisualRoot/PlayerVisuals:slash_tier")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.08, 0.23),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [-1.2, 2.0, 0.3]
+}
+
+[sub_resource type="Animation" id="Animation_cast"]
+resource_name = "cast"
+length = 0.22
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["cast"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.0, 0.8]
+}
+
+[sub_resource type="Animation" id="Animation_dodge"]
+resource_name = "dodge"
+length = 0.25
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["dodge"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_hurt"]
+resource_name = "hurt"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["hurt"]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("VisualRoot/PlayerVisuals:weapon_swing_angle")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-0.8]
+}
+
+[sub_resource type="Animation" id="Animation_die"]
+resource_name = "die"
+length = 1.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("VisualRoot/PlayerVisuals:anim_pose")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["die"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_player"]
+_data = {
+"attack1": SubResource("Animation_attack1"),
+"attack2": SubResource("Animation_attack2"),
+"attack3": SubResource("Animation_attack3"),
+"cast": SubResource("Animation_cast"),
+"die": SubResource("Animation_die"),
+"dodge": SubResource("Animation_dodge"),
+"fall": SubResource("Animation_fall"),
+"hurt": SubResource("Animation_hurt"),
+"idle": SubResource("Animation_idle"),
+"jump": SubResource("Animation_jump"),
+"run": SubResource("Animation_run")
+}
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 1
+script = ExtResource("1_player")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+
+[node name="PlayerVisuals" type="Node2D" parent="VisualRoot"]
+script = ExtResource("2_visuals")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("3_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -16)
+shape = SubResource("RectangleShape2D_hurt")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(16, -16)
+collision_layer = 8
+collision_mask = 0
+monitoring = false
+script = ExtResource("4_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hit")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(0, -20)
+script = ExtResource("5_camera")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_player")
+}
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("6_fsm")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateMachine"]
+script = ExtResource("7_idle")
+
+[node name="Run" type="Node" parent="StateMachine"]
+script = ExtResource("8_run")
+
+[node name="Jump" type="Node" parent="StateMachine"]
+script = ExtResource("9_jump")
+
+[node name="Fall" type="Node" parent="StateMachine"]
+script = ExtResource("10_fall")
+
+[node name="Attack" type="Node" parent="StateMachine"]
+script = ExtResource("11_attack")
+
+[node name="Dodge" type="Node" parent="StateMachine"]
+script = ExtResource("12_dodge")
+
+[node name="Cast" type="Node" parent="StateMachine"]
+script = ExtResource("13_cast")
+
+[node name="Hurt" type="Node" parent="StateMachine"]
+script = ExtResource("14_hurt")
+
+[node name="Die" type="Node" parent="StateMachine"]
+script = ExtResource("15_die")
