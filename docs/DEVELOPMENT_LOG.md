@@ -1,5 +1,39 @@
 # Development Log
 
+## Session 5: Milestone 5 Remaining Eras - Era 2: Medieval Era Complete
+- **Date:** 2026-10-15
+- **Goal:** Complete Milestone 5: Era 2 (Medieval Era) — all 10 bosses + Era Boss added to roster, new medieval enemies, tier-2 skills, equipment, 3-phase era boss, full Chapter 2 level, and 100% automated integration test coverage.
+- **Actions Taken:**
+  - Updated `docs/BOSS_ROSTER.md` with all 10 Medieval bosses (MED-01 through MED-10) and Era Boss Lord Malakor (MED-ERA), complete with signature mechanics, tiers, weaknesses, and rewards.
+  - Designed and created Medieval equipment resources in `data/equipment/`:
+    - `iron_knight_broadsword.tres`: 2 base damage, knightly steel.
+    - `heavy_tower_shield.tres`: 50% defense multiplier (heavy incoming damage mitigation).
+    - `royal_crossbow.tres`: 3 base damage high-velocity ranged sniper weapon.
+  - Implemented Tier-2 skills in `data/skills/`:
+    - `attack_rending_strike.tres`: +1 combo damage modifier (requires `atk_finisher_mastery`).
+    - `defense_bulwark_stance.tres`: +20% block mitigation (requires `def_fortified_parry`).
+    - Registered both skills in `SkillTreeManager` with branch tracking and prerequisite handling.
+  - Implemented `CrossbowBolt` projectile (`scenes/combat/crossbow_bolt.tscn` / `scripts/combat/crossbow_bolt.gd`): high-speed arrow dealing 1 damage to player with knockback and procedural wooden fletching.
+  - Created 2 new original Medieval enemies:
+    - `EnemyFootman` (`scenes/enemies/enemy_footman.tscn` / `scripts/enemies/enemy_footman.gd`): Heavy plate infantry with frontal heater shield blocking 100% of frontal attacks, telegraphed overhead broadsword/poleaxe cleave, and parry stagger vulnerability (drops shield, takes 2x double damage for 1.4s).
+    - `EnemyCrossbow` (`scenes/enemies/enemy_crossbow.tscn` / `scripts/enemies/enemy_crossbow.gd`): Castle rampart sniper with telegraphed laser-sight aiming line, high-speed bolt firing, and defensive retreat back-dash when player approaches within melee range.
+  - Created Medieval Miniboss **Sir Gareth the Ironclad (MED-01)** (`scenes/bosses/boss_sir_gareth.tscn` / `scripts/bosses/boss_sir_gareth.gd` / `data/bosses/sir_gareth.tres`): Bastion gatehouse guardian with shield charge, overhead cleaves, and arena locking gates.
+  - Created Medieval 3-Phase Era Boss **Lord Malakor of the Iron Bastion (MED-ERA)** (`scenes/bosses/boss_lord_malakor.tscn` / `scripts/bosses/boss_lord_malakor.gd` / `data/bosses/lord_malakor.tres`):
+    - Phase 1: Heavy Iron Fortress Armor, shockwave stomps, leaping ground slams.
+    - Phase 2: Trebuchet siege barrage with `FallingSiegeEmber` (`scenes/bosses/falling_siege_ember.tscn` / `scripts/bosses/falling_siege_ember.gd`) raining down, breakable Bastion Armor (10 HP), and parry stagger recovery windows.
+    - Phase 3: Phantom Flame frenzy with dual-flame cleaves dealing 3 damage per strike.
+  - Created procedural ashlar masonry stone platforms (`MedievalCastlePlatform` in `scripts/levels/medieval_platform.gd`) with crenellations and mortar line drawing.
+  - Created 4-layer parallax backdrop (`MedievalBackground` in `scripts/levels/medieval_background.gd`) rendering misty sky, distant towers, curtain walls, and ramparts.
+  - Built full Chapter 2 level `Chapter2Medieval` (`scenes/levels/chapter2_medieval.tscn` / `scripts/levels/chapter2_medieval.gd`) spanning 2800px across 6 zones:
+    - Zone 1: Drawbridge & Moat Outskirts (Footman and Crossbow encounters, Checkpoint 1 `cp_zone1_drawbridge`).
+    - Zone 2: Castle Courtyard (Mixed enemy encounters, Checkpoint 2 `cp_zone2_courtyard`).
+    - Zone 3: Gatehouse Arena (Locking arena gates, Miniboss **Sir Gareth MED-01** battle, Knight Crest reward).
+    - Zone 4: Castle Dungeon descent (Spike hazards, narrow stone corridors, Checkpoint 3 `cp_zone4_dungeon`).
+    - Zone 5: Great Throne Room / Era Boss Arena (Locking gates, 3-Phase Era Boss **Lord Malakor MED-ERA** battle, Medieval Remnant reward).
+    - Zone 6: Monolith Exit Gateway (+4 Skill Points awarded and persisted, victory sequence).
+  - Authored automated integration test suite `tests/test_milestone5.tscn` (`tests/test_milestone5.gd`) verifying all 6 core systems (6/6 passing, 100%).
+  - Ran full regression test suite across all 5 milestones (36/36 tests passing, 100%).
+
 ## Session 4: Milestone 4 First Chapter (Prehistoric Era Complete)
 - **Date:** 2026-10-15
 - **Goal:** Build the complete Milestone 4 first chapter: one polished prehistoric level, several enemy types, miniboss encounter, 3-phase era boss encounter, story dialogue, rewards, and chapter clear flow ("Chapter playable start to finish").

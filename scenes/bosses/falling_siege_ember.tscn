@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/falling_siege_ember.gd" id="1_ember"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ember"]
+radius = 5.0
+
+[node name="FallingSiegeEmber" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_ember")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_ember")

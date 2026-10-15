@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "MED-ERA"
+era = "Medieval"
+tier = 12
+display_name = "Lord Malakor"
+title = "Tyrant of the Iron Bastion"
+intro_quote = "This castle is forged of eternal stone. You cannot breach what cannot yield."
+accent_color = Color(0.85, 0.22, 0.25, 1)
+transition_style = "diagonal_flash"
+is_era_boss = true
+intro_music_cue = "boss_cue_medieval_era"
+max_health = 32
+total_phases = 3
+move_speed = 55.0
+armor_health = 10
+attacks = ["morningstar_cleave", "siege_shockwave", "trebuchet_barrage", "phantom_flame_sweep"]
+weaknesses = ["parry", "armor_break"]
+reward_id = "medieval_remnant"
+story_flag = "era_medieval_cleared"
+arena_scene_path = "res://scenes/levels/chapter2_medieval.tscn"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "royal_crossbow"
+display_name = "Royal Arbalest"
+description = "A precision steel-strung crossbow delivering armor-piercing heavy bolts."
+slot = "RANGED"
+base_damage = 3
+defense_multiplier = 1.0
+mobility_multiplier = 0.92
+mana_cost_multiplier = 1.0
+ammo_type = "steel_bolts"
+max_ammo = 10
+current_ammo = 10
+knockback_bonus = 45.0
+weapon_accent_color = Color(0.95, 0.78, 0.25, 1)

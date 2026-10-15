@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "MED-01"
+era = "Medieval"
+tier = 1
+display_name = "Sir Gareth the Ironclad"
+title = "Guardian of the Cursed Gate"
+intro_quote = "Yield now, traveler, or face the unbroken bastion of the king."
+accent_color = Color(0.35, 0.55, 0.95, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_medieval"
+max_health = 14
+total_phases = 1
+move_speed = 60.0
+armor_health = 0
+attacks = ["overhead_cleave", "shield_bash", "bastion_guard"]
+weaknesses = ["parry", "combo_finisher"]
+reward_id = "knight_crest"
+story_flag = "boss_med01_cleared"
+arena_scene_path = "res://scenes/levels/chapter2_medieval.tscn"

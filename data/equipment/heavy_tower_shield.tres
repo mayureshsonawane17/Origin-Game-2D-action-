@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "heavy_tower_shield"
+display_name = "Bastion Tower Shield"
+description = "A massive riveted iron shield capable of absorbing heavy siege fire. Reduces incoming damage by 50%."
+slot = "ARMOR"
+base_damage = 0
+defense_multiplier = 0.50
+mobility_multiplier = 0.80
+mana_cost_multiplier = 1.0
+ammo_type = ""
+max_ammo = 0
+current_ammo = 0
+knockback_bonus = 0.0
+weapon_accent_color = Color(0.45, 0.48, 0.52, 1)
