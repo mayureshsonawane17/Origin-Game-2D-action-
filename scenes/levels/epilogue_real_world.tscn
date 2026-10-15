@@ -1,0 +1,86 @@
+[gd_scene load_steps=4 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/epilogue_real_world.gd" id="1_epi"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="2_dlg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_credits"]
+bg_color = Color(0, 0, 0, 0.85)
+
+[node name="EpilogueRealWorld" type="Node2D"]
+script = ExtResource("1_epi")
+
+[node name="SunriseGlow" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.98, 0.65, 0.35, 1)
+
+[node name="SkyGradient" type="ColorRect" parent="."]
+offset_right = 480.0
+offset_bottom = 180.0
+color = Color(0.95, 0.50, 0.25, 0.6)
+
+[node name="MeadowGround" type="ColorRect" parent="."]
+offset_top = 210.0
+offset_right = 480.0
+offset_bottom = 270.0
+color = Color(0.25, 0.45, 0.20, 1)
+
+[node name="DialogueBox" parent="." instance=ExtResource("2_dlg")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 50
+
+[node name="CreditsPanel" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_credits")
+
+[node name="Center" type="CenterContainer" parent="CanvasLayer/CreditsPanel"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/CreditsPanel/Center"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="CanvasLayer/CreditsPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.4, 1)
+theme_override_font_sizes/font_size = 14
+text = "ORIGIN"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CanvasLayer/CreditsPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.9, 1)
+theme_override_font_sizes/font_size = 8
+text = "A Journey Through Eternity"
+horizontal_alignment = 1
+
+[node name="Spacer" type="Control" parent="CanvasLayer/CreditsPanel/Center/VBox"]
+custom_minimum_size = Vector2(0, 8)
+layout_mode = 2
+
+[node name="Credits" type="Label" parent="CanvasLayer/CreditsPanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.75, 0.78, 0.82, 1)
+theme_override_font_sizes/font_size = 7
+text = "Created by the Creator
+Programming & Game Mechanics: Antigravity Team
+Art, Aesthetics & Shaders: ORIGIN Engine
+Music & Audio: 16-Bit Masterpieces
+
+THANK YOU FOR PLAYING"
+horizontal_alignment = 1
+
+[node name="FadeRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)

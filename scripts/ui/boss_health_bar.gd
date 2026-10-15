@@ -8,6 +8,7 @@ extends Control
 @onready var health_bar: ProgressBar = $VBoxContainer/HealthBar
 @onready var armor_bar: ProgressBar = $VBoxContainer/HealthBar/ArmorBar
 @onready var pips_container: HBoxContainer = $VBoxContainer/Header/PhasePips
+@onready var status_label: Label = $VBoxContainer/HealthBar/StatusLabel
 
 var bound_boss: BossController
 
@@ -26,10 +27,16 @@ func bind_boss(boss: BossController) -> void:
 		health_bar.max_value = boss.data.max_health
 		health_bar.value = boss.current_health
 
+		var is_immortal = (boss.data.id in ["VIL-IMMORTAL", "THE-UNBEATABLE-ONE"] or boss.data.title.contains("Immortal"))
+		if status_label:
+			status_label.visible = is_immortal
+			if is_immortal:
+				status_label.text = "IMMORTAL — NO WEAKNESS DETECTED"
+
 		# Phase pips setup
 		for child in pips_container.get_children():
 			child.queue_free()
-		if boss.data.total_phases > 1:
+		if not is_immortal and boss.data.total_phases > 1:
 			for i in boss.data.total_phases:
 				var pip = ColorRect.new()
 				pip.custom_minimum_size = Vector2(6, 6)

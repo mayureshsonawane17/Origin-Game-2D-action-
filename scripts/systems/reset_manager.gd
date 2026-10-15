@@ -15,14 +15,14 @@ func _ready() -> void:
 	_setup_default_input_map()
 	print("[ResetManager] Initialized. Current loop count: %d" % reset_count)
 
-func trigger_reset(reason: String = "defeat") -> void:
+func trigger_reset(reason: String = "defeat", reload_scene: bool = true) -> void:
 	reset_count += 1
 	_save_reset_count()
 	print("[ResetManager] Reset triggered (Loop #%d) Reason: %s" % [reset_count, reason])
 	reset_triggered.emit(reset_count, reason)
 	
 	# Reload current scene cleanly
-	if get_tree():
+	if reload_scene and get_tree():
 		get_tree().paused = false
 		get_tree().reload_current_scene()
 

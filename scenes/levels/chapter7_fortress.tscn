@@ -1,0 +1,176 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/chapter7_fortress.gd" id="1_chap"]
+[ext_resource type="Script" path="res://scripts/levels/fortress_background.gd" id="2_bg"]
+[ext_resource type="Script" path="res://scripts/levels/fortress_platform.gd" id="3_plat"]
+[ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="4_player"]
+[ext_resource type="PackedScene" path="res://scenes/levels/arena_gate.tscn" id="5_gate"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="6_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="7_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/boss_title_card.tscn" id="8_card"]
+[ext_resource type="PackedScene" path="res://scenes/ui/boss_health_bar.tscn" id="9_bar"]
+[ext_resource type="PackedScene" path="res://scenes/ui/glitch_overlay.tscn" id="10_glitch"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_prowler.tscn" id="11_prowler"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_footman.tscn" id="12_footman"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_ronin.tscn" id="13_ronin"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_automaton.tscn" id="14_auto"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_riot_enforcer.tscn" id="15_riot"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_cyber_drone.tscn" id="16_drone"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_left"]
+size = Vector2(20, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_right"]
+size = Vector2(20, 400)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_btn"]
+bg_color = Color(0.85, 0.15, 0.25, 0.85)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0.9, 0.3, 1)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+
+[node name="Chapter7Fortress" type="Node2D"]
+script = ExtResource("1_chap")
+
+[node name="FortressBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("2_bg")
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="LeftWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-10, 100)
+shape = SubResource("RectangleShape2D_wall_left")
+
+[node name="RightWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(2960, 100)
+shape = SubResource("RectangleShape2D_wall_right")
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Fortress_Plat_Main" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1100, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(980, 40)
+
+[node name="Fortress_Plat_High_Left" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1260, 165)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(100, 16)
+
+[node name="Fortress_Plat_High_Right" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1780, 165)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(100, 16)
+
+[node name="ArenaGates" type="Node2D" parent="."]
+
+[node name="GateLeft" parent="ArenaGates" instance=ExtResource("5_gate")]
+position = Vector2(1180, 230)
+gate_color = Color(0.85, 0.15, 0.9, 1)
+
+[node name="GateRight" parent="ArenaGates" instance=ExtResource("5_gate")]
+position = Vector2(2020, 230)
+gate_color = Color(0.85, 0.15, 0.9, 1)
+
+[node name="FrozenEnemies" type="Node2D" parent="."]
+process_mode = 4
+visible = false
+
+[node name="FrozenProwler" parent="FrozenEnemies" instance=ExtResource("11_prowler")]
+position = Vector2(1340, 140)
+
+[node name="FrozenFootman" parent="FrozenEnemies" instance=ExtResource("12_footman")]
+position = Vector2(1420, 230)
+
+[node name="FrozenRonin" parent="FrozenEnemies" instance=ExtResource("13_ronin")]
+position = Vector2(1500, 140)
+
+[node name="FrozenAutomaton" parent="FrozenEnemies" instance=ExtResource("14_auto")]
+position = Vector2(1620, 230)
+
+[node name="FrozenRiot" parent="FrozenEnemies" instance=ExtResource("15_riot")]
+position = Vector2(1720, 230)
+
+[node name="FrozenDrone" parent="FrozenEnemies" instance=ExtResource("16_drone")]
+position = Vector2(1820, 150)
+
+[node name="MergedEraFragments" type="Node2D" parent="."]
+visible = false
+
+[node name="PrehistoricFragment" type="StaticBody2D" parent="MergedEraFragments"]
+position = Vector2(1380, 185)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(70, 14)
+crystal_vein_color = Color(0.3, 0.85, 0.3, 1)
+
+[node name="MedievalFragment" type="StaticBody2D" parent="MergedEraFragments"]
+position = Vector2(1520, 175)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(80, 14)
+crystal_vein_color = Color(0.7, 0.75, 0.85, 1)
+
+[node name="HistoricalFragment" type="StaticBody2D" parent="MergedEraFragments"]
+position = Vector2(1660, 185)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(70, 14)
+crystal_vein_color = Color(0.95, 0.3, 0.2, 1)
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="BossSpawn" type="Marker2D" parent="Markers"]
+position = Vector2(1740, 230)
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(1280, 220)
+
+[node name="HUD" parent="." instance=ExtResource("6_hud")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("7_dlg")]
+
+[node name="BossTitleCard" parent="." instance=ExtResource("8_card")]
+
+[node name="GlitchOverlay" parent="." instance=ExtResource("10_glitch")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource("9_bar")]
+visible = false
+
+[node name="DeliberateResetButton" type="Button" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -110.0
+offset_top = -28.0
+offset_right = 110.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_btn")
+theme_override_font_sizes/font_size = 8
+text = "[R] DELIBERATE RESET — BREAK THE LOOP"

@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss"]
+
+[resource]
+script = ExtResource("1_boss")
+id = "VIL-IMMORTAL"
+boss_name = "The Architect"
+title = "Immortal — Master of the Loop"
+era = "Fortress"
+max_health = 9999
+armor_health = 0
+total_phases = 1
+attack_power = 2
+speed = 95.0
+title_card_color = Color(0.85, 0.1, 0.9, 1.0)
+boss_theme_id = "theme_final_villain"
+weakness_notes = "IMMORTAL — NO WEAKNESS DETECTED. Conventional attacks are completely ineffective."
+drops = []
