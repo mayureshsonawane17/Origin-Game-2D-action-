@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "elem_overcharge_discharge"
+branch = "Elemental"
+display_name = "Capacitor Overcharge"
+description = "Harnesses volatile galvanic currents, expanding max mana capacity by +20."
+cost = 2
+required_skills = ["elem_spark_infusion"]
+stat_modifiers = {
+"bonus_mana": 20
+}
+granted_ability = ""

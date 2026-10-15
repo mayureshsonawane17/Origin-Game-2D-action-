@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "IND-ERA"
+era = "Industrial"
+tier = 12
+display_name = "Baron Von Steinhardt"
+title = "The Iron Leviathan"
+intro_quote = "Progress demands combustion, boy. Your struggle is merely fuel for my machine!"
+accent_color = Color(0.95, 0.40, 0.12, 1)
+transition_style = "diagonal_flash"
+is_era_boss = true
+intro_music_cue = "boss_cue_industrial_era"
+max_health = 36
+total_phases = 3
+move_speed = 60.0
+armor_health = 14
+attacks = ["steam_wrench_cleave", "molten_slag_rain", "boiler_meltdown_burst", "gear_crush"]
+weaknesses = ["parry", "boiler_breach"]
+reward_id = "industrial_remnant"
+story_flag = "era_industrial_cleared"
+arena_scene_path = "res://scenes/levels/chapter4_industrial.tscn"

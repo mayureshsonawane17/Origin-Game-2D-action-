@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "IND-01"
+era = "Industrial"
+tier = 1
+display_name = "Chief Overseer Brant"
+title = "Master of the Foundry"
+intro_quote = "Keep the furnaces burning! Slackers will be fed to the boilers!"
+accent_color = Color(0.95, 0.45, 0.15, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_industrial"
+max_health = 18
+total_phases = 1
+move_speed = 65.0
+armor_health = 0
+attacks = ["pneumatic_slam", "steam_dash", "whistle_shockwave"]
+weaknesses = ["parry", "stagger"]
+reward_id = "overseer_cog"
+story_flag = "boss_ind01_cleared"
+arena_scene_path = "res://scenes/levels/chapter4_industrial.tscn"

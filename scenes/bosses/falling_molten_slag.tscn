@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/falling_molten_slag.gd" id="1_slag"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_slag"]
+radius = 6.0
+
+[node name="FallingMoltenSlag" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_slag")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_slag")

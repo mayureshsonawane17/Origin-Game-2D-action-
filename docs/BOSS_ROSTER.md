@@ -48,4 +48,19 @@ Status: planned / prototyped / playable / polished.
 | HIST-10 | Historical | The Cursed Samurai | Fallen Mirror | Cherry Blossom Iaido Flurry | 5 | Stance Block / Parry | Broken Katana | Planned |
 | HIST-ERA| Historical | Shogun Kageyasu | Era Boss | 3-Phase Naginata & Shadow Storm | Era | Breakable Armor / Parry | Historical Remnant | Playable |
 
-*(Remaining eras: Industrial, Modern, Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*
+## Industrial Era
+| ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
+|---|---|---|---|---|---|---|---|---|
+| IND-01 | Industrial | Chief Overseer Brant | Foundry Master | Pneumatic Hammer & Steam Dash | 1 | Parry / Guard Break | Overseer Cog | Playable |
+| IND-02 | Industrial | Clockwork Spider Sentry | Mechanical Arachnid | Steam Vent & Cable Trap | 1 | Magic / Electricity | Brass Chassis | Planned |
+| IND-03 | Industrial | The Chemist of Fleet Street | Mad Alchemist | Acid Gas Clouds & Phosphor Flask | 2 | Air Attacks | Chemical Filter | Planned |
+| IND-04 | Industrial | Ironclad Dredger 44 | Armored Digger | Drill Charge & Coal Shovel | 2 | Timed Dodge / Parry | Heavy Piston | Planned |
+| IND-05 | Industrial | Electromancer Nikola | Tesla Savant | Lightning Arcs & Magnetic Pull | 3 | Rushdown Finisher | Tesla Coil | Planned |
+| IND-06 | Industrial | Madame Guillotine | Clockwork Executioner | Pendulum Blade & Spring Dash | 3 | Timed Parry | Spring Blade | Planned |
+| IND-07 | Industrial | Rail Baron Sterling | Train Conductor | Steam Whistle Stun & Gatling Sweep | 4 | Stagger Finisher | Golden Pocketwatch | Planned |
+| IND-08 | Industrial | The Smog Chimera | Pollution Demon | Toxic Ash Funnel & Coal Claws | 4 | Perfect Parry | Smog Core | Planned |
+| IND-09 | Industrial | Dreadnought Prototype RX | Walking Tank | Mortar Shells & Flamethrower | 5 | Breakable Armor | Plating Shard | Planned |
+| IND-10 | Industrial | The Gilded Automaton | Fallen Mirror | High-Pressure Steam Overdrive | 5 | Stance Block / Parry | Clockwork Heart | Planned |
+| IND-ERA| Industrial | Baron Von Steinhardt | Era Boss | 3-Phase Steam Fortress & Boiler Meltdown | Era | Breakable Armor / Parry | Industrial Remnant | Playable |
+
+*(Remaining eras: Modern, Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*
