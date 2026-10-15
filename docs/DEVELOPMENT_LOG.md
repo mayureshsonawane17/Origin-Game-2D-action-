@@ -1,5 +1,39 @@
 # Development Log
 
+## Session 6: Milestone 5 Remaining Eras - Era 3: Historical Era Complete
+- **Date:** 2026-10-15
+- **Goal:** Complete Milestone 5: Era 3 (Historical Era) — all 10 bosses + Era Boss added to roster, new historical enemies, tier-3 skills, equipment, 3-phase era boss, full Chapter 3 level, and 100% automated integration test coverage.
+- **Actions Taken:**
+  - Updated `docs/BOSS_ROSTER.md` with all 10 Historical bosses (HIST-01 through HIST-10) and Era Boss Shogun Kageyasu (HIST-ERA), complete with signature mechanics, tiers, weaknesses, and rewards.
+  - Designed and created Historical equipment resources in `data/equipment/`:
+    - `katana_of_the_fallen.tres`: 3 base damage, +15% mobility folded-steel katana.
+    - `o_yoroi_heavy_armor.tres`: 0.45 defense multiplier (heavy incoming damage mitigation).
+    - `hankyu_war_bow.tres`: 4 base damage composite bamboo longbow.
+  - Implemented Tier-3 skills in `data/skills/`:
+    - `attack_iaijutsu_strike.tres`: +2 combo damage modifier (requires `atk_rending_strike`).
+    - `shadow_smoke_veil.tres`: +15 base agility / speed (requires `shadow_phase_dash`).
+    - Registered both skills in `SkillTreeManager` with branch tracking and prerequisite handling.
+  - Implemented `MatchlockBullet` projectile (`scenes/combat/matchlock_bullet.tscn` / `scripts/combat/matchlock_bullet.gd`): high-speed lead ball dealing 1 damage to player with gunpowder flash & smoke particles.
+  - Created 2 new original Historical enemies:
+    - `EnemyRonin` (`scenes/enemies/enemy_ronin.tscn` / `scripts/enemies/enemy_ronin.gd`): Wandering swordsman with quick step, telegraphed Iaijutsu dash attack (220 px/s forward burst), and parry stagger vulnerability (drops stance for 1.5s, takes 2x double damage).
+    - `EnemyGunner` (`scenes/enemies/enemy_gunner.tscn` / `scripts/enemies/enemy_gunner.gd`): Tanegashima matchlock rifleman with glowing red match cord aiming line, high-velocity bullet firing, and tactical retreat back-dash when player approaches within melee range.
+  - Created Historical Miniboss **Kensei Jinzo (HIST-01)** (`scenes/bosses/boss_kensei_jinzo.tscn` / `scripts/bosses/boss_kensei_jinzo.gd` / `data/bosses/kensei_jinzo.tres`): Wandering swordmaster with swift dual-slash attacks, wind step dashes, counter stances, and arena locking gates. Awards `Kensei Tsuba`.
+  - Created Historical 3-Phase Era Boss **Shogun Kageyasu (HIST-ERA)** (`scenes/bosses/boss_shogun_kageyasu.tscn` / `scripts/bosses/boss_shogun_kageyasu.gd` / `data/bosses/shogun_kageyasu.tres`):
+    - Phase 1: Heavy naginata sweeping slashes and leaping ground slam shockwaves (`SeismicShockwave`).
+    - Phase 2: Raining spectral shadow blades (`FallingShadowBlade` in `scenes/bosses/falling_shadow_blade.tscn`), breakable Spirit Armor (12 HP), and parry stagger recovery windows.
+    - Phase 3: Enraged Phantom Storm frenzy (+35% speed, glowing crimson crescent strikes dealing 3 damage).
+  - Created procedural Japanese shrine/pagoda platforms (`HistoricalShrinePlatform` in `scripts/levels/historical_platform.gd`) with vermilion lacquer, cedar timber, gold bracket caps, and torii trim.
+  - Created 4-layer parallax backdrop (`HistoricalBackground` in `scripts/levels/historical_background.gd`) rendering misty Fujisan mountain ridges, crimson morning sun, distant pagodas, and bamboo silhouettes.
+  - Built full Chapter 3 level `Chapter3Historical` (`scenes/levels/chapter3_historical.tscn` / `scripts/levels/chapter3_historical.gd`) spanning 2900px across 6 zones:
+    - Zone 1: Bamboo Grove Outskirts (Ronin and Gunner encounters, Checkpoint 1 `cp_hist_zone1_bamboo`).
+    - Zone 2: Torii Gate Pass (Platforming across wooden shrines, Checkpoint 2 `cp_hist_zone2_torii`).
+    - Zone 3: Sacred Shrine Arena (Locking arena gates, Miniboss **Kensei Jinzo HIST-01** battle, Kensei Tsuba reward).
+    - Zone 4: Burning Village approach (Narrow bridges, spike hazard ravines, Checkpoint 3 `cp_hist_zone4_village`).
+    - Zone 5: Imperial Pagoda Rooftop / Era Boss Arena (Locking gates, 3-Phase Era Boss **Shogun Kageyasu HIST-ERA** battle, Historical Remnant reward).
+    - Zone 6: Monolith Exit Gateway (+4 Skill Points awarded and persisted, victory sequence).
+  - Authored automated integration test suite `tests/test_historical.tscn` (`tests/test_historical.gd`) verifying all 6 core systems (6/6 passing, 100%).
+  - Ran full regression test suite across all 6 milestone suites (42/42 tests passing, 100%).
+
 ## Session 5: Milestone 5 Remaining Eras - Era 2: Medieval Era Complete
 - **Date:** 2026-10-15
 - **Goal:** Complete Milestone 5: Era 2 (Medieval Era) — all 10 bosses + Era Boss added to roster, new medieval enemies, tier-2 skills, equipment, 3-phase era boss, full Chapter 2 level, and 100% automated integration test coverage.

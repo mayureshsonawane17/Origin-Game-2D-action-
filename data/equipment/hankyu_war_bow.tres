@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "hankyu_war_bow"
+display_name = "Hankyu War Bow"
+description = "An asymmetrical composite bamboo longbow used by samurai archers. Penetrates armor with devastating force."
+slot = "RANGED"
+base_damage = 4
+defense_multiplier = 1.0
+mobility_multiplier = 1.0
+mana_cost_multiplier = 1.0
+ammo_type = "arrow"
+max_ammo = 24
+current_ammo = 24
+knockback_bonus = 45.0
+weapon_accent_color = Color(0.92, 0.75, 0.35, 1)

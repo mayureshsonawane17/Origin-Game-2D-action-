@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "shadow_smoke_veil"
+branch = "Shadow"
+display_name = "Smoke Veil Evasion"
+description = "Envelops the hero in shadowy smoke, boosting base movement and agility (+15 speed)."
+cost = 2
+required_skills = ["shadow_phase_dash"]
+stat_modifiers = {
+"bonus_speed": 15
+}
+granted_ability = ""

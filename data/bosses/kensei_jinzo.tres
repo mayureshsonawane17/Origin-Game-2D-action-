@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "HIST-01"
+era = "Historical"
+tier = 1
+display_name = "Kensei Jinzo"
+title = "The Wandering Swordmaster"
+intro_quote = "My blade knows no master, only the weight of a thousand duels."
+accent_color = Color(0.95, 0.25, 0.35, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_historical"
+max_health = 16
+total_phases = 1
+move_speed = 80.0
+armor_health = 0
+attacks = ["dual_slash", "counter_stance", "wind_step"]
+weaknesses = ["parry", "stagger"]
+reward_id = "kensei_tsuba"
+story_flag = "boss_hist01_cleared"
+arena_scene_path = "res://scenes/levels/chapter3_historical.tscn"

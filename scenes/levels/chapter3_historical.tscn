@@ -1,0 +1,298 @@
+[gd_scene load_steps=21 format=3]
+
+[ext_resource type="Script" path="res://scripts/levels/chapter3_historical.gd" id="1_chap"]
+[ext_resource type="Script" path="res://scripts/levels/historical_background.gd" id="2_bg"]
+[ext_resource type="Script" path="res://scripts/levels/historical_platform.gd" id="3_plat"]
+[ext_resource type="PackedScene" path="res://scenes/characters/player.tscn" id="4_player"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_ronin.tscn" id="5_ronin"]
+[ext_resource type="PackedScene" path="res://scenes/enemies/enemy_gunner.tscn" id="6_gunner"]
+[ext_resource type="PackedScene" path="res://scenes/levels/checkpoint.tscn" id="7_cp"]
+[ext_resource type="PackedScene" path="res://scenes/levels/arena_gate.tscn" id="8_gate"]
+[ext_resource type="PackedScene" path="res://scenes/levels/spikes_hazard.tscn" id="9_spikes"]
+[ext_resource type="PackedScene" path="res://scenes/levels/level_goal.tscn" id="10_exit"]
+[ext_resource type="PackedScene" path="res://scenes/ui/hud.tscn" id="11_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/dialogue_box.tscn" id="12_dlg"]
+[ext_resource type="PackedScene" path="res://scenes/ui/boss_title_card.tscn" id="13_card"]
+[ext_resource type="PackedScene" path="res://scenes/ui/boss_health_bar.tscn" id="14_bar"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_left"]
+size = Vector2(20, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_right"]
+size = Vector2(20, 400)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_portal"]
+size = Vector2(30, 50)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_complete"]
+bg_color = Color(0.08, 0.05, 0.06, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.95, 0.25, 0.35, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Chapter3Historical" type="Node2D"]
+script = ExtResource("1_chap")
+
+[node name="HistoricalBackground" type="ParallaxBackground" parent="."]
+script = ExtResource("2_bg")
+
+[node name="Boundaries" type="StaticBody2D" parent="."]
+collision_layer = 1
+collision_mask = 0
+
+[node name="LeftWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(-10, 100)
+shape = SubResource("RectangleShape2D_wall_left")
+
+[node name="RightWall" type="CollisionShape2D" parent="Boundaries"]
+position = Vector2(2910, 100)
+shape = SubResource("RectangleShape2D_wall_right")
+
+[node name="Platforms" type="Node2D" parent="."]
+
+[node name="Bamboo_Zone1_A" type="StaticBody2D" parent="Platforms"]
+position = Vector2(0, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(300, 40)
+
+[node name="Bamboo_Plat_1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(220, 175)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(80, 16)
+has_torii_trim = false
+
+[node name="Bamboo_Zone1_B" type="StaticBody2D" parent="Platforms"]
+position = Vector2(340, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(320, 40)
+
+[node name="ToriiPass_Zone2_A" type="StaticBody2D" parent="Platforms"]
+position = Vector2(700, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(270, 40)
+
+[node name="Torii_Plat_1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(760, 160)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(90, 16)
+has_torii_trim = false
+
+[node name="ToriiPass_Zone2_B" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1010, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(240, 40)
+
+[node name="Torii_Plat_2" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1080, 160)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(90, 16)
+has_torii_trim = false
+
+[node name="Shrine_Miniboss_Arena" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1270, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(440, 40)
+
+[node name="Shrine_Plat_1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1440, 165)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(100, 16)
+has_torii_trim = false
+
+[node name="Village_Zone4" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1730, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(360, 40)
+
+[node name="Village_Plat_1" type="StaticBody2D" parent="Platforms"]
+position = Vector2(1860, 170)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(80, 16)
+has_torii_trim = false
+
+[node name="Pagoda_Era_Arena" type="StaticBody2D" parent="Platforms"]
+position = Vector2(2110, 230)
+collision_layer = 1
+collision_mask = 0
+script = ExtResource("3_plat")
+platform_size = Vector2(780, 40)
+
+[node name="Hazards" type="Node2D" parent="."]
+
+[node name="Spikes1" parent="Hazards" instance=ExtResource("9_spikes")]
+position = Vector2(315, 230)
+
+[node name="Spikes2" parent="Hazards" instance=ExtResource("9_spikes")]
+position = Vector2(675, 230)
+
+[node name="Spikes3" parent="Hazards" instance=ExtResource("9_spikes")]
+position = Vector2(985, 230)
+
+[node name="Checkpoints" type="Node2D" parent="."]
+
+[node name="CP1" parent="Checkpoints" instance=ExtResource("7_cp")]
+position = Vector2(580, 230)
+checkpoint_id = "cp_hist_zone1_bamboo"
+
+[node name="CP2" parent="Checkpoints" instance=ExtResource("7_cp")]
+position = Vector2(1200, 230)
+checkpoint_id = "cp_hist_zone2_torii"
+
+[node name="CP3" parent="Checkpoints" instance=ExtResource("7_cp")]
+position = Vector2(2020, 230)
+checkpoint_id = "cp_hist_zone4_village"
+
+[node name="MinibossGates" type="Node2D" parent="."]
+
+[node name="GateLeft" parent="MinibossGates" instance=ExtResource("8_gate")]
+position = Vector2(1278, 230)
+gate_color = Color(0.75, 0.18, 0.15, 1)
+
+[node name="GateRight" parent="MinibossGates" instance=ExtResource("8_gate")]
+position = Vector2(1702, 230)
+gate_color = Color(0.75, 0.18, 0.15, 1)
+
+[node name="EraGates" type="Node2D" parent="."]
+
+[node name="GateLeft" parent="EraGates" instance=ExtResource("8_gate")]
+position = Vector2(2118, 230)
+gate_color = Color(0.75, 0.18, 0.15, 1)
+
+[node name="GateRight" parent="EraGates" instance=ExtResource("8_gate")]
+position = Vector2(2882, 230)
+gate_color = Color(0.75, 0.18, 0.15, 1)
+
+[node name="Enemies" type="Node2D" parent="."]
+
+[node name="Ronin1" parent="Enemies" instance=ExtResource("5_ronin")]
+position = Vector2(360, 230)
+
+[node name="Ronin2" parent="Enemies" instance=ExtResource("5_ronin")]
+position = Vector2(500, 230)
+
+[node name="Gunner1" parent="Enemies" instance=ExtResource("6_gunner")]
+position = Vector2(760, 160)
+
+[node name="Ronin3" parent="Enemies" instance=ExtResource("5_ronin")]
+position = Vector2(900, 230)
+
+[node name="Gunner2" parent="Enemies" instance=ExtResource("6_gunner")]
+position = Vector2(1080, 160)
+
+[node name="Ronin4" parent="Enemies" instance=ExtResource("5_ronin")]
+position = Vector2(1840, 230)
+
+[node name="Gunner3" parent="Enemies" instance=ExtResource("6_gunner")]
+position = Vector2(1960, 170)
+
+[node name="Markers" type="Node2D" parent="."]
+
+[node name="MinibossSpawn" type="Marker2D" parent="Markers"]
+position = Vector2(1560, 230)
+
+[node name="EraBossSpawn" type="Marker2D" parent="Markers"]
+position = Vector2(2600, 230)
+
+[node name="ExitPortal" type="Area2D" parent="."]
+position = Vector2(2800, 210)
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitPortal"]
+shape = SubResource("RectangleShape2D_portal")
+
+[node name="LevelGoalVisual" parent="ExitPortal" instance=ExtResource("10_exit")]
+
+[node name="Player" parent="." instance=ExtResource("4_player")]
+position = Vector2(80, 220)
+
+[node name="HUD" parent="." instance=ExtResource("11_hud")]
+
+[node name="DialogueBox" parent="." instance=ExtResource("12_dlg")]
+
+[node name="BossTitleCard" parent="." instance=ExtResource("13_card")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 30
+
+[node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource("14_bar")]
+visible = false
+
+[node name="ChapterCompletePanel" type="PanelContainer" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 60.0
+offset_top = 30.0
+offset_right = -60.0
+offset_bottom = -30.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_complete")
+
+[node name="Center" type="CenterContainer" parent="CanvasLayer/ChapterCompletePanel"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="CanvasLayer/ChapterCompletePanel/Center"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Title" type="Label" parent="CanvasLayer/ChapterCompletePanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.35, 0.45, 1)
+theme_override_font_sizes/font_size = 13
+text = "CHAPTER 3 COMPLETE"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="CanvasLayer/ChapterCompletePanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 8
+text = "Shrine of the Crimson Mist Liberated"
+horizontal_alignment = 1
+
+[node name="RewardLabel" type="Label" parent="CanvasLayer/ChapterCompletePanel/Center/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 7
+text = "REWARDS CLAIMED:
+• Kensei Tsuba
+• Historical Remnant"
+horizontal_alignment = 1
+
+[node name="ReplayButton" type="Button" parent="CanvasLayer/ChapterCompletePanel/Center/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CONTINUE JOURNEY [J / Space]"
+
+[connection signal="pressed" from="CanvasLayer/ChapterCompletePanel/Center/VBox/ReplayButton" to="." method="_on_replay_chapter_pressed"]

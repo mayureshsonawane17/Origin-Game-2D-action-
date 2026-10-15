@@ -33,4 +33,19 @@ Status: planned / prototyped / playable / polished.
 | MED-10 | Medieval | The Cursed Champion | Fallen Hero Mirror | Spectral Combo Finisher | 5 | Stance Block / Parry | Champion Shard | Planned |
 | MED-ERA| Medieval | Lord Malakor of the Iron Bastion | Era Boss | 3-Phase Siege Fortress Cataclysm | Era | Breakable Armor / Parry | Medieval Remnant | Playable |
 
-*(Remaining eras: Historical, Industrial, Modern, Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*
+## Historical Era
+| ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
+|---|---|---|---|---|---|---|---|---|
+| HIST-01 | Historical | Kensei Jinzo | Wandering Swordmaster | Dual Strike & Counter-Slash | 1 | Parry / Guard Break | Kensei Tsuba | Playable |
+| HIST-02 | Historical | Onryo of the Bamboo Mist | Vengeful Spirit | Illusory Clones & Mist Phasing | 1 | Magic / Area | Spirit Ribbon | Planned |
+| HIST-03 | Historical | Master Archer Tomoe | Kyudo Master | Rain of Arrows & Multi-Volley | 2 | Dodge Roll Rushdown | Quiver Feather | Planned |
+| HIST-04 | Historical | Shinobi Patriarch Hanzo | Shadow Ninja | Caltrops & Smoke Decoys | 2 | Air Attacks | Kusarigama Link | Planned |
+| HIST-05 | Historical | Sohei War Monk Benkei | Halberd Guardian | 7-Weapon Mastery & Shockwaves | 3 | Timed Parry | Prayer Beads | Planned |
+| HIST-06 | Historical | Lady Chiyo the Spider Weaver | Geisha Assassin | Poison Wire & Senbon Fan | 3 | Stance Block | Silk Fan | Planned |
+| HIST-07 | Historical | Kurohime the Blood Priestess | Corrupted Miko | Cursed Talismans & Blood Seal | 4 | Rushdown Finisher | Blood Mirror | Planned |
+| HIST-08 | Historical | Daimyo Takeda the Red Tiger | Cavalry Warlord | Heavy Charge & Flame Halberd | 4 | Perfect Parry | Tiger Kabuto | Planned |
+| HIST-09 | Historical | Orochi Wyrm of the Shallows | Water Hydra | Multi-Head Venom Surge | 5 | Stagger Finisher | Dragon Pearl | Planned |
+| HIST-10 | Historical | The Cursed Samurai | Fallen Mirror | Cherry Blossom Iaido Flurry | 5 | Stance Block / Parry | Broken Katana | Planned |
+| HIST-ERA| Historical | Shogun Kageyasu | Era Boss | 3-Phase Naginata & Shadow Storm | Era | Breakable Armor / Parry | Historical Remnant | Playable |
+
+*(Remaining eras: Industrial, Modern, Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*
