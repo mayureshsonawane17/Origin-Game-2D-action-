@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "tactical_combat_knife"
+display_name = "Titanium Combat Knife"
+description = "A high-carbon serrated military combat knife. Extremely lightweight, providing swift high-speed slashes."
+slot = "MELEE"
+base_damage = 3
+defense_multiplier = 1.0
+mobility_multiplier = 1.20
+mana_cost_multiplier = 1.0
+ammo_type = ""
+max_ammo = 0
+current_ammo = 0
+knockback_bonus = 20.0
+weapon_accent_color = Color(0.25, 0.75, 0.95, 1)

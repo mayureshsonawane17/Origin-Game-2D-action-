@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "MOD-01"
+era = "Modern"
+tier = 1
+display_name = "Commander Reyes"
+title = "Black Ops Infiltrator"
+intro_quote = "Mission parameters are clear: neutralize the target with extreme prejudice."
+accent_color = Color(0.20, 0.70, 0.95, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_modern"
+max_health = 20
+total_phases = 1
+move_speed = 85.0
+armor_health = 0
+attacks = ["tactical_knife_flurry", "burst_pistol", "flashbang_dash"]
+weaknesses = ["parry", "stagger"]
+reward_id = "specops_dogtags"
+story_flag = "boss_mod01_cleared"
+arena_scene_path = "res://scenes/levels/chapter5_modern.tscn"

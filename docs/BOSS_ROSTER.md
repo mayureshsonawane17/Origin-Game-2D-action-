@@ -63,4 +63,19 @@ Status: planned / prototyped / playable / polished.
 | IND-10 | Industrial | The Gilded Automaton | Fallen Mirror | High-Pressure Steam Overdrive | 5 | Stance Block / Parry | Clockwork Heart | Planned |
 | IND-ERA| Industrial | Baron Von Steinhardt | Era Boss | 3-Phase Steam Fortress & Boiler Meltdown | Era | Breakable Armor / Parry | Industrial Remnant | Playable |
 
-*(Remaining eras: Modern, Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*
+## Modern Era
+| ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
+|---|---|---|---|---|---|---|---|---|
+| MOD-01 | Modern | Commander Reyes | Black Ops Infiltrator | Flashbang Dash & Knife Flurry | 1 | Parry / Guard Break | Spec-Ops Dogtags | Playable |
+| MOD-02 | Modern | SWAT Juggernaut Apex | Riot Demolisher | Riot Shield Charge & Stun Grenade | 1 | Flank Dash / Magic | Riot Visor | Planned |
+| MOD-03 | Modern | The Chem-Warfare Syndicate | Bioterror Leader | Chemical Spray & Smoke Screen | 2 | Air Attacks | Toxin Canister | Planned |
+| MOD-04 | Modern | Apex Predator Chopper 9 | Attack Helicopter | Chaingun Strafe & Hellfire Rockets | 2 | Timed Dodge / Ranged | Rotor Blade | Planned |
+| MOD-05 | Modern | Cyber-Anarchist Null | Hacker Saboteur | EMP Discharge & Drone Swarm | 3 | Rushdown Finisher | EMP Jammer | Planned |
+| MOD-06 | Modern | Street Syndicate Matron | Mob Enforcer | Dual Tommy Guns & Molotovs | 3 | Timed Parry | Diamond Lighter | Planned |
+| MOD-07 | Modern | Urban Sniper Ghost | Ghost Marksman | Decoy Holograms & Anti-Materiel | 4 | Stagger Finisher | Thermal Scope | Planned |
+| MOD-08 | Modern | The Mech Suit Goliath | Powered Combat Armor | Hydraulic Uppercut & Barrier | 4 | Perfect Parry | Hydraulic Actuator | Planned |
+| MOD-09 | Modern | Main Battle Tank Crusader | Armor Division | 120mm Shells & Smoke Shield | 5 | Breakable Armor | Chobham Plate | Planned |
+| MOD-10 | Modern | The Fallen Operative | Fallen Mirror | High-Tech CQC Flurry | 5 | Stance Block / Parry | Cracked Holo-Tag | Planned |
+| MOD-ERA| Modern | General Vance | Era Boss | 3-Phase Tactical Shotgun & Airstrike | Era | Breakable Armor / Parry | Modern Remnant | Playable |
+
+*(Remaining eras: Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*

@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "def_nanoweave_reinforcement"
+branch = "Defense"
+display_name = "Nanoweave Reinforcement"
+description = "Reinforces bodily defense with micro-ballistic fibers, boosting block mitigation (+10 defense)."
+cost = 3
+required_skills = ["def_bulwark_stance"]
+stat_modifiers = {
+"bonus_defense": 10
+}
+granted_ability = ""

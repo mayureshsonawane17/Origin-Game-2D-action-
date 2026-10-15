@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "necro_adrenaline_surge"
+branch = "Necromancy"
+display_name = "Combat Adrenaline Surge"
+description = "Converts combat distress into raw offensive power, adding +1 bonus damage on all attacks."
+cost = 2
+required_skills = ["necro_soul_siphon"]
+stat_modifiers = {
+"bonus_damage": 1
+}
+granted_ability = ""

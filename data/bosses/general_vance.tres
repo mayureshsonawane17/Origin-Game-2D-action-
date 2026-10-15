@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "MOD-ERA"
+era = "Modern"
+tier = 12
+display_name = "General Vance"
+title = "The Urban Overlord"
+intro_quote = "Air superiority, armored infantry, complete tactical dominance. You cannot win this war."
+accent_color = Color(0.18, 0.75, 0.95, 1)
+transition_style = "diagonal_flash"
+is_era_boss = true
+intro_music_cue = "boss_cue_modern_era"
+max_health = 38
+total_phases = 3
+move_speed = 65.0
+armor_health = 16
+attacks = ["tactical_shotgun", "airstrike_missile_barrage", "exoskeleton_smash", "redline_bayonet"]
+weaknesses = ["parry", "exoskeleton_breach"]
+reward_id = "modern_remnant"
+story_flag = "era_modern_cleared"
+arena_scene_path = "res://scenes/levels/chapter5_modern.tscn"
