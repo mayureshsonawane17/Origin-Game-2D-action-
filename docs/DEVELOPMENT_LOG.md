@@ -1,5 +1,25 @@
 # Development Log
 
+## Session 4: Milestone 4 First Chapter (Prehistoric Era Complete)
+- **Date:** 2026-10-15
+- **Goal:** Build the complete Milestone 4 first chapter: one polished prehistoric level, several enemy types, miniboss encounter, 3-phase era boss encounter, story dialogue, rewards, and chapter clear flow ("Chapter playable start to finish").
+- **Actions Taken:**
+  - Expanded enemy roster with 2 new original prehistoric enemies:
+    - `EnemyPterosaur` (`scenes/enemies/enemy_pterosaur.tscn` / `scripts/enemies/enemy_pterosaur.gd`): aerial flying predator with sinusoidal wing flap hovering, player detection, telegraphed acid sac illumination, and ranged `VenomSpitProjectile` attack.
+    - `TarScuttler` (`scenes/enemies/enemy_scuttler.tscn` / `scripts/enemies/enemy_scuttler.gd`): heavy armored prehistoric carapace brute with frontal attack deflection (reduces light attacks to 1 damage), telegraphed `CarapaceSlam` ground lunge, and 1.5s parry stagger vulnerability exposing its soft glowing underbelly for double damage.
+  - Implemented `VenomSpitProjectile` (`scenes/combat/venom_spit.tscn` / `scripts/combat/venom_spit.gd`): toxic green acid projectile dealing 1 damage to player with knockback and procedural splash particles.
+  - Implemented `DialogueBox` (`scenes/ui/dialogue_box.tscn` / `scripts/ui/dialogue_box.gd`): retro pixel dialogue presentation with typewriter text, speaker nameplates (Hero, The Gemstone), modal game pausing, fast-forwarding, and input-driven advancement. Dialogue respects `docs/STORY.md` verbatim narrative constraints.
+  - Implemented `ArenaGate` (`scenes/levels/arena_gate.tscn` / `scripts/levels/arena_gate.gd`): animated bone and stone barrier that dynamically locks arena boundaries and opens on boss defeat.
+  - Built full Chapter 1 level `Chapter1Prehistoric` (`scenes/levels/chapter1_prehistoric.tscn` / `scripts/levels/chapter1_prehistoric.gd`) spanning 2650px across 6 distinct zones:
+    - Zone 1: Canopy Outskirts (Prowler encounters, intro dialogue, Checkpoint 1 `cp_zone1_canopy`).
+    - Zone 2: Tar Pits & Raptor Cliffs (Pterosaurs, Scuttler brute, spike pits, Checkpoint 2 `cp_zone2_tar_pits`).
+    - Zone 3: Primal Clearing / Miniboss Arena (Locking gates, camera boundary locking, Miniboss **Primal Stalker PRE-01** battle, Hunter Fang reward, mid-chapter dialogue).
+    - Zone 4: Obsidian Caverns (Cavern descent, mixed enemy encounters, Checkpoint 3 `cp_zone4_caverns`).
+    - Zone 5: Chamber of the Deep Earth / Era Boss Arena (Locking gates, camera boundary locking, 3-Phase Era Boss **Titan of the Deep Earth PRE-ERA** battle, Prehistoric Remnant reward, post-battle dialogue).
+    - Zone 6: Monolith Exit Gateway (Chapter victory panel, stats summary, +4 total Skill Points awarded and persisted to disk).
+  - Authored automated integration test suite `tests/test_milestone4.tscn` verifying all 7 milestone systems (7/7 passing, 100%).
+  - Ran full regression test suite across all 4 milestones (30/30 tests passing, 100%).
+
 ## Session 3: Milestone 3 Progression, Equipment & Save Systems
 - **Date:** 2026-10-15
 - **Goal:** Build the complete Milestone 3 progression system: 6 skill branches, data-driven equipment resources, weapon switching, checkpoints, full disk persistence, and progression overlay UI ("Save, quit, load restores everything").
