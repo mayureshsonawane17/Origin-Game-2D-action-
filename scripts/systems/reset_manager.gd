@@ -59,6 +59,7 @@ func _setup_default_input_map() -> void:
 		"attack": [KEY_J],
 		"magic": [KEY_K],
 		"dodge": [KEY_L, KEY_SHIFT],
+		"block": [KEY_I, KEY_S, KEY_DOWN],
 		"heal": [KEY_H],
 		"pause": [KEY_ESCAPE, KEY_P],
 		"debug_hitbox": [KEY_F1]
@@ -71,7 +72,8 @@ func _setup_default_input_map() -> void:
 		"attack": [JOY_BUTTON_X],
 		"magic": [JOY_BUTTON_Y],
 		"dodge": [JOY_BUTTON_B, JOY_BUTTON_RIGHT_SHOULDER],
-		"heal": [JOY_BUTTON_LEFT_SHOULDER, JOY_BUTTON_DPAD_UP],
+		"block": [JOY_BUTTON_LEFT_SHOULDER],
+		"heal": [JOY_BUTTON_DPAD_UP],
 		"pause": [JOY_BUTTON_START]
 	}
 

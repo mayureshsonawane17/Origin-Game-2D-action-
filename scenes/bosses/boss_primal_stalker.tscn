@@ -1,0 +1,50 @@
+[gd_scene load_steps=8 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/boss_primal_stalker.gd" id="1_stalker"]
+[ext_resource type="Resource" path="res://data/bosses/primal_stalker.tres" id="2_data"]
+[ext_resource type="Script" path="res://scripts/bosses/stalker_visuals.gd" id="3_visuals"]
+[ext_resource type="Script" path="res://scripts/combat/hurtbox.gd" id="4_hurtbox"]
+[ext_resource type="Script" path="res://scripts/combat/hitbox.gd" id="5_hitbox"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
+size = Vector2(36, 24)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hurt"]
+size = Vector2(40, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hit"]
+size = Vector2(28, 22)
+
+[node name="BossPrimalStalker" type="CharacterBody2D" groups=["boss", "enemies"]]
+collision_layer = 4
+collision_mask = 1
+script = ExtResource("1_stalker")
+data = ExtResource("2_data")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -12)
+shape = SubResource("RectangleShape2D_body")
+
+[node name="VisualRoot" type="Node2D" parent="."]
+
+[node name="StalkerVisuals" type="Node2D" parent="VisualRoot"]
+script = ExtResource("3_visuals")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("4_hurtbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, -14)
+shape = SubResource("RectangleShape2D_hurt")
+
+[node name="Hitbox" type="Area2D" parent="."]
+position = Vector2(20, -12)
+collision_layer = 16
+collision_mask = 0
+monitoring = false
+script = ExtResource("5_hitbox")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_hit")

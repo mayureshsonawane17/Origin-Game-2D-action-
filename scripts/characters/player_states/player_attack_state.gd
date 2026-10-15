@@ -47,6 +47,13 @@ func enter(msg: Dictionary = {}) -> void:
 			hitstop = player.tuning.attack3_hitstop_frames
 			is_finisher = true
 
+	var is_counter = msg.get("is_counter", false)
+	if is_counter:
+		dmg = player.tuning.counter_damage
+		knockback = player.tuning.counter_knockback
+		hitstop = player.tuning.counter_hitstop_frames
+		is_finisher = true
+
 	player.hitbox.damage = dmg
 	player.hitbox.knockback_force = knockback
 	player.hitbox.hitstop_frames = hitstop

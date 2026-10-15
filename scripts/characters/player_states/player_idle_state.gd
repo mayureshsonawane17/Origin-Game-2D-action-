@@ -17,6 +17,9 @@ func physics_update(delta: float) -> void:
 	if Input.is_action_just_pressed("attack"):
 		machine.transition_to("attack", {"combo_index": 1})
 		return
+	if Input.is_action_pressed("block"):
+		machine.transition_to("block")
+		return
 	if Input.is_action_just_pressed("dodge") and player.can_dodge():
 		machine.transition_to("dodge")
 		return

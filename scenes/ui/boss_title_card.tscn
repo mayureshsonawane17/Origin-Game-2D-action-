@@ -1,0 +1,206 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/boss_title_card.gd" id="1_titlecard"]
+
+[node name="BossTitleCard" type="CanvasLayer"]
+process_mode = 3
+layer = 100
+script = ExtResource("1_titlecard")
+
+[node name="DarkBackdrop" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.04, 0.06, 0.94)
+
+[node name="VersusContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PlayerSlide" type="Control" parent="VersusContainer"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 20.0
+offset_top = 35.0
+offset_right = 220.0
+offset_bottom = 155.0
+
+[node name="CardBg" type="ColorRect" parent="VersusContainer/PlayerSlide"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.12, 0.16, 0.22, 0.9)
+
+[node name="AccentBar" type="ColorRect" parent="VersusContainer/PlayerSlide"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.2, 0.6, 0.95, 1)
+
+[node name="PlayerTag" type="Label" parent="VersusContainer/PlayerSlide"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 80.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(0.7, 0.85, 1, 1)
+theme_override_font_sizes/font_size = 9
+text = "THE REPEATER"
+
+[node name="BossSlide" type="Control" parent="VersusContainer"]
+layout_mode = 1
+anchors_preset = 0
+offset_left = 240.0
+offset_top = 35.0
+offset_right = 440.0
+offset_bottom = 155.0
+
+[node name="CardBg" type="ColorRect" parent="VersusContainer/BossSlide"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.22, 0.12, 0.14, 0.9)
+
+[node name="AccentBar" type="ColorRect" parent="VersusContainer/BossSlide"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.95, 0.35, 0.15, 1)
+
+[node name="BossTag" type="Label" parent="VersusContainer/BossSlide"]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 90.0
+offset_bottom = 24.0
+theme_override_colors/font_color = Color(1, 0.75, 0.7, 1)
+theme_override_font_sizes/font_size = 9
+text = "BOSS"
+
+[node name="VSBadge" type="Label" parent="VersusContainer"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -42.0
+offset_right = 20.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 0.9, 0.2, 1)
+theme_override_font_sizes/font_size = 18
+text = "VS"
+horizontal_alignment = 1
+
+[node name="Nameplate" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -105.0
+offset_right = -20.0
+offset_bottom = -50.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="EraLabel" type="Label" parent="Nameplate"]
+layout_mode = 0
+offset_right = 200.0
+offset_bottom = 16.0
+theme_override_font_sizes/font_size = 9
+text = "[ PREHISTORIC ERA ]"
+
+[node name="BossName" type="Label" parent="Nameplate"]
+layout_mode = 0
+offset_top = 14.0
+offset_right = 350.0
+offset_bottom = 36.0
+theme_override_colors/font_color = Color(0.95, 0.35, 0.15, 1)
+theme_override_font_sizes/font_size = 15
+text = "PRIMAL STALKER"
+
+[node name="BossTitle" type="Label" parent="Nameplate"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 380.0
+offset_bottom = 48.0
+theme_override_colors/font_color = Color(0.75, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 9
+text = "Terror of the Primordial Canopy"
+
+[node name="QuoteContainer" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = -48.0
+offset_right = -20.0
+offset_bottom = -22.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="QuoteLabel" type="Label" parent="QuoteContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
+theme_override_font_sizes/font_size = 9
+text = "\"You are not the hunter here.\""
+
+[node name="SkipHint" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -160.0
+offset_top = -18.0
+offset_right = -10.0
+offset_bottom = -4.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_colors/font_color = Color(0.5, 0.55, 0.65, 0.7)
+theme_override_font_sizes/font_size = 8
+text = "[ Press Any Key to Skip ]"
+horizontal_alignment = 2
+
+[node name="WipeRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(1, 1, 1, 0)

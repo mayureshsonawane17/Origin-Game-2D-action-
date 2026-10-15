@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/bosses/falling_stalactite.gd" id="1_stalactite"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rock"]
+size = Vector2(12, 24)
+
+[node name="FallingStalactite" type="Area2D"]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_stalactite")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rock")

@@ -35,6 +35,8 @@ var heal_cooldown_timer: float = 0.0
 var hitstop_timer: float = 0.0
 
 var is_dead: bool = false
+var is_blocking: bool = false
+var is_parrying: bool = false
 var flash_timer: float = 0.0
 
 func _ready() -> void:
@@ -169,6 +171,40 @@ func _spawn_heal_fx() -> void:
 func _on_hurtbox_hit_received(damage: int, knockback: Vector2, hitstop_frames: int, attacker: Node2D, is_finisher: bool) -> void:
 	if is_dead:
 		return
+
+	# 1. Timed Parry Check
+	if is_parrying:
+		# PERFECT PARRY! Negate damage entirely and counter
+		apply_hitstop(tuning.counter_hitstop_frames)
+		flash_white(0.15)
+		var spark = HIT_SPARK_SCENE.instantiate()
+		spark.global_position = global_position + Vector2(facing_direction * 10, -18)
+		spark.spark_color = Color(1.0, 0.9, 0.2, 1.0) # Golden parry flash
+		spark.is_heavy = true
+		get_parent().add_child(spark)
+		if camera and camera.has_method("shake"):
+			camera.shake(3.0, 0.2)
+		if attacker and attacker.has_method("stagger"):
+			attacker.stagger(0.6)
+		# Trigger counter attack
+		state_machine.transition_to("attack", {"combo_index": 3, "is_counter": true})
+		return
+
+	# 2. Normal Block Check
+	if is_blocking:
+		# Reduced damage and absorbed knockback
+		var reduced_dmg = max(1, int(ceil(float(damage) * (1.0 - tuning.block_damage_reduction))))
+		current_health = max(0, current_health - reduced_dmg)
+		health_changed.emit(current_health, tuning.max_health)
+		apply_hitstop(hitstop_frames)
+		var spark = HIT_SPARK_SCENE.instantiate()
+		spark.global_position = global_position + Vector2(facing_direction * 10, -18)
+		spark.spark_color = Color(0.3, 0.7, 1.0, 1.0) # Blue block spark
+		get_parent().add_child(spark)
+		velocity = knockback * 0.2
+		return
+
+	# 3. Standard Unblocked Hit
 	current_health = max(0, current_health - damage)
 	health_changed.emit(current_health, tuning.max_health)
 	

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "PRE-ERA"
+era = "Prehistoric"
+tier = 11
+display_name = "Titan of the Deep Earth"
+title = "Ancient Colossus of Geo-Cataclysm"
+intro_quote = "The earth remembers your footsteps... and your thousands of failures."
+accent_color = Color(0.85, 0.55, 0.15, 1)
+transition_style = "diagonal_flash"
+is_era_boss = true
+intro_music_cue = "boss_cue_prehistoric_era"
+max_health = 30
+total_phases = 3
+move_speed = 50.0
+armor_health = 8
+attacks = ["seismic_stomp", "earth_cleave", "stalactite_rain", "magma_burst"]
+weaknesses = ["elemental_break", "air_counter", "parry"]
+reward_id = "prehistoric_remnant"
+story_flag = "era_prehistoric_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"

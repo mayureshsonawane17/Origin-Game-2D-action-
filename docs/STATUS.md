@@ -1,41 +1,34 @@
 # Project Status
 
-- **Current Milestone:** Milestone 1 (Playable Foundation) - COMPLETED & VERIFIED
+- **Current Milestone:** Milestone 2 (Combat Foundation & Boss Framework) - COMPLETED & VERIFIED
 - **Engine Version:** Godot 4.7.2.stable.official.ed1daf0bf
-- **Repository State:** Clean, modular, fully passing headless test suite
+- **Repository State:** Clean, modular, fully passing automated test suites (Milestone 1 & 2)
 
 ## What Works
-- **Display & Pixel Rendering:** 480x270 viewport, integer scaling, nearest filter, pixel transform and vertex snapping.
-- **Unified Input Mapping:** Standard actions (`move_left`, `move_right`, `jump`, `attack`, `magic`, `dodge`, `heal`, `pause`, `debug_hitbox`) across keyboard, gamepad, and touch controls.
-- **Player Controller & Movement:** Run (110 px/s), variable-height jump (-300 px/s with 0.5 cut multiplier), snappy fall gravity (1.3x), coyote time (~6 frames), and jump input buffering (~6 frames).
-- **Combat Feel (Dan-the-Man style):**
-  - Tunable 3-hit combo (`data/combat_tuning.tres`) with startup, active, and recovery phases.
-  - Third hit acts as a launch/knockback finisher (2 damage, 240 knockback, 5 frames hit-stop).
-  - Hit-stop, white hit flash, directional knockback, and procedural pixel hit sparks.
-  - Debug hitbox view toggled with F1 (`debug_hitbox`).
-  - Dodge with invulnerability frames (0.2s i-frames, 0.25s duration, 0.6s cooldown).
-  - Healing with limited charges (3 charges, restores 2 HP with green spiral pulse).
-  - Magic projectile (costs 15 mana, 220 px/s, deals 2 damage, explodes on wall/enemy impact).
-  - Animation structure with exact names (`idle`, `run`, `jump`, `fall`, `attack1`, `attack2`, `attack3`, `cast`, `dodge`, `hurt`, `die`).
-- **Original Enemy Type (Crested Prowler):**
-  - State machine: Patrol (ledge/wall turning), Detect (alert telegraph), Chase, Attack (telegraphed crouch & lunge bite), Hurt, and Die.
-  - Attack token system (`AttackTokenManager`) for fair crowd combat.
-  - Air juggle limit (prevents infinite combos).
-- **Prehistoric Jungle Test Level:**
-  - Layered parallax background (volcanic silhouettes, giant tree trunks and fern canopies).
-  - Earthen mossy platforms, spike hazards, bottom kill-plane.
-  - 5 enemy encounters across the level including a dual crowd encounter.
-  - Ancient stone monolith level goal triggering clear screen.
-- **HUD & Loop Persistence:**
-  - Health pips, Mana bar, Heal charges, Dodge cooldown bar, and Loop counter.
-  - Defeat screen routing through single `ResetManager` autoload singleton displaying "The loop begins again." and tracking loops.
-  - Level complete screen with replay option.
-  - On-screen touch buttons for mobile/touch targets.
+- **Combat Defense & Parry (Milestone 2):**
+  - Stance blocking (`block` action: `I`/`S`/`Down` on keyboard, `Left Shoulder` on gamepad, `BLK` on touch) reducing incoming damage by 70%.
+  - Timed Parry window (0.15s / ~9 frames): negates 100% of incoming damage, causes golden spark & screen shake, staggers attackers, and triggers a devastating Counter Attack (3 dmg, 220 launch knockback, 6 frames hit-stop).
+- **Data-Driven Boss Framework (Milestone 2):**
+  - `BossData` custom resource holding identity, era, tier, quotes, colors, transition styles, phase thresholds, breakable armor, attacks, weaknesses, and rewards.
+  - Phase-based `BossController` state machine managing telegraphs, vulnerability windows, breakable armor, staggers, and defeat callbacks.
+- **Boss Title Card (Section 6a):**
+  - Reusable GBA-style Pokémon battle intro: screen wipe transition, sliding versus splash (Hero vs Boss with speed lines), nameplate with era badge, typewriter quote, and instant skip on any key/tap.
+- **Milestone 2 Bosses:**
+  - **Primal Stalker (PRE-01, Tier 1 Basic Boss):** Pounce Strike with red telegraph, parryable Savage Frenzy flurry (staggers on parry), and retreat leaps.
+  - **Titan of the Deep Earth (PRE-ERA, Tier 11 3-Phase Era Boss):**
+    - Phase 1: Seismic stomps sending travelling floor shockwaves + heavy Earth Cleave punch.
+    - Phase 2: Envelopes body in breakable Geo-Armor (8 HP); stalactite rain from ceiling; shattering armor causes 2.0s stagger.
+    - Phase 3: Magma Cataclysm frenzy with speed boost, molten veins, and cascading shockwaves.
+- **Boss Arena & Retry Pipeline:**
+  - `scenes/levels/boss_arena.tscn` with dynamic boss spawning, camera constraints, boundary walls, boss health bar with armor overlays and phase pips, victory panel with reward displays, and instant retry through `ResetManager`.
+- **Milestone 1 Core Systems (Intact & Regression Verified):**
+  - 480x270 integer scaling viewport, nearest filtering, pixel transform/vertex snapping.
+  - Dan-the-Man 3-hit combo, magic projectile, dodge i-frames, healing charges, Crested Prowler AI, Prehistoric Jungle level, HUD.
 
 ## Known Bugs & Limitations
-- None. All 9 automated integration tests pass with 0 errors.
+- None. All 17 automated tests (9 Milestone 1 + 8 Milestone 2) pass with 0 errors.
 
-## Next 3 Tasks (Milestone 2: Combat Foundation & Boss Framework)
-1. Build combos expansion and defense mechanics (block, timed parry, counters).
-2. Build `BossData` custom resource and phase-based boss state machine.
-3. Build `BossTitleCard` GBA-intro scene (Section 6a) and test with one basic boss and one 3-phase era boss.
+## Next 3 Tasks (Milestone 3: Progression, Equipment & Save Systems)
+1. Build progression and skill branch framework (Attack, Defense, Healing, Necromancy, Shadow, Elemental).
+2. Build data-driven equipment architecture (weapons, armor, catalysts as `.tres` resources with stat and mobility modifiers).
+3. Build comprehensive save/load and checkpoint persistence restoring inventory, unlocked skills, and era progression.

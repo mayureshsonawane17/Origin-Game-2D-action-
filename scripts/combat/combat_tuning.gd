@@ -58,3 +58,10 @@ extends Resource
 @export var max_heal_charges: int = 3
 @export var heal_amount: int = 2
 @export var heal_cooldown: float = 1.0
+
+@export_group("Defense & Parry")
+@export var block_damage_reduction: float = 0.7
+@export var parry_window: float = 0.15 # Frames ~9 frames at 60fps
+@export var counter_damage: int = 3
+@export var counter_knockback: float = 220.0
+@export var counter_hitstop_frames: int = 6

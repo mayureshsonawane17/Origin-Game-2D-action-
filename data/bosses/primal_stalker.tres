@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "PRE-01"
+era = "Prehistoric"
+tier = 1
+display_name = "Primal Stalker"
+title = "Terror of the Primordial Canopy"
+intro_quote = "You are not the hunter here."
+accent_color = Color(0.95, 0.35, 0.15, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_prehistoric"
+max_health = 12
+total_phases = 1
+move_speed = 90.0
+armor_health = 0
+attacks = ["pounce_strike", "claw_frenzy", "retreat_leap"]
+weaknesses = ["timed_dodge", "parry"]
+reward_id = "hunter_fang"
+story_flag = "boss_pre01_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"

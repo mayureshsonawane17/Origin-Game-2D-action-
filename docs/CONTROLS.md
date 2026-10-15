@@ -12,6 +12,7 @@ One unified set of input actions serves keyboard, gamepad, and on-screen touch c
 | `attack` | `J` | - | Button X (Square) | Attack Button (J/X) |
 | `magic` | `K` | - | Button Y (Triangle) | Magic Button (K/Y) |
 | `dodge` | `L` | `Shift` | Button B (Circle) / Right Trigger | Dodge Button (L/B) |
-| `heal` | `H` | - | Left Bumper / Button D-Pad Up | Heal Button (H) |
+| `block` | `I` | `S` / `Down Arrow` | Left Shoulder / L1 | Block Button (I/L1) |
+| `heal` | `H` | - | Button D-Pad Up | Heal Button (H) |
 | `pause` | `Escape` | `P` | Start / Options | Pause Button |
 | `debug_hitbox` | `F1` | `H` (with Alt) | - | - |

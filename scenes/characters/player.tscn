@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scripts/characters/player_states/player_cast_state.gd" id="13_cast"]
 [ext_resource type="Script" path="res://scripts/characters/player_states/player_hurt_state.gd" id="14_hurt"]
 [ext_resource type="Script" path="res://scripts/characters/player_states/player_die_state.gd" id="15_die"]
+[ext_resource type="Script" path="res://scripts/characters/player_states/player_block_state.gd" id="16_block"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_body"]
 size = Vector2(14, 30)
@@ -518,3 +519,6 @@ script = ExtResource("14_hurt")
 
 [node name="Die" type="Node" parent="StateMachine"]
 script = ExtResource("15_die")
+
+[node name="Block" type="Node" parent="StateMachine"]
+script = ExtResource("16_block")

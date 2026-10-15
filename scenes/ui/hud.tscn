@@ -147,6 +147,17 @@ focus_mode = 0
 theme_override_font_sizes/font_size = 10
 text = "L"
 
+[node name="BlockBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 354.0
+offset_top = 182.0
+offset_right = 388.0
+offset_bottom = 216.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "I"
+
 [node name="HealBtn" type="Button" parent="TouchControls"]
 modulate = Color(1, 1, 1, 0.6)
 layout_mode = 0

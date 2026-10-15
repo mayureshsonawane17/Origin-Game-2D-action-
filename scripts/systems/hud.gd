@@ -102,6 +102,7 @@ func _setup_touch_buttons() -> void:
 	var atk_btn = touch_controls.get_node_or_null("AtkBtn")
 	var magic_btn = touch_controls.get_node_or_null("MagicBtn")
 	var dodge_btn = touch_controls.get_node_or_null("DodgeBtn")
+	var block_btn = touch_controls.get_node_or_null("BlockBtn")
 	var heal_btn = touch_controls.get_node_or_null("HealBtn")
 
 	_bind_touch(left_btn, "move_left")
@@ -110,6 +111,7 @@ func _setup_touch_buttons() -> void:
 	_bind_touch(atk_btn, "attack")
 	_bind_touch(magic_btn, "magic")
 	_bind_touch(dodge_btn, "dodge")
+	_bind_touch(block_btn, "block")
 	_bind_touch(heal_btn, "heal")
 
 func _bind_touch(btn: Button, action_name: String) -> void:
