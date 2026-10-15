@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss"]
+
+[resource]
+script = ExtResource("1_boss")
+id = "FUT-01"
+boss_name = "Unit 73 Infiltrator"
+title = "Cybernetic Assassin"
+era = "Futuristic"
+max_health = 18
+armor_health = 0
+total_phases = 1
+attack_power = 2
+speed = 100.0
+title_card_color = Color(0.1, 0.9, 1.0, 1.0)
+boss_theme_id = "theme_futuristic_miniboss"
+weakness_notes = "Parry his phase dash to desynchronize his optical telemetry and leave him vulnerable."
+drops = ["Quantum Processor", "+1 Skill Point"]

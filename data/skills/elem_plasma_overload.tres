@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "elem_plasma_overload"
+branch = "Elemental"
+display_name = "Plasma Core Overload"
+description = "Channels concentrated antimatter into offensive abilities, increasing magic and elemental damage by +3."
+cost = 4
+required_skills = ["elem_overcharge_discharge"]
+stat_modifiers = {
+"bonus_magic_damage": 3
+}
+granted_ability = ""

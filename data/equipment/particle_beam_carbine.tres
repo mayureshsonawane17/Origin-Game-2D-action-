@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "particle_beam_carbine"
+display_name = "Particle Beam Carbine"
+description = "A futuristic directed-energy assault rifle discharging high-density coherent ion pulses."
+slot = "RANGED"
+base_damage = 5
+defense_multiplier = 1.0
+mobility_multiplier = 1.0
+mana_cost_multiplier = 1.0
+ammo_type = "plasma_cell"
+max_ammo = 40
+current_ammo = 40
+knockback_bonus = 60.0
+weapon_accent_color = Color(0.2, 0.85, 1.0, 1)

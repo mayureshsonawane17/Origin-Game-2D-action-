@@ -29,7 +29,9 @@ func _load_registered_skills() -> void:
 		"res://data/skills/attack_overclock_strike.tres",
 		"res://data/skills/elem_overcharge_discharge.tres",
 		"res://data/skills/defense_nanoweave_reinforcement.tres",
-		"res://data/skills/necro_adrenaline_surge.tres"
+		"res://data/skills/necro_adrenaline_surge.tres",
+		"res://data/skills/elem_plasma_overload.tres",
+		"res://data/skills/shadow_quantum_slipstream.tres"
 	]
 	for path in skill_paths:
 		if ResourceLoader.exists(path):

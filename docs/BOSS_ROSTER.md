@@ -78,4 +78,19 @@ Status: planned / prototyped / playable / polished.
 | MOD-10 | Modern | The Fallen Operative | Fallen Mirror | High-Tech CQC Flurry | 5 | Stance Block / Parry | Cracked Holo-Tag | Planned |
 | MOD-ERA| Modern | General Vance | Era Boss | 3-Phase Tactical Shotgun & Airstrike | Era | Breakable Armor / Parry | Modern Remnant | Playable |
 
-*(Remaining eras: Futuristic, and The Unbeatable One to be fleshed out as their milestones approach)*
+## Futuristic Era
+| ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
+|---|---|---|---|---|---|---|---|---|
+| FUT-01 | Futuristic | Unit 73 Infiltrator | Cybernetic Assassin | Hardlight Blades & Teleport Stutter | 1 | Parry / Guard Break | Quantum Processor | Playable |
+| FUT-02 | Futuristic | Sentinel Swarm-Mind | Drone Hive Core | Homing Plasma & EMP Web | 1 | Magic / Piercing | Ion Cell | Planned |
+| FUT-03 | Futuristic | Plasma Wyrm Ouroboros | Cybernetic Serpent | Energy Coils & Ion Breath | 2 | Air Attacks | Superconductor Scale | Planned |
+| FUT-04 | Futuristic | Quantum Phase-Stalker | Rift Assassin | Phase Shift & Dimensional Slash | 2 | Timed Dodge / Finisher | Phase Core | Planned |
+| FUT-05 | Futuristic | Void Archon Valerius | Nanotech Warmaster | Nanite Siphon & Graviton Wells | 3 | Rushdown Finisher | Nanite Canister | Planned |
+| FUT-06 | Futuristic | Chrono-Enforcer Echo | Temporal Officer | Time Slow Field & Tachyon Blades | 3 | Timed Parry | Tachyon Emitter | Planned |
+| FUT-07 | Futuristic | Orbital Defense Core Aegis | Orbital Satellite | Kinetic Beam & Defense Matrix | 4 | Stagger Finisher | Aegis Node | Planned |
+| FUT-08 | Futuristic | Cyber-Leviathan Colossus | Siege Titan | Plasma Mortars & Grav-Stomp | 4 | Perfect Parry | Heavy Servomotor | Planned |
+| FUT-09 | Futuristic | Dread-Mech Apocalypse | Walking Superweapon | Particle Cannon & Micro-Missiles | 5 | Breakable Armor | Fusion Core | Planned |
+| FUT-10 | Futuristic | The Synthetic Mirror | Fallen Android | Mimic Player Tech & Glitch Dash | 5 | Stance Block / Parry | Holographic Crystal | Planned |
+| FUT-ERA| Futuristic | Unit 00-NEXUS | Era Boss | 3-Phase Spire Core & Singularity Overload | Era | Breakable Barrier / Parry | Futuristic Remnant | Playable |
+
+*(Final confrontation: The Fortress & The Unbeatable One to be fleshed out in the final loop confrontation)*

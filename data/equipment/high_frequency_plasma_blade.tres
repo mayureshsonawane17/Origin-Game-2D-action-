@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "high_frequency_plasma_blade"
+display_name = "HF Plasma Katana"
+description = "A high-frequency vibrational blade enveloped in superheated cyan plasma. Slices clean through molecular bonds."
+slot = "MELEE"
+base_damage = 4
+defense_multiplier = 1.0
+mobility_multiplier = 1.25
+mana_cost_multiplier = 1.0
+ammo_type = ""
+max_ammo = 0
+current_ammo = 0
+knockback_bonus = 30.0
+weapon_accent_color = Color(0.1, 0.9, 1.0, 1)

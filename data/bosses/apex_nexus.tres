@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss"]
+
+[resource]
+script = ExtResource("1_boss")
+id = "FUT-ERA"
+boss_name = "Unit 00-NEXUS"
+title = "Apex AI Overseer"
+era = "Futuristic"
+max_health = 36
+armor_health = 18
+total_phases = 3
+attack_power = 2
+speed = 110.0
+title_card_color = Color(0.1, 0.9, 1.0, 1.0)
+boss_theme_id = "theme_futuristic_era"
+weakness_notes = "Shatter the Quantum Hardlight Barrier in Phase 2, and dodge through the singularity pulses in Phase 3."
+drops = ["Futuristic Remnant", "+3 Skill Points"]
