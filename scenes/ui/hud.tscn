@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3]
+[gd_scene load_steps=3 format=3]
 
 [ext_resource type="Script" path="res://scripts/systems/hud.gd" id="1_hud"]
+[ext_resource type="PackedScene" path="res://scenes/ui/inventory_menu.tscn" id="2_inv"]
 
 [node name="HUD" type="CanvasLayer"]
 process_mode = 3
@@ -165,9 +166,29 @@ offset_left = 394.0
 offset_top = 182.0
 offset_right = 428.0
 offset_bottom = 216.0
+[node name="SwapBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 314.0
+offset_top = 222.0
+offset_right = 348.0
+offset_bottom = 258.0
 focus_mode = 0
 theme_override_font_sizes/font_size = 10
-text = "H"
+text = "Q"
+
+[node name="BagBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 314.0
+offset_top = 182.0
+offset_right = 348.0
+offset_bottom = 216.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 9
+text = "BAG"
+
+[node name="InventoryMenu" parent="." instance=ExtResource("2_inv")]
 
 [node name="DefeatPanel" type="ColorRect" parent="."]
 visible = false

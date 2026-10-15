@@ -62,7 +62,9 @@ func _setup_default_input_map() -> void:
 		"block": [KEY_I, KEY_S, KEY_DOWN],
 		"heal": [KEY_H],
 		"pause": [KEY_ESCAPE, KEY_P],
-		"debug_hitbox": [KEY_F1]
+		"debug_hitbox": [KEY_F1],
+		"switch_weapon": [KEY_Q, KEY_E],
+		"toggle_inventory": [KEY_TAB, KEY_U]
 	}
 	
 	var joy_button_mappings: Dictionary = {
@@ -74,7 +76,9 @@ func _setup_default_input_map() -> void:
 		"dodge": [JOY_BUTTON_B, JOY_BUTTON_RIGHT_SHOULDER],
 		"block": [JOY_BUTTON_LEFT_SHOULDER],
 		"heal": [JOY_BUTTON_DPAD_UP],
-		"pause": [JOY_BUTTON_START]
+		"pause": [JOY_BUTTON_START],
+		"switch_weapon": [JOY_BUTTON_BACK, JOY_BUTTON_DPAD_DOWN],
+		"toggle_inventory": [JOY_BUTTON_TOUCHPAD, JOY_BUTTON_GUIDE]
 	}
 
 	for action in key_mappings.keys():

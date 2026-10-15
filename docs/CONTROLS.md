@@ -15,4 +15,6 @@ One unified set of input actions serves keyboard, gamepad, and on-screen touch c
 | `block` | `I` | `S` / `Down Arrow` | Left Shoulder / L1 | Block Button (I/L1) |
 | `heal` | `H` | - | Button D-Pad Up | Heal Button (H) |
 | `pause` | `Escape` | `P` | Start / Options | Pause Button |
+| `switch_weapon` | `Q` | `E` | Select / Back / D-Pad Down | Weapon Switch Button |
+| `toggle_inventory`| `Tab` | `U` | Touchpad / Guide | Bag / Stats Button |
 | `debug_hitbox` | `F1` | `H` (with Alt) | - | - |

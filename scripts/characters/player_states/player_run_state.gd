@@ -11,7 +11,7 @@ func physics_update(delta: float) -> void:
 	if abs(move_input) > 0.1:
 		var dir = 1 if move_input > 0 else -1
 		player.set_facing(dir)
-		player.velocity.x = move_input * player.tuning.run_speed
+		player.velocity.x = move_input * player.tuning.run_speed * player.get_mobility_multiplier()
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0.0, player.tuning.run_speed * 10.0 * delta)
 		if is_zero_approx(player.velocity.x):

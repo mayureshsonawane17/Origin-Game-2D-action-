@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "elem_spark_infusion"
+branch = "Elemental"
+display_name = "Spark Infusion"
+description = "Infuses magic projectiles with kinetic sparks, reducing mana cost by 3."
+cost = 1
+required_skills = []
+stat_modifiers = {
+"magic_cost_reduction": 3
+}
+granted_ability = ""

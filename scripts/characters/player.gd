@@ -40,6 +40,7 @@ var is_parrying: bool = false
 var flash_timer: float = 0.0
 
 func _ready() -> void:
+	add_to_group("player")
 	if not tuning:
 		tuning = load("res://data/combat_tuning.tres") as CombatTuning
 		if not tuning:
@@ -57,10 +58,60 @@ func _ready() -> void:
 	emit_signal("mana_changed", current_mana, float(tuning.max_mana))
 	emit_signal("heal_charges_changed", heal_charges, tuning.max_heal_charges)
 
+	# Restore state from SaveManager if active save data exists
+	if SaveManager and not SaveManager.current_save_data.is_empty():
+		SaveManager.apply_to_player(self)
+
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_hitbox"):
 		Hitbox.debug_show_hitboxes = not Hitbox.debug_show_hitboxes
 		print("[ORIGIN Debug] Hitboxes visible: %s" % Hitbox.debug_show_hitboxes)
+	elif event.is_action_pressed("switch_weapon"):
+		switch_weapon()
+
+func get_equipped_weapon() -> EquipmentItem:
+	if SaveManager:
+		return SaveManager.get_active_weapon()
+	return null
+
+func get_equipped_armor() -> EquipmentItem:
+	if SaveManager:
+		return SaveManager.current_armor
+	return null
+
+func get_mobility_multiplier() -> float:
+	var mult = 1.0
+	var armor = get_equipped_armor()
+	if armor:
+		mult *= armor.mobility_multiplier
+	var wep = get_equipped_weapon()
+	if wep:
+		mult *= wep.mobility_multiplier
+	if SaveManager and SaveManager.skill_tree:
+		var mods = SaveManager.skill_tree.get_total_stat_modifiers()
+		if mods.has("bonus_speed"):
+			mult += float(mods["bonus_speed"]) / 100.0
+	return mult
+
+func get_defense_multiplier() -> float:
+	var mult = 1.0
+	var armor = get_equipped_armor()
+	if armor:
+		mult *= armor.defense_multiplier
+	if SaveManager and SaveManager.skill_tree:
+		var mods = SaveManager.skill_tree.get_total_stat_modifiers()
+		if mods.has("bonus_defense"):
+			mult -= float(mods["bonus_defense"])
+	return max(0.2, mult)
+
+func switch_weapon() -> void:
+	if SaveManager:
+		var new_wep = SaveManager.switch_weapon()
+		if new_wep:
+			var spark = HIT_SPARK_SCENE.instantiate()
+			spark.global_position = global_position + Vector2(facing_direction * 12.0, -18.0)
+			spark.spark_color = new_wep.weapon_accent_color
+			get_parent().add_child(spark)
 
 func _process(delta: float) -> void:
 	# Hit-stop handling
@@ -205,7 +256,9 @@ func _on_hurtbox_hit_received(damage: int, knockback: Vector2, hitstop_frames: i
 		return
 
 	# 3. Standard Unblocked Hit
-	current_health = max(0, current_health - damage)
+	var def_mult = get_defense_multiplier()
+	var final_damage = max(1, int(round(float(damage) * def_mult))) if damage > 0 else 0
+	current_health = max(0, current_health - final_damage)
 	health_changed.emit(current_health, tuning.max_health)
 	
 	apply_hitstop(hitstop_frames)

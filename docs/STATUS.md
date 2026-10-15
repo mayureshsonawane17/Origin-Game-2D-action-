@@ -1,34 +1,51 @@
 # Project Status
 
-- **Current Milestone:** Milestone 2 (Combat Foundation & Boss Framework) - COMPLETED & VERIFIED
+- **Current Milestone:** Milestone 3 (Progression, Equipment & Save Systems) - COMPLETED & VERIFIED
 - **Engine Version:** Godot 4.7.2.stable.official.ed1daf0bf
-- **Repository State:** Clean, modular, fully passing automated test suites (Milestone 1 & 2)
+- **Repository State:** Clean, modular, fully passing automated test suites across Milestones 1, 2, and 3 (23/23 tests passing)
 
 ## What Works
-- **Combat Defense & Parry (Milestone 2):**
-  - Stance blocking (`block` action: `I`/`S`/`Down` on keyboard, `Left Shoulder` on gamepad, `BLK` on touch) reducing incoming damage by 70%.
-  - Timed Parry window (0.15s / ~9 frames): negates 100% of incoming damage, causes golden spark & screen shake, staggers attackers, and triggers a devastating Counter Attack (3 dmg, 220 launch knockback, 6 frames hit-stop).
-- **Data-Driven Boss Framework (Milestone 2):**
-  - `BossData` custom resource holding identity, era, tier, quotes, colors, transition styles, phase thresholds, breakable armor, attacks, weaknesses, and rewards.
-  - Phase-based `BossController` state machine managing telegraphs, vulnerability windows, breakable armor, staggers, and defeat callbacks.
-- **Boss Title Card (Section 6a):**
-  - Reusable GBA-style Pokémon battle intro: screen wipe transition, sliding versus splash (Hero vs Boss with speed lines), nameplate with era badge, typewriter quote, and instant skip on any key/tap.
-- **Milestone 2 Bosses:**
-  - **Primal Stalker (PRE-01, Tier 1 Basic Boss):** Pounce Strike with red telegraph, parryable Savage Frenzy flurry (staggers on parry), and retreat leaps.
-  - **Titan of the Deep Earth (PRE-ERA, Tier 11 3-Phase Era Boss):**
-    - Phase 1: Seismic stomps sending travelling floor shockwaves + heavy Earth Cleave punch.
-    - Phase 2: Envelopes body in breakable Geo-Armor (8 HP); stalactite rain from ceiling; shattering armor causes 2.0s stagger.
-    - Phase 3: Magma Cataclysm frenzy with speed boost, molten veins, and cascading shockwaves.
-- **Boss Arena & Retry Pipeline:**
-  - `scenes/levels/boss_arena.tscn` with dynamic boss spawning, camera constraints, boundary walls, boss health bar with armor overlays and phase pips, victory panel with reward displays, and instant retry through `ResetManager`.
-- **Milestone 1 Core Systems (Intact & Regression Verified):**
-  - 480x270 integer scaling viewport, nearest filtering, pixel transform/vertex snapping.
-  - Dan-the-Man 3-hit combo, magic projectile, dodge i-frames, healing charges, Crested Prowler AI, Prehistoric Jungle level, HUD.
+- **Milestone 3 (Progression, Equipment & Save Systems):**
+  - **Skill Tree Architecture (`SkillData`, `SkillTreeManager`):**
+    - 6 skill branches implemented: Attack, Defense, Healing, Necromancy, Shadow, Elemental.
+    - Modular `.tres` data definitions with prerequisites, point costs, and stat modifiers.
+    - Initial skills: `atk_finisher_mastery`, `def_fortified_parry`, `heal_vital_regen`, `necro_soul_siphon`, `shadow_phase_dash`, `elem_spark_infusion`.
+    - Dynamic point spending, prerequisite enforcement, and aggregated stat modifier calculation.
+  - **Data-Driven Equipment System (`EquipmentItem`):**
+    - Weapons, armor, and catalysts defined as custom `.tres` resources.
+    - Initial equipment: `primordial_blade` (melee), `heavy_obsidian_cleaver` (heavy melee), `hunter_bone_bow` (ranged), `shaman_focus_catalyst` (catalyst), `stalker_leather_armor` (light armor), `titan_carapace_armor` (heavy defense armor).
+    - Dynamic stat scaling: base damage scaling into combo finishers, armor defense multipliers reducing damage taken, mobility multipliers modifying horizontal move speed across ground and air.
+  - **Real-Time Weapon Switching:**
+    - Dual weapon loadout (Primary & Secondary slots).
+    - Quick swap via `switch_weapon` input (`Q`/`E` on keyboard, `Select`/`Back`/`D-Pad Down` on gamepad, `Q` on touch screen).
+    - Seamless weapon change with elemental/accent particle burst.
+  - **Checkpoint & Persistence System (`Checkpoint`, `SaveManager`):**
+    - Animated ancient stone pillar checkpoint restoring player health and heal charges upon entry.
+    - Disk persistence to `user://origin_savegame.json`.
+    - Restores entire world and character state: reset loop count, unlocked skill IDs, available skill points, equipped weapon IDs, active weapon slot, equipped armor, player vitals (health, mana, charges), and exact checkpoint world coordinates.
+    - "Save, quit, load restores everything" verified 100%.
+  - **Progression & Inventory UI (`InventoryMenu`):**
+    - Viewport-scaled modal overlay (480x270).
+    - Toggled via `toggle_inventory` (`Tab`/`U` on keyboard, `Touchpad`/`Guide` on gamepad, `BAG` touch button).
+    - Pauses game tree while open.
+    - Displays active gear cards with dynamic stats, 6-branch skill tree with interactive learn buttons, and manual save trigger.
+- **Milestone 2 Systems (Intact & Regression Verified):**
+  - Stance blocking (70% damage reduction) and timed parry window (0.15s, 100% negation, golden flash, attacker stagger, 3-damage counter-attack).
+  - Data-driven `BossData` custom resource and `BossController` phase machine.
+  - GBA Pokémon-style `BossTitleCard` sliding versus splash with typewriter quote.
+  - Basic Boss: `BossPrimalStalker` (PRE-01) and 3-Phase Era Boss: `BossTitanDeepEarth` (PRE-ERA).
+  - `BossArena` with health bar, armor overlays, and instant loop retry.
+- **Milestone 1 Systems (Intact & Regression Verified):**
+  - 480x270 viewport, integer scaling, pixel snapping.
+  - Player controller (run, variable jump, coyote time, buffer, 3-hit combo with 240 knockback finisher, magic projectile, dodge i-frames, healing).
+  - Crested Prowler AI, Prehistoric Jungle level, HUD, single `ResetManager` loop pipeline.
 
-## Known Bugs & Limitations
-- None. All 17 automated tests (9 Milestone 1 + 8 Milestone 2) pass with 0 errors.
+## Automated Test Coverage (23/23 Tests Passing - 100%)
+- `tests/test_runner.tscn` (Milestone 1): 9/9 tests pass.
+- `tests/test_milestone2.tscn` (Milestone 2): 8/8 tests pass.
+- `tests/test_milestone3.tscn` (Milestone 3): 6/6 tests pass.
 
-## Next 3 Tasks (Milestone 3: Progression, Equipment & Save Systems)
-1. Build progression and skill branch framework (Attack, Defense, Healing, Necromancy, Shadow, Elemental).
-2. Build data-driven equipment architecture (weapons, armor, catalysts as `.tres` resources with stat and mobility modifiers).
-3. Build comprehensive save/load and checkpoint persistence restoring inventory, unlocked skills, and era progression.
+## Next 3 Tasks (Milestone 4: Era Progression & Monolith Transitions)
+1. Build Era Monolith / Warp Gate system routing player transitions between distinct historical eras.
+2. Build Medieval Era level (`scenes/levels/medieval_castle.tscn`) with distinct architecture, hazards, and enemy roster.
+3. Implement Era transition narrative sequences linking the gemstone prison lore across eras.

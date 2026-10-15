@@ -14,6 +14,7 @@ run/main_scene="res://scenes/levels/jungle_level.tscn"
 [autoload]
 
 ResetManager="*res://scripts/systems/reset_manager.gd"
+SaveManager="*res://scripts/systems/save_manager.gd"
 
 [display]
 

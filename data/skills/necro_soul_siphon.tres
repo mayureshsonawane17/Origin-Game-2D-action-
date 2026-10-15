@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "necro_soul_siphon"
+branch = "Necromancy"
+display_name = "Soul Siphon"
+description = "Striking enemies siphons ambient soul energy, restoring 2 mana on combo finisher."
+cost = 1
+required_skills = []
+stat_modifiers = {
+"mana_on_finisher": 2.0
+}
+granted_ability = ""

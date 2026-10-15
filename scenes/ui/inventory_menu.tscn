@@ -1,0 +1,241 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/inventory_menu.gd" id="1_inv"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bg"]
+bg_color = Color(0.06, 0.08, 0.12, 0.94)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.25, 0.35, 0.5, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="InventoryMenu" type="CanvasLayer"]
+process_mode = 3
+layer = 50
+script = ExtResource("1_inv")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = -10.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_bg")
+
+[node name="Margin" type="MarginContainer" parent="PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="MainVBox" type="VBoxContainer" parent="PanelContainer/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Header" type="HBoxContainer" parent="PanelContainer/Margin/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.85, 0.45, 1)
+theme_override_font_sizes/font_size = 9
+text = "ORIGIN - PROGRESSION & EQUIPMENT"
+
+[node name="VSep1" type="VSeparator" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+
+[node name="LoopLabel" type="Label" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.4, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 8
+text = "LOOP #1"
+
+[node name="VSep2" type="VSeparator" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+
+[node name="SkillPointsLabel" type="Label" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 8
+text = "SKILL POINTS: 3"
+
+[node name="Spacer" type="Control" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="CloseButton" type="Button" parent="PanelContainer/Margin/MainVBox/Header"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "[X] CLOSE (TAB)"
+
+[node name="HSep1" type="HSeparator" parent="PanelContainer/Margin/MainVBox"]
+layout_mode = 2
+
+[node name="ContentHBox" type="HBoxContainer" parent="PanelContainer/Margin/MainVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 8
+
+[node name="EquipVBox" type="VBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox"]
+custom_minimum_size = Vector2(190, 0)
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[node name="EquipTitle" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 8
+text = "EQUIPPED LOADOUT"
+
+[node name="PrimaryCard" type="PanelContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/PrimaryCard"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/PrimaryCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WepName" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/PrimaryCard/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Primordial Flint Blade"
+
+[node name="WepStats" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/PrimaryCard/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 6
+text = "DMG: 1 | MOBILITY: 100%"
+
+[node name="ActiveTag" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/PrimaryCard/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 6
+text = "[ACTIVE]"
+
+[node name="SecondaryCard" type="PanelContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/SecondaryCard"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/SecondaryCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="WepName" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/SecondaryCard/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Heavy Obsidian Cleaver"
+
+[node name="WepStats" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/SecondaryCard/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 6
+text = "DMG: 3 | MOBILITY: 85%"
+
+[node name="ActiveTag" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/SecondaryCard/HBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 1, 0.5, 1)
+theme_override_font_sizes/font_size = 6
+text = "[ACTIVE]"
+
+[node name="SwitchWepButton" type="Button" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "SWITCH WEAPON [Q]"
+
+[node name="ArmorCard" type="PanelContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox"]
+layout_mode = 2
+
+[node name="HBox" type="HBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/ArmorCard"]
+layout_mode = 2
+
+[node name="VBox" type="VBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/ArmorCard/HBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ArmorName" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/ArmorCard/HBox/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "Stalker Leather Armor"
+
+[node name="ArmorStats" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/ArmorCard/HBox/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 6
+text = "DEF: 100% DMG | MOBILITY: 100%"
+
+[node name="StatsCard" type="PanelContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox"]
+layout_mode = 2
+
+[node name="StatsSummary" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/EquipVBox/StatsCard"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.9, 0.7, 1)
+theme_override_font_sizes/font_size = 6
+text = "ACTIVE ATK DMG: 1 | DMG TAKEN: 100% | SPEED: 100%"
+
+[node name="VSepMain" type="VSeparator" parent="PanelContainer/Margin/MainVBox/ContentHBox"]
+layout_mode = 2
+
+[node name="SkillsVBox" type="VBoxContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="SkillsTitle" type="Label" parent="PanelContainer/Margin/MainVBox/ContentHBox/SkillsVBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.85, 0.9, 1)
+theme_override_font_sizes/font_size = 8
+text = "SKILL TREES (6 BRANCHES)"
+
+[node name="SkillsScroll" type="ScrollContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/SkillsVBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="SkillsGrid" type="GridContainer" parent="PanelContainer/Margin/MainVBox/ContentHBox/SkillsVBox/SkillsScroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/h_separation = 4
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="HSep2" type="HSeparator" parent="PanelContainer/Margin/MainVBox"]
+layout_mode = 2
+
+[node name="BottomBar" type="HBoxContainer" parent="PanelContainer/Margin/MainVBox"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="SaveButton" type="Button" parent="PanelContainer/Margin/MainVBox/BottomBar"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 7
+text = "SAVE GAME"
+
+[node name="ToastLabel" type="Label" parent="PanelContainer/Margin/MainVBox/BottomBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 1, 0.4, 1)
+theme_override_font_sizes/font_size = 7
+
+[node name="Spacer" type="Control" parent="PanelContainer/Margin/MainVBox/BottomBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HelpLabel" type="Label" parent="PanelContainer/Margin/MainVBox/BottomBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.6, 0.65, 0.7, 1)
+theme_override_font_sizes/font_size = 6
+text = "[TAB / ESC] Toggle  |  [Q] Swap Weapon"

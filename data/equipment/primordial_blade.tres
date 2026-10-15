@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="EquipmentItem" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/equipment_item.gd" id="1_equip"]
+
+[resource]
+script = ExtResource("1_equip")
+id = "primordial_blade"
+display_name = "Primordial Flint Blade"
+description = "A swift, balanced short blade carved from ancient river flint."
+slot = "MELEE"
+base_damage = 1
+defense_multiplier = 1.0
+mobility_multiplier = 1.0
+mana_cost_multiplier = 1.0
+ammo_type = ""
+max_ammo = 0
+current_ammo = 0
+knockback_bonus = 0.0
+weapon_accent_color = Color(0.85, 0.88, 0.95, 1)

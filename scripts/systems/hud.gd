@@ -104,6 +104,8 @@ func _setup_touch_buttons() -> void:
 	var dodge_btn = touch_controls.get_node_or_null("DodgeBtn")
 	var block_btn = touch_controls.get_node_or_null("BlockBtn")
 	var heal_btn = touch_controls.get_node_or_null("HealBtn")
+	var swap_btn = touch_controls.get_node_or_null("SwapBtn")
+	var bag_btn = touch_controls.get_node_or_null("BagBtn")
 
 	_bind_touch(left_btn, "move_left")
 	_bind_touch(right_btn, "move_right")
@@ -113,6 +115,8 @@ func _setup_touch_buttons() -> void:
 	_bind_touch(dodge_btn, "dodge")
 	_bind_touch(block_btn, "block")
 	_bind_touch(heal_btn, "heal")
+	_bind_touch(swap_btn, "switch_weapon")
+	_bind_touch(bag_btn, "toggle_inventory")
 
 func _bind_touch(btn: Button, action_name: String) -> void:
 	if not btn:

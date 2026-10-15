@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="SkillData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/progression/skill_data.gd" id="1_skill"]
+
+[resource]
+script = ExtResource("1_skill")
+id = "atk_finisher_mastery"
+branch = "Attack"
+display_name = "Finisher Mastery"
+description = "Empowers combo finishers and counter strikes with +1 damage and increased launch power."
+cost = 1
+required_skills = []
+stat_modifiers = {
+"bonus_damage": 1,
+"bonus_knockback": 40.0
+}
+granted_ability = ""

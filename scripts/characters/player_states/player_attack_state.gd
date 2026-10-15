@@ -54,6 +54,18 @@ func enter(msg: Dictionary = {}) -> void:
 		hitstop = player.tuning.counter_hitstop_frames
 		is_finisher = true
 
+	# Apply equipment and skill damage bonuses
+	var wep = player.get_equipped_weapon()
+	if wep and wep.base_damage > 1:
+		dmg += (wep.base_damage - 1)
+		knockback += wep.knockback_bonus
+	if SaveManager and SaveManager.skill_tree:
+		var mods = SaveManager.skill_tree.get_total_stat_modifiers()
+		if mods.has("bonus_damage"):
+			dmg += int(mods["bonus_damage"])
+		if mods.has("bonus_knockback"):
+			knockback += float(mods["bonus_knockback"])
+
 	player.hitbox.damage = dmg
 	player.hitbox.knockback_force = knockback
 	player.hitbox.hitstop_frames = hitstop
