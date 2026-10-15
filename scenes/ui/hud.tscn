@@ -1,0 +1,244 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/systems/hud.gd" id="1_hud"]
+
+[node name="HUD" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_hud")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 6
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="TopBar" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 12
+
+[node name="HealthContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+theme_override_constants/separation = 2
+
+[node name="ManaContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+
+[node name="ManaBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/TopBar/ManaContainer"]
+custom_minimum_size = Vector2(48, 8)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 50.0
+value = 50.0
+show_percentage = false
+
+[node name="HealContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+
+[node name="HealLabel" type="Label" parent="MarginContainer/VBoxContainer/TopBar/HealContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "HEAL: 3/3"
+
+[node name="DodgeContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+
+[node name="DodgeBar" type="ProgressBar" parent="MarginContainer/VBoxContainer/TopBar/DodgeContainer"]
+custom_minimum_size = Vector2(30, 6)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 100.0
+value = 100.0
+show_percentage = false
+
+[node name="Spacer" type="Control" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="LoopLabel" type="Label" parent="MarginContainer/VBoxContainer/TopBar"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.9, 1)
+theme_override_font_sizes/font_size = 9
+text = "LOOP #0"
+
+[node name="TouchControls" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="LeftBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 10.0
+offset_top = 222.0
+offset_right = 44.0
+offset_bottom = 258.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "◄"
+
+[node name="RightBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 50.0
+offset_top = 222.0
+offset_right = 84.0
+offset_bottom = 258.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "►"
+
+[node name="JumpBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 434.0
+offset_top = 222.0
+offset_right = 470.0
+offset_bottom = 258.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 12
+text = "▲"
+
+[node name="AtkBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 394.0
+offset_top = 222.0
+offset_right = 428.0
+offset_bottom = 258.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "J"
+
+[node name="MagicBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 434.0
+offset_top = 182.0
+offset_right = 470.0
+offset_bottom = 216.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "K"
+
+[node name="DodgeBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 354.0
+offset_top = 222.0
+offset_right = 388.0
+offset_bottom = 258.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "L"
+
+[node name="HealBtn" type="Button" parent="TouchControls"]
+modulate = Color(1, 1, 1, 0.6)
+layout_mode = 0
+offset_left = 394.0
+offset_top = 182.0
+offset_right = 428.0
+offset_bottom = 216.0
+focus_mode = 0
+theme_override_font_sizes/font_size = 10
+text = "H"
+
+[node name="DefeatPanel" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.04, 0.02, 0.03, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="DefeatPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="DefeatPanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="DefeatPanel/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 14
+text = "DEFEAT"
+horizontal_alignment = 1
+
+[node name="DefeatLoopLabel" type="Label" parent="DefeatPanel/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.8, 0.85, 1)
+theme_override_font_sizes/font_size = 10
+text = "RESET #1
+\"The loop begins again.\""
+horizontal_alignment = 1
+
+[node name="RestartButton" type="Button" parent="DefeatPanel/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "RESTART LOOP [J / Space]"
+
+[node name="CompletePanel" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.06, 0.05, 0.85)
+
+[node name="CenterContainer" type="CenterContainer" parent="CompletePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBox" type="VBoxContainer" parent="CompletePanel/CenterContainer"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="TitleLabel" type="Label" parent="CompletePanel/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.2, 0.9, 0.5, 1)
+theme_override_font_sizes/font_size = 14
+text = "PREHISTORIC JUNGLE CLEARED"
+horizontal_alignment = 1
+
+[node name="DescLabel" type="Label" parent="CompletePanel/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.8, 0.9, 0.85, 1)
+theme_override_font_sizes/font_size = 10
+text = "Milestone 1 Test Level Complete!
+The reality crystal hums in the distance."
+horizontal_alignment = 1
+
+[node name="ReplayButton" type="Button" parent="CompletePanel/CenterContainer/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "REPLAY LEVEL [J / Space]"
+
+[connection signal="pressed" from="DefeatPanel/CenterContainer/VBox/RestartButton" to="." method="_on_restart_button_pressed"]
+[connection signal="pressed" from="CompletePanel/CenterContainer/VBox/ReplayButton" to="." method="_on_replay_button_pressed"]

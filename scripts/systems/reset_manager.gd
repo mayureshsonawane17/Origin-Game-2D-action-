@@ -22,8 +22,9 @@ func trigger_reset(reason: String = "defeat") -> void:
 	reset_triggered.emit(reset_count, reason)
 	
 	# Reload current scene cleanly
-	get_tree().paused = false
-	get_tree().reload_current_scene()
+	if get_tree():
+		get_tree().paused = false
+		get_tree().reload_current_scene()
 
 func restart_scene() -> void:
 	trigger_reset("manual_restart")
