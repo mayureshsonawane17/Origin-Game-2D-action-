@@ -1,11 +1,11 @@
 # Project Status
 
-- **Current Milestone:** Regular Boss Expansion (Tier 1: PRE-02, MED-02, HIST-02) — COMPLETED & 100% VERIFIED
+- **Current Milestone:** Complete Tier 1 Regular Boss Expansion (All 6 Eras: PRE-02, MED-02, HIST-02, IND-02, MOD-02, FUT-02) — COMPLETED & 100% VERIFIED
 - **Engine Version:** Godot 4.7.2.stable.official.ed1daf0bf
-- **Repository State:** Clean, modular, fully passing automated test suites across all 6 Milestones + Campaign Flow + Audio Engine + Boss Rush + Regular Bosses (90/90 tests passing - 100%)
+- **Repository State:** Clean, modular, fully passing automated test suites across all 6 Milestones + Campaign Flow + Audio Engine + Boss Rush + Regular Bosses (93/93 tests passing - 100%)
 
 ## What Works
-- **Regular Boss Expansion (Tier 1 Roster Bosses - Complete):**
+- **Regular Boss Expansion (All 6 Eras Tier 1 Bosses - Complete & Playable):**
   - **PRE-02: Mud Golem (`scenes/bosses/boss_mud_golem.tscn` / `scripts/bosses/boss_mud_golem.gd`):**
     - Earth Spirit encounter with bulky procedural sediment visuals and molten amber core.
     - Mechanics: Heavy swamp smashes, bouncing `ClayBoulder` ballistic projectiles, and ground `MudTrap` puddles slowing hero mobility.
@@ -21,10 +21,25 @@
     - Mechanics: `MIST_PHASE` invulnerable teleportation behind the player, `TALON_DASH` spectral claw trails, and dual `OnryoShadowClone` illusions.
     - Weakness: Magic projectiles instantly dispel active shadow clones and deal 1.5x damage; perfect parries ground and stagger the spirit.
     - Reward: `Spirit Ribbon`.
+  - **IND-02: Clockwork Spider Sentry (`scenes/bosses/boss_spider_sentry.tscn` / `scripts/bosses/boss_spider_sentry.gd`):**
+    - Mechanical Arachnid encounter with brass gearwork chassis, 8 articulated piston legs, and glowing furnace monocle.
+    - Mechanics: Hydraulic piston blade thrusts, high-pressure scalding `SteamVentHazard` floor zones, and high-tensile `CableTrap` snares.
+    - Weakness: Magic / Electricity instantly overloads the boiler, bypasses & shatters all 4 brass armor, deals 2x damage, and inflicts 1.8s boiler stall stagger.
+    - Reward: `Brass Chassis`.
+  - **MOD-02: SWAT Juggernaut Apex (`scenes/bosses/boss_swat_juggernaut.tscn` / `scripts/bosses/boss_swat_juggernaut.gd`):**
+    - Urban Demolisher encounter in tactical Kevlar exo-armor with electric blue HUD visor, ballistic riot shield, and crackling shock baton.
+    - Mechanics: Impenetrable `Riot Shield Charge` (deflects frontal attacks), bouncing `StunGrenade` explosive flashbangs, and concussive baton slams.
+    - Weakness: Flank attacks from behind bypass the riot shield for 1.5x damage directly to vitals; magic projectiles pierce the ballistic visor, shatter armor, and stagger.
+    - Reward: `Riot Visor`.
+  - **FUT-02: Sentinel Swarm-Mind (`scenes/bosses/boss_sentinel_swarm.tscn` / `scripts/bosses/boss_sentinel_swarm.gd`):**
+    - Sub-Orbital Drone Hive encounter with levitating diamond command core escorted by 2 orbiting Sentinel Sub-Drones and hardlight shield rings.
+    - Mechanics: Coordinated swooping dive attacks, seeking dual `PlasmaOrb` salvos, and triangulated laser `EMP Web` energy fields.
+    - Weakness: Magic / Piercing attacks collapse the electromagnetic shield matrix (sets armor to 0), deal 2x damage, and disable the drone swarm in an overload stagger.
+    - Reward: `Ion Cell`.
   - **Boss Arena Integration (`scenes/levels/boss_arena.tscn` / `scripts/levels/boss_arena.gd`):**
-    - Dynamically instantiates and binds `mud_golem`, `gargoyle_patriarch`, and `onryo_mist` on demand.
+    - Dynamically instantiates and binds all 6 regular bosses plus era bosses on demand.
   - **Boss Roster Synchronization (`docs/BOSS_ROSTER.md`):**
-    - Status for PRE-02, MED-02, and HIST-02 updated to `Playable`.
+    - Status for PRE-02, MED-02, HIST-02, IND-02, MOD-02, and FUT-02 updated to `Playable` (19 total bosses playable!).
 - **Boss Rush / Time-Attack Mode (`BossRush` / `scenes/levels/boss_rush.tscn` - Complete):**
   - Dedicated temporal arena gauntlet sequencing through all 13 boss encounters in the game:
     1. `PRE-01`: Primal Stalker

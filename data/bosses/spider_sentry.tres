@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "IND-02"
+era = "Industrial"
+tier = 1
+display_name = "Clockwork Spider Sentry"
+title = "Automated Arachnid Inquisitor"
+intro_quote = "Pressure threshold exceeded. Purging intruder."
+accent_color = Color(0.85, 0.55, 0.2, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_industrial"
+max_health = 12
+total_phases = 1
+move_speed = 100.0
+armor_health = 4
+attacks = ["steam_vent_burst", "cable_trap_lob", "brass_piston_strike"]
+weaknesses = ["magic_electricity", "parry_stagger"]
+reward_id = "brass_chassis"
+story_flag = "boss_ind02_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"

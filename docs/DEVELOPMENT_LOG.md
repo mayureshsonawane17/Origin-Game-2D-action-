@@ -1,5 +1,44 @@
 # Development Log
 
+## Session 15: Full Tier 1 Regular Boss Expansion Completion (IND-02, MOD-02, FUT-02)
+- **Date:** 2026-10-21
+- **Goal:** Complete the remaining Tier 1 Regular Bosses from `docs/BOSS_ROSTER.md` across Industrial, Modern, and Futuristic eras, providing full 6-era Tier 1 coverage with custom mechanics, hazards, weaknesses, telegraphs, and automated tests.
+- **Actions Taken:**
+  - Implemented **IND-02: Clockwork Spider Sentry (Mechanical Arachnid)**:
+    - Created `data/bosses/spider_sentry.tres` (12 HP, 4 Brass Armor, reward `brass_chassis`, story flag `boss_ind02_cleared`).
+    - Implemented `SteamVentHazard` entity (`scenes/bosses/steam_vent_hazard.tscn` / `scripts/combat/steam_vent_hazard.gd`) with boiling steam animations, knockback, and periodic burn ticks.
+    - Implemented `CableTrap` projectile and snare (`scenes/bosses/cable_trap.tscn` / `scripts/combat/cable_trap.gd`) lobbing steel cables that anchor into tripwires slowing player movement by 50%.
+    - Implemented `BossSpiderSentry` controller (`scenes/bosses/boss_spider_sentry.tscn` / `scripts/bosses/boss_spider_sentry.gd`):
+      - 8 animated articulated mechanical legs with hydraulic pistons and gearwork joints.
+      - Steam exhaust smokestacks and glowing furnace monocle lens.
+      - Hydraulic piston thrust attacks, scalding steam venting, and cable launcher.
+      - Weakness: Magic / Electricity instantly overloads boiler, shatters 4 brass armor, inflicts 2x damage, and causes 1.8s boiler stall stagger.
+  - Implemented **MOD-02: SWAT Juggernaut Apex (Urban Demolisher)**:
+    - Created `data/bosses/swat_juggernaut.tres` (14 HP, 6 Riot Armor, reward `riot_visor`, story flag `boss_mod02_cleared`).
+    - Implemented `StunGrenade` ballistic explosive (`scenes/bosses/stun_grenade.tscn` / `scripts/combat/stun_grenade.gd`) with fuse timer, concussion shockwave radius, and blinding flash spark.
+    - Implemented `BossSWATJuggernaut` controller (`scenes/bosses/boss_swat_juggernaut.tscn` / `scripts/bosses/boss_swat_juggernaut.gd`):
+      - Procedural heavy Kevlar exo-suit with electric blue tactical visor, titanium shock baton, and reinforced ballistic riot shield.
+      - High-velocity `Riot Shield Charge` (deflecting frontal physical attacks with 100% absorption).
+      - Concussive baton smashes and tactical stun grenade lobs.
+      - Weakness: Flank attacks from behind completely bypass the riot shield and armor, dealing 1.5x damage directly to HP; magic projectiles pierce the visor and armor directly for 2x damage and stagger.
+  - Implemented **FUT-02: Sentinel Swarm-Mind (Sub-Orbital Drone Hive)**:
+    - Created `data/bosses/sentinel_swarm.tres` (12 HP, 4 Shield Matrix, reward `ion_cell`, story flag `boss_fut02_cleared`).
+    - Implemented `PlasmaOrb` seeking projectile (`scenes/bosses/plasma_orb.tscn` / `scripts/combat/plasma_orb.gd`) with homing trajectory curves and ion explosion sparks.
+    - Implemented `BossSentinelSwarm` controller (`scenes/bosses/boss_sentinel_swarm.tscn` / `scripts/bosses/boss_sentinel_swarm.gd`):
+      - Levitating diamond command core escorted by 2 orbiting Sentinel Sub-Drones with glowing neon thrusters.
+      - Hardlight shield matrix rings protecting core.
+      - Synchronized swooping `SWARM_DIVE` attacks, homing dual `PlasmaOrb` salvos, and triangulated laser `EMP Web` damage zones.
+      - Weakness: Magic / Piercing attacks collapse electromagnetic shield matrix (armor to 0), deal 2x damage, and disable the drone swarm in an overload stagger.
+  - Updated `BossArena` (`scenes/levels/boss_arena.gd`):
+    - Added preloads and dynamic instantiation support for `spider_sentry`, `swat_juggernaut`, and `sentinel_swarm`.
+  - Updated `docs/BOSS_ROSTER.md`:
+    - Updated status for IND-02, MOD-02, and FUT-02 to `Playable`.
+    - Total playable bosses in roster increased to 19 (12 regular + 6 era bosses + 1 final boss).
+  - Expanded `tests/test_regular_bosses.tscn` (`tests/test_regular_bosses.gd`):
+    - Added comprehensive tests for all 6 Tier 1 Regular Bosses, dynamic arena spawning across all boss types, defeat pipelines, and roster synchronization (9/9 tests passing, 100%).
+  - Executed full headless regression testing across all 14 test suites: **93/93 tests passing (100% green)**.
+  - Re-exported standalone macOS PCK bundle (`builds/macOS/ORIGIN.pck` and synced into `builds/macOS/ORIGIN.app`).
+
 ## Session 14: Regular Boss Expansion (Tier 1: PRE-02, MED-02, HIST-02)
 - **Date:** 2026-10-21
 - **Goal:** Implement the next wave of Tier 1 Regular Bosses from `docs/BOSS_ROSTER.md` across Prehistoric, Medieval, and Historical eras with custom procedural visuals, distinct mechanics, telegraphs, vulnerabilities, and automated tests.

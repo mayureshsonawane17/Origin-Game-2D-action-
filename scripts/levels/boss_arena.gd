@@ -8,8 +8,11 @@ const BOSS_TITAN_SCENE = preload("res://scenes/bosses/boss_titan_deep_earth.tscn
 const BOSS_MUD_GOLEM_SCENE = preload("res://scenes/bosses/boss_mud_golem.tscn")
 const BOSS_GARGOYLE_SCENE = preload("res://scenes/bosses/boss_gargoyle_patriarch.tscn")
 const BOSS_ONRYO_SCENE = preload("res://scenes/bosses/boss_onryo_mist.tscn")
+const BOSS_SPIDER_SCENE = preload("res://scenes/bosses/boss_spider_sentry.tscn")
+const BOSS_SWAT_SCENE = preload("res://scenes/bosses/boss_swat_juggernaut.tscn")
+const BOSS_SWARM_SCENE = preload("res://scenes/bosses/boss_sentinel_swarm.tscn")
 
-@export var selected_boss_type: String = "primal_stalker" # "primal_stalker", "mud_golem", "titan_deep_earth", "gargoyle_patriarch", "onryo_mist"
+@export var selected_boss_type: String = "primal_stalker" # "primal_stalker", "mud_golem", "titan_deep_earth", "gargoyle_patriarch", "onryo_mist", "spider_sentry", "swat_juggernaut", "sentinel_swarm"
 
 @onready var player: Player = $Player
 @onready var boss_spawn_point: Marker2D = $BossSpawnPoint
@@ -50,6 +53,12 @@ func _spawn_boss() -> void:
 			current_boss = BOSS_GARGOYLE_SCENE.instantiate() as BossController
 		"onryo_mist":
 			current_boss = BOSS_ONRYO_SCENE.instantiate() as BossController
+		"spider_sentry":
+			current_boss = BOSS_SPIDER_SCENE.instantiate() as BossController
+		"swat_juggernaut":
+			current_boss = BOSS_SWAT_SCENE.instantiate() as BossController
+		"sentinel_swarm":
+			current_boss = BOSS_SWARM_SCENE.instantiate() as BossController
 		_:
 			current_boss = BOSS_STALKER_SCENE.instantiate() as BossController
 

@@ -52,7 +52,7 @@ Status: planned / prototyped / playable / polished.
 | ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
 |---|---|---|---|---|---|---|---|---|
 | IND-01 | Industrial | Chief Overseer Brant | Foundry Master | Pneumatic Hammer & Steam Dash | 1 | Parry / Guard Break | Overseer Cog | Playable |
-| IND-02 | Industrial | Clockwork Spider Sentry | Mechanical Arachnid | Steam Vent & Cable Trap | 1 | Magic / Electricity | Brass Chassis | Planned |
+| IND-02 | Industrial | Clockwork Spider Sentry | Mechanical Arachnid | Steam Vent & Cable Trap | 1 | Magic / Electricity | Brass Chassis | Playable |
 | IND-03 | Industrial | The Chemist of Fleet Street | Mad Alchemist | Acid Gas Clouds & Phosphor Flask | 2 | Air Attacks | Chemical Filter | Planned |
 | IND-04 | Industrial | Ironclad Dredger 44 | Armored Digger | Drill Charge & Coal Shovel | 2 | Timed Dodge / Parry | Heavy Piston | Planned |
 | IND-05 | Industrial | Electromancer Nikola | Tesla Savant | Lightning Arcs & Magnetic Pull | 3 | Rushdown Finisher | Tesla Coil | Planned |
@@ -67,7 +67,7 @@ Status: planned / prototyped / playable / polished.
 | ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
 |---|---|---|---|---|---|---|---|---|
 | MOD-01 | Modern | Commander Reyes | Black Ops Infiltrator | Flashbang Dash & Knife Flurry | 1 | Parry / Guard Break | Spec-Ops Dogtags | Playable |
-| MOD-02 | Modern | SWAT Juggernaut Apex | Riot Demolisher | Riot Shield Charge & Stun Grenade | 1 | Flank Dash / Magic | Riot Visor | Planned |
+| MOD-02 | Modern | SWAT Juggernaut Apex | Riot Demolisher | Riot Shield Charge & Stun Grenade | 1 | Flank Dash / Magic | Riot Visor | Playable |
 | MOD-03 | Modern | The Chem-Warfare Syndicate | Bioterror Leader | Chemical Spray & Smoke Screen | 2 | Air Attacks | Toxin Canister | Planned |
 | MOD-04 | Modern | Apex Predator Chopper 9 | Attack Helicopter | Chaingun Strafe & Hellfire Rockets | 2 | Timed Dodge / Ranged | Rotor Blade | Planned |
 | MOD-05 | Modern | Cyber-Anarchist Null | Hacker Saboteur | EMP Discharge & Drone Swarm | 3 | Rushdown Finisher | EMP Jammer | Planned |
@@ -82,7 +82,7 @@ Status: planned / prototyped / playable / polished.
 | ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
 |---|---|---|---|---|---|---|---|---|
 | FUT-01 | Futuristic | Unit 73 Infiltrator | Cybernetic Assassin | Hardlight Blades & Teleport Stutter | 1 | Parry / Guard Break | Quantum Processor | Playable |
-| FUT-02 | Futuristic | Sentinel Swarm-Mind | Drone Hive Core | Homing Plasma & EMP Web | 1 | Magic / Piercing | Ion Cell | Planned |
+| FUT-02 | Futuristic | Sentinel Swarm-Mind | Drone Hive Core | Homing Plasma & EMP Web | 1 | Magic / Piercing | Ion Cell | Playable |
 | FUT-03 | Futuristic | Plasma Wyrm Ouroboros | Cybernetic Serpent | Energy Coils & Ion Breath | 2 | Air Attacks | Superconductor Scale | Planned |
 | FUT-04 | Futuristic | Quantum Phase-Stalker | Rift Assassin | Phase Shift & Dimensional Slash | 2 | Timed Dodge / Finisher | Phase Core | Planned |
 | FUT-05 | Futuristic | Void Archon Valerius | Nanotech Warmaster | Nanite Siphon & Graviton Wells | 3 | Rushdown Finisher | Nanite Canister | Planned |

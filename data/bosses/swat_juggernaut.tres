@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "MOD-02"
+era = "Modern"
+tier = 1
+display_name = "SWAT Juggernaut Apex"
+title = "Urban Suppression Demolisher"
+intro_quote = "Perimeter breach detected. Full lethal force authorized."
+accent_color = Color(0.2, 0.65, 0.9, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_modern"
+max_health = 14
+total_phases = 1
+move_speed = 85.0
+armor_health = 6
+attacks = ["riot_shield_charge", "stun_grenade_throw", "concussive_baton_smash"]
+weaknesses = ["flank_dash", "ranged_magic"]
+reward_id = "riot_visor"
+story_flag = "boss_mod02_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"

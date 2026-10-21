@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "FUT-02"
+era = "Futuristic"
+tier = 1
+display_name = "Sentinel Swarm-Mind"
+title = "Sub-Orbital Defense Nexus"
+intro_quote = "Target acquired. Synchronizing swarm vectors."
+accent_color = Color(0.1, 0.9, 0.8, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_futuristic"
+max_health = 12
+total_phases = 1
+move_speed = 75.0
+armor_health = 4
+attacks = ["homing_plasma_salvo", "emp_web_discharge", "drone_ram_dive"]
+weaknesses = ["ranged_magic", "stagger_finisher"]
+reward_id = "ion_cell"
+story_flag = "boss_fut02_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"
