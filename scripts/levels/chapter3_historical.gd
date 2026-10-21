@@ -157,9 +157,13 @@ func _on_era_boss_defeated() -> void:
 	]
 	dialogue_box.start_dialogue(lines)
 
+const NEXT_CHAPTER_SCENE_PATH = "res://scenes/levels/chapter4_industrial.tscn"
+
 func _on_exit_portal_entered(body: Node) -> void:
 	if body is Player and era_boss_defeated and not chapter_completed:
 		chapter_completed = true
+		if SaveManager:
+			SaveManager.unlock_chapter(4)
 		_show_chapter_complete()
 
 func _show_chapter_complete() -> void:
@@ -167,9 +171,18 @@ func _show_chapter_complete() -> void:
 	chapter_complete_panel.visible = true
 
 func _on_replay_chapter_pressed() -> void:
-	ResetManager.trigger_reset("chapter_replay")
+	advance_to_next_chapter()
+
+func advance_to_next_chapter() -> void:
+	if SaveManager:
+		SaveManager.unlock_chapter(4)
+		SaveManager.save_game(Vector2.ZERO, NEXT_CHAPTER_SCENE_PATH, "cp_ch4_start")
+	if ResourceLoader.exists(NEXT_CHAPTER_SCENE_PATH):
+		get_tree().change_scene_to_file(NEXT_CHAPTER_SCENE_PATH)
+	else:
+		ResetManager.trigger_reset("chapter_advance_fallback")
 
 func _unhandled_input(event: InputEvent) -> void:
 	if chapter_complete_panel.visible:
 		if event.is_action_pressed("attack") or event.is_action_pressed("jump"):
-			_on_replay_chapter_pressed()
+			advance_to_next_chapter()

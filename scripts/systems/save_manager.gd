@@ -10,6 +10,7 @@ const SAVE_PATH: String = "user://origin_savegame.json"
 
 var skill_tree: SkillTreeManager
 var current_save_data: Dictionary = {}
+var max_unlocked_chapter: int = 1
 
 # In-memory session equipment state
 var primary_weapon: EquipmentItem
@@ -23,7 +24,18 @@ func _ready() -> void:
 	skill_tree = SkillTreeManager.new()
 	add_child(skill_tree)
 	_load_initial_default_equipment()
-	print("[SaveManager] Initialized. Save file exists: %s" % has_save())
+	if has_save():
+		_peek_unlocked_chapter()
+	print("[SaveManager] Initialized. Save file exists: %s, Max Unlocked Chapter: %d" % [has_save(), max_unlocked_chapter])
+
+func _peek_unlocked_chapter() -> void:
+	var file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+	if file:
+		var text = file.get_as_text()
+		file.close()
+		var parsed = JSON.parse_string(text)
+		if parsed is Dictionary and parsed.has("unlocked_chapter"):
+			max_unlocked_chapter = clampi(int(parsed["unlocked_chapter"]), 1, 7)
 
 func _load_initial_default_equipment() -> void:
 	if ResourceLoader.exists("res://data/equipment/primordial_blade.tres"):
@@ -52,6 +64,7 @@ func save_game(checkpoint_pos: Vector2 = Vector2.ZERO, scene_path: String = "", 
 		"version": "0.3.0",
 		"timestamp": Time.get_unix_time_from_system(),
 		"reset_count": ResetManager.reset_count if ResetManager else 0,
+		"unlocked_chapter": max_unlocked_chapter,
 		"player": {
 			"health": player.current_health if player else 5,
 			"mana": player.current_mana if player else 50.0,
@@ -112,11 +125,15 @@ func load_game() -> bool:
 	if current_save_data.has("reset_count") and ResetManager:
 		ResetManager.reset_count = int(current_save_data["reset_count"])
 
-	# 2. Restore skills
+	# 2. Restore unlocked chapter
+	if current_save_data.has("unlocked_chapter"):
+		max_unlocked_chapter = clampi(int(current_save_data["unlocked_chapter"]), 1, 7)
+
+	# 3. Restore skills
 	if current_save_data.has("skills"):
 		skill_tree.deserialize(current_save_data["skills"])
 
-	# 3. Restore equipment
+	# 4. Restore equipment
 	if current_save_data.has("equipment"):
 		var eq = current_save_data["equipment"]
 		if eq.has("primary_id") and not eq["primary_id"].is_empty():
@@ -134,9 +151,31 @@ func load_game() -> bool:
 		if eq.has("active_slot"):
 			active_weapon_slot = int(eq["active_slot"])
 
-	print("[SaveManager] Game successfully loaded.")
+	print("[SaveManager] Game successfully loaded. Max Unlocked Chapter: %d" % max_unlocked_chapter)
 	game_loaded.emit()
 	return true
+
+func unlock_chapter(chapter_num: int) -> void:
+	if chapter_num > max_unlocked_chapter:
+		max_unlocked_chapter = clampi(chapter_num, 1, 7)
+		print("[SaveManager] Unlocked Chapter %d" % max_unlocked_chapter)
+
+func get_unlocked_chapter() -> int:
+	return max_unlocked_chapter
+
+func get_saved_scene_path() -> String:
+	if current_save_data.has("checkpoint"):
+		return str(current_save_data["checkpoint"].get("scene_path", ""))
+	return ""
+
+func reset_for_new_game() -> void:
+	current_save_data.clear()
+	_load_initial_default_equipment()
+	active_weapon_slot = 0
+	if skill_tree:
+		skill_tree.unlocked_skill_ids.clear()
+		skill_tree.available_skill_points = 0
+		skill_tree.skill_points_changed.emit(0)
 
 func apply_to_player(player: Player) -> void:
 	if not player or current_save_data.is_empty():

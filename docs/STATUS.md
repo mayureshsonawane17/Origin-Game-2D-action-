@@ -1,10 +1,23 @@
 # Project Status
 
-- **Current Milestone:** Milestone 6: The Fortress & The Unbeatable One (The Final Act & Loop Break) — COMPLETED & 100% VERIFIED
+- **Current Milestone:** Title Screen & Unified Campaign Flow — COMPLETED & 100% VERIFIED
 - **Engine Version:** Godot 4.7.2.stable.official.ed1daf0bf
-- **Repository State:** Clean, modular, fully passing automated test suites across all 6 Milestones (66/66 tests passing - 100%)
+- **Repository State:** Clean, modular, fully passing automated test suites across all 6 Milestones + Campaign Flow (72/72 tests passing - 100%)
 
 ## What Works
+- **Title Screen & Seamless Campaign Playthrough (Complete):**
+  - **Title Screen (`MainMenu` / `scenes/ui/main_menu.tscn`):**
+    - Set as the primary `run/main_scene` in `project.godot`.
+    - Features animated procedural multifaceted `GemstoneTitleVisual` with glowing energy corona and fracture cracks.
+    - Real-time `ResetManager.reset_count` loop badge display.
+    - **START NEW GAME:** Fresh cycle start from Chapter 1 with full confirmation modal and progression reset.
+    - **CONTINUE:** Automatically loads saved disk checkpoint and jumps to the player's active level/checkpoint.
+    - **ERA / CHAPTER SELECT:** Interactive modal displaying all 7 chapters with lock gates enforced by `SaveManager.get_unlocked_chapter()`.
+    - **CONTROLS & COMBAT GUIDE:** Full modal listing verified keyboard, gamepad, and touch controls with parry timing hints.
+  - **Unbroken Campaign Linking:**
+    - All 7 chapters sequentially linked with automatic save progression:
+      - Chapter 1 (Prehistoric) -> Chapter 2 (Medieval) -> Chapter 3 (Historical) -> Chapter 4 (Industrial) -> Chapter 5 (Modern) -> Chapter 6 (Futuristic) -> Chapter 7 (Fortress).
+      - Chapter 7 -> Collapsing Reality Escape Run -> Real-World Epilogue -> Post-Credits Sting -> Title Menu loop return.
 - **Milestone 6 - The Final Act & Loop Break (Complete):**
   - **The Immortal Villain (`BossVillainImmortal` / `VIL-IMMORTAL`):**
     - The final antagonist encountered at the heart of the Fortress, hovering before the colossal crystalline barrier trapping the Hero's wife.
@@ -32,6 +45,7 @@
     - Screen violently glitches with chromatic aberration bursts.
     - Displays exact text: `ERROR: REALITY INSTANCE NOT FOUND`.
     - Transitions to the iconic `ORIGIN` logo illuminated only by a completely dark, inert gemstone (`DarkGemstoneVisual`).
+    - Input prompts return to `MainMenu`.
 - **Milestone 5 - All 6 Eras Complete:**
   - Era 1: Prehistoric Wilderness (Titan of the Deep Earth)
   - Era 2: Medieval Cursed Keep (Lord Malakor)
@@ -49,7 +63,7 @@
 - **Milestone 1 - Stable Prototype Foundation:**
   - 480x270 integer viewport, player controller (3-hit combo, magic, dodge i-frames, healing), ResetManager loop tracking.
 
-## Automated Test Coverage (66/66 Tests Passing - 100%)
+## Automated Test Coverage (72/72 Tests Passing - 100%)
 - `tests/test_runner.tscn` (Milestone 1): 9/9 tests pass.
 - `tests/test_milestone2.tscn` (Milestone 2): 8/8 tests pass.
 - `tests/test_milestone3.tscn` (Milestone 3): 6/6 tests pass.
@@ -60,6 +74,7 @@
 - `tests/test_modern.tscn` (Milestone 5 - Modern Era): 6/6 tests pass.
 - `tests/test_futuristic.tscn` (Milestone 5 - Futuristic Era): 6/6 tests pass.
 - `tests/test_milestone6.tscn` (Milestone 6 - Final Act & Loop Break): 6/6 tests pass.
+- `tests/test_campaign_flow.tscn` (Campaign Flow & Main Menu): 6/6 tests pass.
 
 ## Remaining Roadmap & Future Polish
 1. Audio and Sound Effects Integration (dynamic chiptune and orchestral themes for each era and final acts).

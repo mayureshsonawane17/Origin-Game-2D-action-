@@ -1,0 +1,344 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_main"]
+[ext_resource type="Script" path="res://scripts/ui/gemstone_title_visual.gd" id="2_gem"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
+bg_color = Color(0.06, 0.08, 0.12, 0.96)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.3, 0.6, 0.9, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.04, 0.05, 0.08, 0.9)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.18, 0.25, 0.35, 0.7)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_main")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.04, 0.07, 1)
+
+[node name="MainLayout" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 10.0
+offset_right = -20.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 8
+
+[node name="Header" type="VBoxContainer" parent="MainLayout"]
+layout_mode = 2
+theme_override_constants/separation = 2
+alignment = 1
+
+[node name="GemstoneVisual" type="Control" parent="MainLayout/Header"]
+custom_minimum_size = Vector2(90, 52)
+layout_mode = 2
+size_flags_horizontal = 4
+script = ExtResource("2_gem")
+
+[node name="Title" type="Label" parent="MainLayout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.96, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.1, 0.4, 0.8, 0.6)
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 2
+theme_override_font_sizes/font_size = 20
+text = "ORIGIN"
+horizontal_alignment = 1
+
+[node name="Subtitle" type="Label" parent="MainLayout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.9, 1)
+theme_override_font_sizes/font_size = 7
+text = "SHATTER THE INFINITE CYCLE"
+horizontal_alignment = 1
+
+[node name="LoopBadge" type="Label" parent="MainLayout/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
+theme_override_font_sizes/font_size = 7
+text = "ACTIVE LOOP: #0"
+horizontal_alignment = 1
+
+[node name="MenuVBox" type="VBoxContainer" parent="MainLayout"]
+custom_minimum_size = Vector2(170, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 3
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="ContinueButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CONTINUE JOURNEY"
+
+[node name="NewGameButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "START NEW GAME"
+
+[node name="ChapterSelectButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "ERA / CHAPTER SELECT"
+
+[node name="ControlsButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CONTROLS & GUIDE"
+
+[node name="QuitButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "QUIT"
+
+[node name="Footer" type="HBoxContainer" parent="MainLayout"]
+layout_mode = 2
+alignment = 1
+
+[node name="VersionLabel" type="Label" parent="MainLayout/Footer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.35, 0.45, 0.55, 1)
+theme_override_font_sizes/font_size = 6
+text = "ORIGIN • 6 Eras • 13 Boss Encounters • 100% Automated Test Coverage"
+
+[node name="ChapterSelectModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="ChapterSelectModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="Center" type="CenterContainer" parent="ChapterSelectModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="ChapterSelectModal/Center"]
+custom_minimum_size = Vector2(340, 210)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Margin" type="MarginContainer" parent="ChapterSelectModal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="ChapterSelectModal/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="ChapterSelectModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.8, 1, 1)
+theme_override_font_sizes/font_size = 10
+text = "SELECT ERA / CHAPTER"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="ChapterSelectModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ChapterList" type="VBoxContainer" parent="ChapterSelectModal/Center/Panel/Margin/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="CloseButton" type="Button" parent="ChapterSelectModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BACK TO TITLE"
+
+[node name="ControlsModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="ControlsModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.75)
+
+[node name="Center" type="CenterContainer" parent="ControlsModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="ControlsModal/Center"]
+custom_minimum_size = Vector2(360, 210)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_modal")
+
+[node name="Margin" type="MarginContainer" parent="ControlsModal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="ControlsModal/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="Title" type="Label" parent="ControlsModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.85, 0.3, 1)
+theme_override_font_sizes/font_size = 10
+text = "CONTROLS & COMBAT GUIDE"
+horizontal_alignment = 1
+
+[node name="Scroll" type="ScrollContainer" parent="ControlsModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="InfoLabel" type="Label" parent="ControlsModal/Center/Panel/Margin/VBox/Scroll"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.85, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 7
+text = "• MOVE: [A / D] or [Left / Right Arrows] | Gamepad Left Stick
+• JUMP: [W] or [Space] | Gamepad (A)
+• ATTACK (3-Hit Combo): [J] or [Left Click] | Gamepad (X)
+• BLOCK / PARRY: [K] or [Right Click] | Gamepad (LB)
+  -> Timed parry (0.15s) negates 100% damage, staggers enemy & counters!
+• MAGIC PROJECTILE: [L] or [Q] | Gamepad (Y)
+• DODGE ROLL (i-frames): [Shift] or [Space in Air] | Gamepad (B)
+• HEAL CHARGES: [H] | Gamepad D-Pad Up
+• SWITCH WEAPON: [Q] or [E] | Gamepad D-Pad Down
+• INVENTORY & SKILL TREE: [Tab] or [Esc] | Gamepad (Select / Start)"
+
+[node name="CloseButton" type="Button" parent="ControlsModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BACK TO TITLE"
+
+[node name="ConfirmModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="ConfirmModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Center" type="CenterContainer" parent="ConfirmModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="ConfirmModal/Center"]
+custom_minimum_size = Vector2(260, 110)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="Margin" type="MarginContainer" parent="ConfirmModal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="ConfirmModal/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="Msg" type="Label" parent="ConfirmModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.95, 0.95, 1, 1)
+theme_override_font_sizes/font_size = 8
+text = "Start a fresh cycle from Era 1?
+Current skills & gear will be reset,
+and Loop Counter will increment."
+horizontal_alignment = 1
+
+[node name="ButtonHBox" type="HBoxContainer" parent="ConfirmModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="YesButton" type="Button" parent="ConfirmModal/Center/Panel/Margin/VBox/ButtonHBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BEGIN CYCLE"
+
+[node name="NoButton" type="Button" parent="ConfirmModal/Center/Panel/Margin/VBox/ButtonHBox"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CANCEL"

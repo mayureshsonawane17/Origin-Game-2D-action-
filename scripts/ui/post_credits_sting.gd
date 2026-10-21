@@ -61,11 +61,19 @@ func _trigger_reality_glitch_error() -> void:
 	tween.tween_property(glitch_rect, "color", Color(0, 0, 0, 0), 0.12)
 	tween.tween_callback(show_error_state)
 
+const MAIN_MENU_PATH = "res://scenes/ui/main_menu.tscn"
+
 func show_error_state() -> void:
 	glitch_rect.visible = false
 	error_container.visible = true
 	error_label.text = "ERROR: REALITY INSTANCE NOT FOUND"
 	sting_completed.emit()
+
+func _unhandled_input(event: InputEvent) -> void:
+	if error_container.visible:
+		if (event is InputEventKey and event.pressed) or (event is InputEventMouseButton and event.pressed):
+			if ResourceLoader.exists(MAIN_MENU_PATH):
+				get_tree().change_scene_to_file(MAIN_MENU_PATH)
 
 func _process(delta: float) -> void:
 	if error_container.visible and dark_gemstone:

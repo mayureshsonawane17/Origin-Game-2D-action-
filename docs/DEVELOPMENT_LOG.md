@@ -1,5 +1,29 @@
 # Development Log
 
+## Session 11: Title Screen & Seamless Campaign Playthrough Flow
+- **Date:** 2026-10-21
+- **Goal:** Build a complete, responsive Title Screen and link all 7 chapters into a seamless, continuous campaign from start to finish.
+- **Actions Taken:**
+  - Designed and implemented procedural `GemstoneTitleVisual` (`scripts/ui/gemstone_title_visual.gd`) displaying a multifaceted gemstone with energy pulsing aura, crystalline facet lighting, and loop fracture cracks.
+  - Implemented `MainMenu` (`scenes/ui/main_menu.tscn` / `scripts/ui/main_menu.gd`) set as `run/main_scene` in `project.godot`:
+    - `START NEW GAME`: Confirmation modal to begin a fresh cycle from Era 1 with gear/skill reset and loop counter advance.
+    - `CONTINUE`: Automatic detection of disk save file, loading stats and checkpoint position to resume journey.
+    - `ERA / CHAPTER SELECT`: Interactive modal exposing all 7 chapters with real-time progression locks based on `SaveManager.get_unlocked_chapter()`.
+    - `CONTROLS & GUIDE`: Modal displaying keyboard, gamepad, and touch controls scheme along with parry timing window and combo descriptions.
+    - `QUIT`: Clean desktop termination.
+  - Extended `SaveManager` (`scripts/systems/save_manager.gd`) with `max_unlocked_chapter` serialization, `unlock_chapter()`, `get_unlocked_chapter()`, `get_saved_scene_path()`, and `reset_for_new_game()`.
+  - Linked all 7 chapters sequentially with automatic progression and checkpoint saving:
+    - Chapter 1: Prehistoric Wilderness -> Chapter 2: Medieval Cursed Keep
+    - Chapter 2: Medieval Cursed Keep -> Chapter 3: Historical Crimson Mist
+    - Chapter 3: Historical Crimson Mist -> Chapter 4: Industrial Smog Docks
+    - Chapter 4: Industrial Smog Docks -> Chapter 5: Modern Metropolis
+    - Chapter 5: Modern Metropolis -> Chapter 6: Futuristic Cyber Spire
+    - Chapter 6: Futuristic Cyber Spire -> Chapter 7: The Fortress of the Gemstone
+    - Chapter 7 -> Collapsing Reality Escape Run -> Real-World Epilogue -> Post-Credits Sting -> Title Menu return.
+  - Updated `PostCreditsSting` (`scenes/ui/post_credits_sting.tscn` / `scripts/ui/post_credits_sting.gd`) to display `[PRESS ANY KEY OR CLICK TO RETURN TO TITLE]` and transition back to the main menu on user input.
+  - Authored automated integration test suite `tests/test_campaign_flow.tscn` (`tests/test_campaign_flow.gd`) validating menu nodes, save detection, chapter select unlock gates, controls modal, campaign link continuity, and new game resets (6/6 passing, 100%).
+  - Executed full headless regression testing across all 11 test suites: **72/72 tests passing (100% green)**.
+
 ## Session 10: Milestone 6 The Fortress & The Unbeatable One (The Final Act & Loop Break Complete)
 - **Date:** 2026-10-15
 - **Goal:** Complete Milestone 6: The Fortress of the Gemstone & The Unbeatable One — the ultimate act of ORIGIN implementing all narrative beats from `docs/STORY.md` (Beats 7–14):
