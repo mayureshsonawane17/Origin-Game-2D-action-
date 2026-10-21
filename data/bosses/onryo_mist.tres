@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "HIST-02"
+era = "Historical"
+tier = 1
+display_name = "Onryo of the Mist"
+title = "Vengeful Spirit of the Bamboo Glade"
+intro_quote = "Drown in the crimson mist... as I did."
+accent_color = Color(0.88, 0.28, 0.58, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_historical"
+max_health = 10
+total_phases = 1
+move_speed = 110.0
+armor_health = 0
+attacks = ["mist_phase_teleport", "shadow_clone_flurry", "spectral_talon_dash"]
+weaknesses = ["magic_dispel", "perfect_parry"]
+reward_id = "spirit_ribbon"
+story_flag = "boss_hist02_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"

@@ -1,0 +1,25 @@
+[gd_resource type="Resource" script_class="BossData" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/combat/boss_data.gd" id="1_boss_data"]
+
+[resource]
+script = ExtResource("1_boss_data")
+id = "PRE-02"
+era = "Prehistoric"
+tier = 1
+display_name = "Mud Golem"
+title = "Viscous Spirit of the Silt Basin"
+intro_quote = "The swamp does not release what it claims."
+accent_color = Color(0.68, 0.44, 0.22, 1)
+transition_style = "stripe_wipe"
+is_era_boss = false
+intro_music_cue = "boss_cue_prehistoric"
+max_health = 12
+total_phases = 1
+move_speed = 60.0
+armor_health = 0
+attacks = ["mud_trap_slam", "clay_boulder_toss", "heavy_swamp_strike"]
+weaknesses = ["ranged_magic", "parry_stagger"]
+reward_id = "clay_core"
+story_flag = "boss_pre02_cleared"
+arena_scene_path = "res://scenes/levels/boss_arena.tscn"

@@ -5,8 +5,11 @@ extends Node2D
 
 const BOSS_STALKER_SCENE = preload("res://scenes/bosses/boss_primal_stalker.tscn")
 const BOSS_TITAN_SCENE = preload("res://scenes/bosses/boss_titan_deep_earth.tscn")
+const BOSS_MUD_GOLEM_SCENE = preload("res://scenes/bosses/boss_mud_golem.tscn")
+const BOSS_GARGOYLE_SCENE = preload("res://scenes/bosses/boss_gargoyle_patriarch.tscn")
+const BOSS_ONRYO_SCENE = preload("res://scenes/bosses/boss_onryo_mist.tscn")
 
-@export var selected_boss_type: String = "primal_stalker" # "primal_stalker" or "titan_deep_earth"
+@export var selected_boss_type: String = "primal_stalker" # "primal_stalker", "mud_golem", "titan_deep_earth", "gargoyle_patriarch", "onryo_mist"
 
 @onready var player: Player = $Player
 @onready var boss_spawn_point: Marker2D = $BossSpawnPoint
@@ -38,10 +41,17 @@ func _ready() -> void:
 		_start_fight()
 
 func _spawn_boss() -> void:
-	if selected_boss_type == "titan_deep_earth":
-		current_boss = BOSS_TITAN_SCENE.instantiate() as BossController
-	else:
-		current_boss = BOSS_STALKER_SCENE.instantiate() as BossController
+	match selected_boss_type:
+		"titan_deep_earth":
+			current_boss = BOSS_TITAN_SCENE.instantiate() as BossController
+		"mud_golem":
+			current_boss = BOSS_MUD_GOLEM_SCENE.instantiate() as BossController
+		"gargoyle_patriarch":
+			current_boss = BOSS_GARGOYLE_SCENE.instantiate() as BossController
+		"onryo_mist":
+			current_boss = BOSS_ONRYO_SCENE.instantiate() as BossController
+		_:
+			current_boss = BOSS_STALKER_SCENE.instantiate() as BossController
 
 	current_boss.global_position = boss_spawn_point.global_position
 	add_child(current_boss)

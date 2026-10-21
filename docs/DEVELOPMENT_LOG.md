@@ -1,5 +1,35 @@
 # Development Log
 
+## Session 14: Regular Boss Expansion (Tier 1: PRE-02, MED-02, HIST-02)
+- **Date:** 2026-10-21
+- **Goal:** Implement the next wave of Tier 1 Regular Bosses from `docs/BOSS_ROSTER.md` across Prehistoric, Medieval, and Historical eras with custom procedural visuals, distinct mechanics, telegraphs, vulnerabilities, and automated tests.
+- **Actions Taken:**
+  - Implemented **PRE-02: Mud Golem (Earth Spirit)**:
+    - Created `data/bosses/mud_golem.tres` (12 HP, Tier 1, reward `clay_core`, story flag `boss_pre02_cleared`).
+    - Implemented `MudTrap` hazard entity (`scenes/bosses/mud_trap.tscn` / `scripts/combat/mud_trap.gd`) with bubbling mud visuals and hero movement speed reduction.
+    - Implemented `ClayBoulder` ballistic projectile (`scenes/bosses/clay_boulder.tscn` / `scripts/combat/clay_boulder.gd`) with arc gravity and shattering impact particles.
+    - Implemented `BossMudGolem` controller (`scenes/bosses/boss_mud_golem.tscn` / `scripts/bosses/boss_mud_golem.gd`) with heavy melee strikes, mud slam ground traps, boulder toss, glowing amber molten core visuals, and 2x damage/stagger weakness to Magic.
+  - Implemented **MED-02: Gargoyle Patriarch (Cathedral Beast)**:
+    - Created `data/bosses/gargoyle_patriarch.tres` (12 HP, 6 Stone Armor, reward `gargoyle_talons`, story flag `boss_med02_cleared`).
+    - Implemented `BossGargoylePatriarch` controller (`scenes/bosses/boss_gargoyle_patriarch.tscn` / `scripts/bosses/boss_gargoyle_patriarch.gd`):
+      - Takeoff and hovering above the arena with telegraph aiming lines.
+      - High-velocity diagonal `BATTLEMENT_DIVE` attack.
+      - Aerial parry counter crashes the diving gargoyle, shatters all stone armor, and inflicts 2.0s stagger.
+      - `STONE_HARDEN` posture restoring Stone Armor, with vulnerability to magic projectiles that pierce armor directly.
+      - Chiseled stone gargoyle procedural drawing with animated bat wings and horned demonic visage.
+  - Implemented **HIST-02: Onryo of the Bamboo Mist (Vengeful Spirit)**:
+    - Created `data/bosses/onryo_mist.tres` (10 HP, Tier 1, reward `spirit_ribbon`, story flag `boss_hist02_cleared`).
+    - Implemented `BossOnryoMist` controller (`scenes/bosses/boss_onryo_mist.tscn` / `scripts/bosses/boss_onryo_mist.gd`):
+      - `MIST_PHASE` invulnerable fade and teleport behind the hero.
+      - `TALON_DASH` forward spectral slash with parry stagger.
+      - `OnryoShadowClone` illusion summoning; magic projectiles instantly dispel all illusions and stagger the spirit for 1.5x damage.
+      - Procedural flowing white burial kimono, trailing black hair with glowing crimson silk ribbon, and floating spirit wisps.
+  - Updated `BossArena` (`scenes/levels/boss_arena.tscn` / `scripts/levels/boss_arena.gd`) to dynamically instantiate `mud_golem`, `gargoyle_patriarch`, and `onryo_mist`.
+  - Updated `docs/BOSS_ROSTER.md` setting status for PRE-02, MED-02, and HIST-02 from `Planned` to `Playable`.
+  - Authored automated integration test suite `tests/test_regular_bosses.tscn` (`tests/test_regular_bosses.gd`) validating Golem mud traps/boulders/magic weakness, Gargoyle dive/armor shatter/pierce, Onryo mist phasing/shadow clones/dispel, Arena dynamic spawning, defeat pipelines, and roster synchronization (6/6 passing, 100%).
+  - Executed full headless regression testing across all 14 test suites: **90/90 tests passing (100% green)**.
+  - Re-exported standalone macOS PCK package (`builds/macOS/ORIGIN.pck` and synced into `.app`).
+
 ## Session 13: Dedicated Boss Rush / Time-Attack Mode Integration
 - **Date:** 2026-10-21
 - **Goal:** Build a complete, dedicated Boss Rush / Time-Attack Mode sequencing through all 13 boss encounters in ORIGIN with dynamic era visual theming, era BGM transitions, live speedrun clock, SaveManager personal best records, intermission healing restocks, The Architect fracture mechanics, and rank scoring.

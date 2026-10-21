@@ -7,7 +7,7 @@ Status: planned / prototyped / playable / polished.
 | ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
 |---|---|---|---|---|---|---|---|---|
 | PRE-01 | Prehistoric | Primal Stalker | Beast | Pounce & Bleed | 1 | Timed Dodge / Parry | Hunter Fang | Playable |
-| PRE-02 | Prehistoric | Mud Golem | Earth Spirit | Mud Traps | 1 | Ranged / Magic | Clay Core | Planned |
+| PRE-02 | Prehistoric | Mud Golem | Earth Spirit | Mud Traps | 1 | Ranged / Magic | Clay Core | Playable |
 | PRE-03 | Prehistoric | Thunder Behemoth | Beast | Charge & Shockwave | 2 | Air Attacks | Horn Shard | Planned |
 | PRE-04 | Prehistoric | Cave Broodmother | Arachnid | Web Bind & Swarm | 2 | Fire / Area | Silk Strand | Planned |
 | PRE-05 | Prehistoric | Ash Serpent | Volcano | Lava Pools | 3 | Ice / Water | Obsidian Scale | Planned |
@@ -22,7 +22,7 @@ Status: planned / prototyped / playable / polished.
 | ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
 |---|---|---|---|---|---|---|---|---|
 | MED-01 | Medieval | Sir Gareth the Ironclad | Cursed Knight | Tower Shield & Overhead Cleave | 1 | Parry / Guard Break | Knight Crest | Playable |
-| MED-02 | Medieval | Gargoyle Patriarch | Cathedral Beast | Battlement Dive & Stone Armor | 1 | Ranged / Magic | Gargoyle Talons | Planned |
+| MED-02 | Medieval | Gargoyle Patriarch | Cathedral Beast | Battlement Dive & Stone Armor | 1 | Ranged / Magic | Gargoyle Talons | Playable |
 | MED-03 | Medieval | Grand Inquisitor Faust | Corrupt Cleric | Radiant Pyres & Smite | 2 | Flank Dash | Inquisitor Seal | Planned |
 | MED-04 | Medieval | Dungeon Warden Kroll | Brute Jailer | Chain Hook & Cleaver Drag | 2 | Air Jump Attack | Warden Keys | Planned |
 | MED-05 | Medieval | Cursed Blacksmith Vulcan | Infernal Smith | Anvil Shockwave & Molten Slag | 3 | Frost / Mobility | Vulcan Hammer | Planned |
@@ -37,7 +37,7 @@ Status: planned / prototyped / playable / polished.
 | ID | Era | Name | Theme | Signature Mechanic | Tier | Weakness | Reward | Status |
 |---|---|---|---|---|---|---|---|---|
 | HIST-01 | Historical | Kensei Jinzo | Wandering Swordmaster | Dual Strike & Counter-Slash | 1 | Parry / Guard Break | Kensei Tsuba | Playable |
-| HIST-02 | Historical | Onryo of the Bamboo Mist | Vengeful Spirit | Illusory Clones & Mist Phasing | 1 | Magic / Area | Spirit Ribbon | Planned |
+| HIST-02 | Historical | Onryo of the Bamboo Mist | Vengeful Spirit | Illusory Clones & Mist Phasing | 1 | Magic / Area | Spirit Ribbon | Playable |
 | HIST-03 | Historical | Master Archer Tomoe | Kyudo Master | Rain of Arrows & Multi-Volley | 2 | Dodge Roll Rushdown | Quiver Feather | Planned |
 | HIST-04 | Historical | Shinobi Patriarch Hanzo | Shadow Ninja | Caltrops & Smoke Decoys | 2 | Air Attacks | Kusarigama Link | Planned |
 | HIST-05 | Historical | Sohei War Monk Benkei | Halberd Guardian | 7-Weapon Mastery & Shockwaves | 3 | Timed Parry | Prayer Beads | Planned |
