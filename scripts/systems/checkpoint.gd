@@ -26,6 +26,8 @@ func _on_body_entered(body: Node) -> void:
 		if not is_activated:
 			is_activated = true
 			checkpoint_activated.emit(self)
+			if SoundManager:
+				SoundManager.play_sfx("checkpoint")
 			# Restore vitals
 			p.current_health = p.tuning.max_health
 			p.heal_charges = p.tuning.max_heal_charges

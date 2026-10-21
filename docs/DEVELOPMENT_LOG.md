@@ -1,5 +1,28 @@
 # Development Log
 
+## Session 12: Procedural Sound & Audio Engine Integration
+- **Date:** 2026-10-21
+- **Goal:** Build a complete, 100% self-contained procedural retro/chiptune audio engine (`SoundManager`) with polyphonic SFX synthesis, dual-channel crossfading BGM themes for all eras, volume/mute pipelines, and seamless gameplay audio integration.
+- **Actions Taken:**
+  - Designed and implemented procedural `SoundManager` autoload singleton (`scripts/systems/sound_manager.gd`):
+    - Synthesizes 16-bit PCM buffers (`AudioStreamWAV`) via mathematical waveforms (sine, square, saw, triangle, white noise, ADSR and exponential decay envelopes).
+    - Implemented 10-player polyphonic SFX pool avoiding sound cutoff during intense combat.
+    - Implemented dual-channel BGM players supporting smooth crossfading (`fade_duration`) between era tracks.
+    - Preloaded and cached 11 core combat SFX: `slash_1`, `slash_2`, `slash_finisher`, `parry`, `block`, `dodge`, `jump`, `hurt`, `heal`, `magic_cast`, `switch_weapon`.
+    - Synthesized 4 encounter SFX: `enemy_hit`, `enemy_die`, `boss_roar`, `boss_phase`.
+    - Synthesized UI & World audio: `ui_select`, `ui_confirm`, `checkpoint`, `loop_glitch`.
+    - Synthesized 9 looping era BGM tracks with forward loop markers: `title`, `prehistoric`, `medieval`, `historical`, `industrial`, `modern`, `futuristic`, `fortress`, `epilogue`.
+  - Integrated gameplay audio hooks:
+    - `Player`: Connected `jump`, `dodge`, `heal`, `magic_cast`, `switch_weapon`, `block`, `parry`, and unblocked `hurt`.
+    - `PlayerAttackState`: Connected Dan-the-Man combo attacks (`slash_1`, `slash_2`, `slash_finisher`).
+    - `EnemyHurtState` & `EnemyDieState`: Connected `enemy_hit` and `enemy_die`.
+    - `BossController`: Connected `boss_phase` on phase change and `boss_roar` on defeat.
+    - `Checkpoint`: Connected `checkpoint` chime.
+    - `MainMenu`: Connected `title` BGM, `ui_select` and `ui_confirm`.
+    - All 7 Chapters: Connected era BGM tracks (`prehistoric`, `medieval`, `historical`, `industrial`, `modern`, `futuristic`, `fortress`, `epilogue`) and deliberate reset glitch SFX (`loop_glitch`).
+  - Authored automated integration test suite `tests/test_audio_system.tscn` (`tests/test_audio_system.gd`) verifying SoundManager initialization, SFX synthesis, BGM loop points, crossfading, signal emissions, and mute/volume pipelines (6/6 passing, 100%).
+  - Executed full headless regression testing across all 12 test suites: **78/78 tests passing (100% green)**.
+
 ## Session 11: Title Screen & Seamless Campaign Playthrough Flow
 - **Date:** 2026-10-21
 - **Goal:** Build a complete, responsive Title Screen and link all 7 chapters into a seamless, continuous campaign from start to finish.

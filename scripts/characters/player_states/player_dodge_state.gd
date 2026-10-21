@@ -10,6 +10,8 @@ func enter(_msg: Dictionary = {}) -> void:
 	player.dodge_cooldown_timer = player.tuning.dodge_cooldown
 	player.hurtbox.is_invulnerable = true
 	dodge_timer = 0.0
+	if SoundManager:
+		SoundManager.play_sfx("dodge")
 	
 	# Horizontal burst
 	var move_input = Input.get_axis("move_left", "move_right")

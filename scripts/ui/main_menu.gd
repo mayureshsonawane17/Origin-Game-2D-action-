@@ -91,6 +91,8 @@ func _ready() -> void:
 	confirm_no_btn.pressed.connect(func(): confirm_modal.visible = false)
 
 	_refresh_menu_state()
+	if SoundManager:
+		SoundManager.play_bgm("title")
 	menu_started.emit()
 
 func _refresh_menu_state() -> void:
@@ -111,6 +113,8 @@ func _refresh_menu_state() -> void:
 		new_game_btn.grab_focus()
 
 func _on_new_game_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_select")
 	if SaveManager and SaveManager.has_save():
 		confirm_modal.visible = true
 		confirm_yes_btn.grab_focus()
@@ -119,6 +123,8 @@ func _on_new_game_pressed() -> void:
 
 func _start_fresh_new_game() -> void:
 	confirm_modal.visible = false
+	if SoundManager:
+		SoundManager.play_sfx("ui_confirm")
 	if SaveManager:
 		SaveManager.reset_for_new_game()
 	if ResetManager:
@@ -132,6 +138,8 @@ func _start_fresh_new_game() -> void:
 func _on_continue_pressed() -> void:
 	if not SaveManager or not SaveManager.has_save():
 		return
+	if SoundManager:
+		SoundManager.play_sfx("ui_confirm")
 
 	var loaded = SaveManager.load_game()
 	if not loaded:
@@ -150,6 +158,8 @@ func _on_continue_pressed() -> void:
 	get_tree().change_scene_to_file(fallback_scene)
 
 func _on_chapter_select_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_select")
 	_populate_chapter_list()
 	chapter_modal.visible = true
 	chapter_close_btn.grab_focus()
@@ -180,12 +190,16 @@ func _populate_chapter_list() -> void:
 
 func _launch_chapter(scene_path: String) -> void:
 	chapter_modal.visible = false
+	if SoundManager:
+		SoundManager.play_sfx("ui_confirm")
 	if SaveManager and SaveManager.has_save():
 		SaveManager.load_game()
 	if ResourceLoader.exists(scene_path):
 		get_tree().change_scene_to_file(scene_path)
 
 func _on_controls_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_select")
 	controls_modal.visible = true
 	controls_close_btn.grab_focus()
 

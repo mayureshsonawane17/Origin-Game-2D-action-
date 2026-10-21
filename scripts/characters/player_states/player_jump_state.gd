@@ -6,6 +6,8 @@ func enter(_msg: Dictionary = {}) -> void:
 	player.velocity.y = player.tuning.jump_velocity
 	player.jump_buffer_timer = 0.0
 	player.coyote_timer = 0.0
+	if SoundManager:
+		SoundManager.play_sfx("jump")
 
 func physics_update(delta: float) -> void:
 	# Variable jump height

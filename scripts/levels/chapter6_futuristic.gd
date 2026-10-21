@@ -39,6 +39,8 @@ var active_boss: BossController
 func _ready() -> void:
 	chapter_complete_panel.visible = false
 	boss_health_bar.visible = false
+	if SoundManager:
+		SoundManager.play_bgm("futuristic")
 
 	# Initial camera bounds (entire chapter)
 	if player and player.camera:

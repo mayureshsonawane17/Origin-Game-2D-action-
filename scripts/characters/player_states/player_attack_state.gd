@@ -33,12 +33,16 @@ func enter(msg: Dictionary = {}) -> void:
 			dmg = player.tuning.attack1_damage
 			knockback = player.tuning.attack1_knockback
 			hitstop = player.tuning.attack1_hitstop_frames
+			if SoundManager:
+				SoundManager.play_sfx("slash_1")
 		2:
 			player.animation_player.play("attack2")
 			startup = player.tuning.attack2_startup
 			dmg = player.tuning.attack2_damage
 			knockback = player.tuning.attack2_knockback
 			hitstop = player.tuning.attack2_hitstop_frames
+			if SoundManager:
+				SoundManager.play_sfx("slash_2")
 		3:
 			player.animation_player.play("attack3")
 			startup = player.tuning.attack3_startup
@@ -46,6 +50,8 @@ func enter(msg: Dictionary = {}) -> void:
 			knockback = player.tuning.attack3_knockback
 			hitstop = player.tuning.attack3_hitstop_frames
 			is_finisher = true
+			if SoundManager:
+				SoundManager.play_sfx("slash_finisher")
 
 	var is_counter = msg.get("is_counter", false)
 	if is_counter:

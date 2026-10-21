@@ -152,6 +152,8 @@ func _check_phase_transition() -> void:
 	if new_phase != current_phase:
 		current_phase = new_phase
 		boss_phase_changed.emit(current_phase, data.total_phases)
+		if SoundManager:
+			SoundManager.play_sfx("boss_phase")
 		_on_phase_entered(current_phase)
 
 func _on_phase_entered(phase: int) -> void:
@@ -161,6 +163,8 @@ func _on_phase_entered(phase: int) -> void:
 
 func _die() -> void:
 	is_dead = true
+	if SoundManager:
+		SoundManager.play_sfx("boss_roar")
 	boss_defeated.emit()
 	hurtbox.is_invulnerable = true
 	hurtbox.monitoring = false

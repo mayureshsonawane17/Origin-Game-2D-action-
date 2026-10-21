@@ -37,6 +37,8 @@ func _ready() -> void:
 	merged_eras_group.visible = false
 	deliberate_reset_btn.visible = false
 	deliberate_reset_btn.pressed.connect(_on_deliberate_reset_pressed)
+	if SoundManager:
+		SoundManager.play_bgm("fortress")
 
 	if player and player.camera:
 		player.camera.limit_left = 0
@@ -98,6 +100,8 @@ func _on_deliberate_reset_pressed() -> void:
 func trigger_deliberate_reset() -> void:
 	deliberate_resets += 1
 	ResetManager.trigger_reset("deliberate_loop_break_%d" % deliberate_resets, false)
+	if SoundManager:
+		SoundManager.play_sfx("loop_glitch")
 	
 	if active_boss:
 		active_boss.set_instability(deliberate_resets)

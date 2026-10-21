@@ -10,6 +10,8 @@ func enter(msg: Dictionary = {}) -> void:
 	timer = 0.0
 	enemy.visuals.set_pose("hurt")
 	enemy.hitbox.monitoring = false
+	if SoundManager:
+		SoundManager.play_sfx("enemy_hit")
 
 	var knockback = msg.get("knockback", Vector2.ZERO)
 	enemy.velocity = knockback

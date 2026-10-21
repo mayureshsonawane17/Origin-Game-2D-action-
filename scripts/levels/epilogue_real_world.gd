@@ -20,6 +20,8 @@ var credits_scroll_y: float = 0.0
 func _ready() -> void:
 	credits_panel.visible = false
 	fade_rect.modulate.a = 1.0
+	if SoundManager:
+		SoundManager.play_bgm("epilogue")
 
 	var tween = create_tween()
 	tween.tween_property(fade_rect, "modulate:a", 0.0, 1.5)

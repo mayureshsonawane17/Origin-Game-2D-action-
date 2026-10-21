@@ -107,6 +107,8 @@ func get_defense_multiplier() -> float:
 func switch_weapon() -> void:
 	if SaveManager:
 		var new_wep = SaveManager.switch_weapon()
+		if SoundManager:
+			SoundManager.play_sfx("switch_weapon")
 		if new_wep:
 			var spark = HIT_SPARK_SCENE.instantiate()
 			spark.global_position = global_position + Vector2(facing_direction * 12.0, -18.0)
@@ -184,6 +186,8 @@ func cast_magic() -> void:
 	current_mana -= tuning.magic_mana_cost
 	magic_cooldown_timer = tuning.magic_cooldown
 	mana_changed.emit(current_mana, float(tuning.max_mana))
+	if SoundManager:
+		SoundManager.play_sfx("magic_cast")
 
 	var proj = MAGIC_PROJECTILE_SCENE.instantiate() as MagicProjectile
 	proj.global_position = global_position + Vector2(facing_direction * 18.0, -18.0)
@@ -201,6 +205,8 @@ func perform_heal() -> void:
 	current_health = min(current_health + tuning.heal_amount, tuning.max_health)
 	health_changed.emit(current_health, tuning.max_health)
 	heal_charges_changed.emit(heal_charges, tuning.max_heal_charges)
+	if SoundManager:
+		SoundManager.play_sfx("heal")
 
 	# Visual heal pulse
 	_spawn_heal_fx()
@@ -228,6 +234,8 @@ func _on_hurtbox_hit_received(damage: int, knockback: Vector2, hitstop_frames: i
 		# PERFECT PARRY! Negate damage entirely and counter
 		apply_hitstop(tuning.counter_hitstop_frames)
 		flash_white(0.15)
+		if SoundManager:
+			SoundManager.play_sfx("parry")
 		var spark = HIT_SPARK_SCENE.instantiate()
 		spark.global_position = global_position + Vector2(facing_direction * 10, -18)
 		spark.spark_color = Color(1.0, 0.9, 0.2, 1.0) # Golden parry flash
@@ -248,6 +256,8 @@ func _on_hurtbox_hit_received(damage: int, knockback: Vector2, hitstop_frames: i
 		current_health = max(0, current_health - reduced_dmg)
 		health_changed.emit(current_health, tuning.max_health)
 		apply_hitstop(hitstop_frames)
+		if SoundManager:
+			SoundManager.play_sfx("block")
 		var spark = HIT_SPARK_SCENE.instantiate()
 		spark.global_position = global_position + Vector2(facing_direction * 10, -18)
 		spark.spark_color = Color(0.3, 0.7, 1.0, 1.0) # Blue block spark
@@ -260,6 +270,8 @@ func _on_hurtbox_hit_received(damage: int, knockback: Vector2, hitstop_frames: i
 	var final_damage = max(1, int(round(float(damage) * def_mult))) if damage > 0 else 0
 	current_health = max(0, current_health - final_damage)
 	health_changed.emit(current_health, tuning.max_health)
+	if SoundManager:
+		SoundManager.play_sfx("hurt")
 	
 	apply_hitstop(hitstop_frames)
 	flash_white(0.1)

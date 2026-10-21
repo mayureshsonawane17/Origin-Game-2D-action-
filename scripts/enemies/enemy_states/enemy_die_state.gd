@@ -13,6 +13,8 @@ func enter(msg: Dictionary = {}) -> void:
 	enemy.hurtbox.is_invulnerable = true
 	enemy.hurtbox.monitoring = false
 	enemy.hitbox.monitoring = false
+	if SoundManager:
+		SoundManager.play_sfx("enemy_die")
 
 	if enemy.has_attack_token:
 		AttackTokenManager.release_attack_token()
