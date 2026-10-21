@@ -43,10 +43,14 @@ func bind_boss(boss: BossController) -> void:
 				pip.color = Color(1.0, 0.85, 0.2)
 				pips_container.add_child(pip)
 
-	boss.boss_health_changed.connect(_on_health_changed)
-	boss.boss_armor_changed.connect(_on_armor_changed)
-	boss.boss_phase_changed.connect(_on_phase_changed)
-	boss.boss_defeated.connect(_on_defeated)
+	if not boss.boss_health_changed.is_connected(_on_health_changed):
+		boss.boss_health_changed.connect(_on_health_changed)
+	if not boss.boss_armor_changed.is_connected(_on_armor_changed):
+		boss.boss_armor_changed.connect(_on_armor_changed)
+	if not boss.boss_phase_changed.is_connected(_on_phase_changed):
+		boss.boss_phase_changed.connect(_on_phase_changed)
+	if not boss.boss_defeated.is_connected(_on_defeated):
+		boss.boss_defeated.connect(_on_defeated)
 
 	# Slide in
 	visible = true

@@ -177,6 +177,12 @@ func stop_bgm(fade_duration: float = 0.6) -> void:
 		tween.tween_property(_active_bgm_player, "volume_db", -60.0, fade_duration)
 		tween.tween_callback(_active_bgm_player.stop)
 
+func is_bgm_playing() -> bool:
+	return _active_bgm_player != null and _active_bgm_player.playing
+
+func get_current_bgm_name() -> String:
+	return _current_bgm_name
+
 func set_sfx_volume(val: float) -> void:
 	sfx_volume = clampf(val, 0.0, 1.0)
 

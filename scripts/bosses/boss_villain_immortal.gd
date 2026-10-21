@@ -15,6 +15,20 @@ var current_action: VillainAction = VillainAction.IDLE
 var action_timer: float = 0.0
 var hits_received_count: int = 0
 var instability_level: int = 0
+var boss_rush_mode: bool = false
+
+func enable_boss_rush(max_hp: int = 16) -> void:
+	boss_rush_mode = true
+	if data:
+		data = data.duplicate()
+		data.id = "VIL-FRACTURED"
+		data.display_name = "The Architect"
+		data.title = "Shattered Core of Twelve Eras"
+		data.max_health = max_hp
+		data.total_phases = 3
+	current_health = max_hp
+	boss_health_changed.emit(current_health, max_hp)
+	boss_phase_changed.emit(1, 3)
 
 func _ready() -> void:
 	if not data:
@@ -126,6 +140,16 @@ func _trigger_warp_shockwave() -> void:
 
 func _on_hurtbox_hit_received(_dmg: int, _knockback: Vector2, hitstop: int, _attacker: Node, _is_finisher: bool) -> void:
 	if is_dead:
+		return
+
+	if boss_rush_mode:
+		# In Boss Rush, the hero's accumulated 12-era loop resonance fractures the gemstone barrier!
+		super._on_hurtbox_hit_received(_dmg, _knockback, hitstop, _attacker, _is_finisher)
+		var max_hp = data.max_health if data else 16
+		var progress = 1.0 - (float(current_health) / float(max_hp))
+		var new_instability = clampi(int(progress * 3.0), 0, 3)
+		if new_instability != instability_level:
+			set_instability(new_instability)
 		return
 
 	# IMMORTAL: Attacks visibly do NO damage!

@@ -116,6 +116,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "ERA / CHAPTER SELECT"
 
+[node name="BossRushButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BOSS RUSH [13 Boss Gauntlet]"
+
 [node name="ControlsButton" type="Button" parent="MainLayout/MenuVBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8

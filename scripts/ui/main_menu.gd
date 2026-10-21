@@ -57,6 +57,7 @@ const CHAPTER_SCENES: Array[Dictionary] = [
 @onready var new_game_btn: Button = $MainLayout/MenuVBox/NewGameButton
 @onready var continue_btn: Button = $MainLayout/MenuVBox/ContinueButton
 @onready var chapter_select_btn: Button = $MainLayout/MenuVBox/ChapterSelectButton
+@onready var boss_rush_btn: Button = $MainLayout/MenuVBox/BossRushButton
 @onready var controls_btn: Button = $MainLayout/MenuVBox/ControlsButton
 @onready var quit_btn: Button = $MainLayout/MenuVBox/QuitButton
 
@@ -81,6 +82,7 @@ func _ready() -> void:
 	new_game_btn.pressed.connect(_on_new_game_pressed)
 	continue_btn.pressed.connect(_on_continue_pressed)
 	chapter_select_btn.pressed.connect(_on_chapter_select_pressed)
+	boss_rush_btn.pressed.connect(_on_boss_rush_pressed)
 	controls_btn.pressed.connect(_on_controls_pressed)
 	quit_btn.pressed.connect(_on_quit_pressed)
 
@@ -105,6 +107,12 @@ func _refresh_menu_state() -> void:
 		continue_btn.text = "CONTINUE [Loop #%d]" % reset_count
 	else:
 		continue_btn.text = "CONTINUE [No Save]"
+
+	var best_rush_time = SaveManager.get_best_boss_rush_time() if SaveManager else -1.0
+	if best_rush_time > 0.0:
+		boss_rush_btn.text = "BOSS RUSH [Best: %s]" % SaveManager.format_time(best_rush_time)
+	else:
+		boss_rush_btn.text = "BOSS RUSH [13 Boss Gauntlet]"
 
 	# Focus first available button
 	if has_save_file:
@@ -196,6 +204,11 @@ func _launch_chapter(scene_path: String) -> void:
 		SaveManager.load_game()
 	if ResourceLoader.exists(scene_path):
 		get_tree().change_scene_to_file(scene_path)
+
+func _on_boss_rush_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_confirm")
+	get_tree().change_scene_to_file("res://scenes/levels/boss_rush.tscn")
 
 func _on_controls_pressed() -> void:
 	if SoundManager:

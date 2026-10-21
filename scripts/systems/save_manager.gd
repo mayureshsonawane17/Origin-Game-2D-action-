@@ -11,6 +11,7 @@ const SAVE_PATH: String = "user://origin_savegame.json"
 var skill_tree: SkillTreeManager
 var current_save_data: Dictionary = {}
 var max_unlocked_chapter: int = 1
+var best_boss_rush_time: float = -1.0
 
 # In-memory session equipment state
 var primary_weapon: EquipmentItem
@@ -34,8 +35,11 @@ func _peek_unlocked_chapter() -> void:
 		var text = file.get_as_text()
 		file.close()
 		var parsed = JSON.parse_string(text)
-		if parsed is Dictionary and parsed.has("unlocked_chapter"):
-			max_unlocked_chapter = clampi(int(parsed["unlocked_chapter"]), 1, 7)
+		if parsed is Dictionary:
+			if parsed.has("unlocked_chapter"):
+				max_unlocked_chapter = clampi(int(parsed["unlocked_chapter"]), 1, 7)
+			if parsed.has("best_boss_rush_time"):
+				best_boss_rush_time = float(parsed["best_boss_rush_time"])
 
 func _load_initial_default_equipment() -> void:
 	if ResourceLoader.exists("res://data/equipment/primordial_blade.tres"):
@@ -65,6 +69,7 @@ func save_game(checkpoint_pos: Vector2 = Vector2.ZERO, scene_path: String = "", 
 		"timestamp": Time.get_unix_time_from_system(),
 		"reset_count": ResetManager.reset_count if ResetManager else 0,
 		"unlocked_chapter": max_unlocked_chapter,
+		"best_boss_rush_time": best_boss_rush_time,
 		"player": {
 			"health": player.current_health if player else 5,
 			"mana": player.current_mana if player else 50.0,
@@ -129,11 +134,15 @@ func load_game() -> bool:
 	if current_save_data.has("unlocked_chapter"):
 		max_unlocked_chapter = clampi(int(current_save_data["unlocked_chapter"]), 1, 7)
 
-	# 3. Restore skills
+	# 3. Restore best boss rush time
+	if current_save_data.has("best_boss_rush_time"):
+		best_boss_rush_time = float(current_save_data["best_boss_rush_time"])
+
+	# 4. Restore skills
 	if current_save_data.has("skills"):
 		skill_tree.deserialize(current_save_data["skills"])
 
-	# 4. Restore equipment
+	# 5. Restore equipment
 	if current_save_data.has("equipment"):
 		var eq = current_save_data["equipment"]
 		if eq.has("primary_id") and not eq["primary_id"].is_empty():
@@ -154,6 +163,45 @@ func load_game() -> bool:
 	print("[SaveManager] Game successfully loaded. Max Unlocked Chapter: %d" % max_unlocked_chapter)
 	game_loaded.emit()
 	return true
+
+func record_boss_rush_time(time_seconds: float) -> bool:
+	if time_seconds <= 0.0:
+		return false
+	var is_new_record: bool = false
+	if best_boss_rush_time < 0.0 or time_seconds < best_boss_rush_time:
+		best_boss_rush_time = time_seconds
+		is_new_record = true
+		_persist_boss_rush_time()
+	return is_new_record
+
+func get_best_boss_rush_time() -> float:
+	return best_boss_rush_time
+
+func _persist_boss_rush_time() -> void:
+	var save_dict: Dictionary = {}
+	if FileAccess.file_exists(SAVE_PATH):
+		var read_file = FileAccess.open(SAVE_PATH, FileAccess.READ)
+		if read_file:
+			var text = read_file.get_as_text()
+			read_file.close()
+			var parsed = JSON.parse_string(text)
+			if parsed is Dictionary:
+				save_dict = parsed
+	save_dict["best_boss_rush_time"] = best_boss_rush_time
+	if not save_dict.has("unlocked_chapter"):
+		save_dict["unlocked_chapter"] = max_unlocked_chapter
+	var write_file = FileAccess.open(SAVE_PATH, FileAccess.WRITE)
+	if write_file:
+		write_file.store_string(JSON.stringify(save_dict, "\t"))
+		write_file.close()
+
+static func format_time(seconds: float) -> String:
+	if seconds < 0.0:
+		return "--:--.--"
+	var mins: int = int(seconds) / 60
+	var secs: int = int(seconds) % 60
+	var centis: int = int((seconds - int(seconds)) * 100)
+	return "%02d:%02d.%02d" % [mins, secs, centis]
 
 func unlock_chapter(chapter_num: int) -> void:
 	if chapter_num > max_unlocked_chapter:

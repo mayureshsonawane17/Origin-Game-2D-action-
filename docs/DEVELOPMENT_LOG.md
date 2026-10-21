@@ -1,5 +1,50 @@
 # Development Log
 
+## Session 13: Dedicated Boss Rush / Time-Attack Mode Integration
+- **Date:** 2026-10-21
+- **Goal:** Build a complete, dedicated Boss Rush / Time-Attack Mode sequencing through all 13 boss encounters in ORIGIN with dynamic era visual theming, era BGM transitions, live speedrun clock, SaveManager personal best records, intermission healing restocks, The Architect fracture mechanics, and rank scoring.
+- **Actions Taken:**
+  - Designed and created `BossRush` level controller (`scenes/levels/boss_rush.tscn` / `scripts/levels/boss_rush.gd`):
+    - Configured all 13 boss encounters across 6 eras + The Fortress:
+      1. `PRE-01`: Primal Stalker
+      2. `PRE-ERA`: Titan of the Deep Earth (3 phases)
+      3. `MED-01`: Sir Gareth the Ironclad
+      4. `MED-ERA`: Lord Malakor (3 phases)
+      5. `HIST-01`: Kensei Jinzo
+      6. `HIST-ERA`: Shogun Kageyasu (3 phases)
+      7. `IND-01`: Chief Overseer Brant
+      8. `IND-ERA`: Baron Von Steinhardt (3 phases)
+      9. `MOD-01`: Commander Reyes
+      10. `MOD-ERA`: General Vance (3 phases)
+      11. `FUT-01`: Unit 73 Infiltrator
+      12. `FUT-ERA`: Unit 00-NEXUS (3 phases)
+      13. `VIL-IMMORTAL`: The Architect (Final Loop fracture showdown)
+    - Tactical arena geometry: solid ground at Y: 230, boundary collision walls (-10, 650), tactical step pillars at (90, 165) and (470, 165), center pedestal at (280, 195).
+    - Camera constraints: left 0, right 640, top -60, bottom 290.
+  - Implemented procedural dynamic arena backdrop (`scripts/levels/boss_rush_background.gd`):
+    - Dynamically changes sky gradients, background silhouettes (mountains, spires, pagodas, smokestacks, skyscrapers, cyber grid, crystal fissures), and animated floating ambient motes to match the active era.
+  - Extended `BossVillainImmortal` (`scripts/bosses/boss_villain_immortal.gd`):
+    - Added `enable_boss_rush(max_hp)` and `boss_rush_mode` support.
+    - Concentrated 12-era loop resonance shatters the villain's gemstone barrier, allowing direct combat damage and escalating instability level as health drops down to defeat while preserving 100% of Chapter 7 story behavior.
+  - Implemented Speedrun & Time-Attack persistence in `SaveManager` (`scripts/systems/save_manager.gd`):
+    - Added `best_boss_rush_time`, `record_boss_rush_time()`, `get_best_boss_rush_time()`, `_persist_boss_rush_time()`, and `format_time()`.
+    - Speedrun timer pauses during GBA-style title card intros so times reflect pure combat execution.
+  - Implemented arcade intermission restock and skip:
+    - Defeating a boss triggers +2 Health, +1 Heal charge, 100% Mana refill.
+    - 3-second intermission countdown with instant skip via Attack or Jump key to keep speedrun tempo brisk.
+  - Implemented Victory & Defeat modals with rank calculation:
+    - S Rank (< 6m), A Rank (< 9m), B Rank (< 12m), C Rank (>= 12m).
+    - Highlights new personal best speedrun records.
+    - Defeat modal details exact boss encounter, era, and survival time with instant gauntlet retry.
+  - Integrated `BOSS RUSH` button into `MainMenu` (`scenes/ui/main_menu.tscn` / `scripts/ui/main_menu.gd`):
+    - Shows live personal best record badge (`BOSS RUSH [Best: 05:14.22]`).
+    - One-click navigation to temporal gauntlet.
+  - Added public BGM query helpers `is_bgm_playing()` and `get_current_bgm_name()` to `SoundManager`.
+  - Added connection guards in `BossHealthBar` (`scripts/ui/boss_health_bar.gd`) to ensure multi-boss re-binding is completely idempotent and warning-free.
+  - Authored automated integration test suite `tests/test_boss_rush.tscn` (`tests/test_boss_rush.gd`) validating arena nodes, all 13 encounter descriptors, SaveManager timing/persistence, intermission restock/progression, dynamic background/BGM switching, and The Architect fracture victory (6/6 passing, 100%).
+  - Executed full headless regression testing across all 13 test suites: **84/84 tests passing (100% green)**.
+  - Re-exported standalone macOS PCK bundle (`builds/macOS/ORIGIN.pck` and synced into `.app`).
+
 ## Session 12: Procedural Sound & Audio Engine Integration
 - **Date:** 2026-10-21
 - **Goal:** Build a complete, 100% self-contained procedural retro/chiptune audio engine (`SoundManager`) with polyphonic SFX synthesis, dual-channel crossfading BGM themes for all eras, volume/mute pipelines, and seamless gameplay audio integration.
