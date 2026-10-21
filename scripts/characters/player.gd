@@ -9,11 +9,13 @@ signal mana_changed(current: float, max_mp: float)
 signal heal_charges_changed(current: int, max_charges: int)
 signal dodge_cooldown_updated(remaining: float, total: float)
 signal player_died()
+signal hit_landed(target: Hurtbox, damage: int, is_finisher: bool)
 
 const MAGIC_PROJECTILE_SCENE = preload("res://scenes/characters/magic_projectile.tscn")
 const HIT_SPARK_SCENE = preload("res://scenes/characters/hit_spark.tscn")
 
 @export var tuning: CombatTuning
+@export var character_id: String = "auto" # "auto" (from SaveManager), "hero", or "elysia"
 
 @onready var state_machine: StateMachine = $StateMachine
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -46,7 +48,36 @@ func _ready() -> void:
 		if not tuning:
 			tuning = CombatTuning.new()
 
-	current_health = tuning.max_health
+	# Resolve character selection
+	if character_id == "auto":
+		if SaveManager:
+			character_id = SaveManager.get_selected_character()
+		else:
+			character_id = "hero"
+
+	# Apply character-specific stat tuning
+	if character_id == "elysia":
+		# Duplicate tuning resource to avoid modifying global .tres
+		tuning = tuning.duplicate()
+		tuning.run_speed = 125.0
+		tuning.jump_velocity = -315.0
+		tuning.max_health = 4
+		tuning.max_mana = 60
+		tuning.dodge_cooldown = 0.45
+
+		var visuals = visual_root.get_node_or_null("PlayerVisuals")
+		if visuals and "character_id" in visuals:
+			visuals.character_id = "elysia"
+	else:
+		var visuals = visual_root.get_node_or_null("PlayerVisuals")
+		if visuals and "character_id" in visuals:
+			visuals.character_id = "hero"
+
+	var effective_max_hp = tuning.max_health
+	if SaveManager and SaveManager.has_relic_perk("clay_core"):
+		effective_max_hp += 1
+
+	current_health = effective_max_hp
 	current_mana = float(tuning.max_mana)
 	heal_charges = tuning.max_heal_charges
 
@@ -54,13 +85,16 @@ func _ready() -> void:
 	hitbox.attacker_owner = self
 
 	# Emit initial state for HUD
-	emit_signal("health_changed", current_health, tuning.max_health)
+	emit_signal("health_changed", current_health, effective_max_hp)
 	emit_signal("mana_changed", current_mana, float(tuning.max_mana))
 	emit_signal("heal_charges_changed", heal_charges, tuning.max_heal_charges)
 
 	# Restore state from SaveManager if active save data exists
 	if SaveManager and not SaveManager.current_save_data.is_empty():
 		SaveManager.apply_to_player(self)
+
+func on_hit_landed(target: Hurtbox, damage_dealt: int, is_finisher: bool) -> void:
+	hit_landed.emit(target, damage_dealt, is_finisher)
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("debug_hitbox"):
@@ -102,6 +136,8 @@ func get_defense_multiplier() -> float:
 		var mods = SaveManager.skill_tree.get_total_stat_modifiers()
 		if mods.has("bonus_defense"):
 			mult -= float(mods["bonus_defense"])
+	if SaveManager and SaveManager.has_relic_perk("brass_chassis"):
+		mult *= 0.85
 	return max(0.2, mult)
 
 func switch_weapon() -> void:
@@ -174,8 +210,14 @@ func apply_gravity(delta: float) -> void:
 func can_dodge() -> bool:
 	return dodge_cooldown_timer <= 0.0 and not is_dead
 
+func get_magic_mana_cost() -> int:
+	var cost = tuning.magic_mana_cost
+	if SaveManager and SaveManager.has_relic_perk("spirit_ribbon"):
+		cost = 10
+	return cost
+
 func can_cast_magic() -> bool:
-	return magic_cooldown_timer <= 0.0 and current_mana >= tuning.magic_mana_cost and not is_dead
+	return magic_cooldown_timer <= 0.0 and current_mana >= get_magic_mana_cost() and not is_dead
 
 func can_heal() -> bool:
 	return heal_charges > 0 and current_health < tuning.max_health and heal_cooldown_timer <= 0.0 and not is_dead
@@ -183,7 +225,7 @@ func can_heal() -> bool:
 func cast_magic() -> void:
 	if not can_cast_magic():
 		return
-	current_mana -= tuning.magic_mana_cost
+	current_mana -= get_magic_mana_cost()
 	magic_cooldown_timer = tuning.magic_cooldown
 	mana_changed.emit(current_mana, float(tuning.max_mana))
 	if SoundManager:
@@ -192,8 +234,8 @@ func cast_magic() -> void:
 	var proj = MAGIC_PROJECTILE_SCENE.instantiate() as MagicProjectile
 	proj.global_position = global_position + Vector2(facing_direction * 18.0, -18.0)
 	proj.direction = Vector2(facing_direction, 0.0)
-	proj.speed = tuning.projectile_speed
-	proj.damage = tuning.projectile_damage
+	proj.speed = tuning.projectile_speed if not (SaveManager and SaveManager.has_relic_perk("ion_cell")) else 280.0
+	proj.damage = tuning.projectile_damage if not (SaveManager and SaveManager.has_relic_perk("ion_cell")) else (tuning.projectile_damage + 1)
 	proj.caster = self
 	get_parent().add_child(proj)
 

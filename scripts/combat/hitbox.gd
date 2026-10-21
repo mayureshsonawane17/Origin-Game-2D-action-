@@ -3,6 +3,8 @@ extends Area2D
 
 ## Hitbox: Area that inflicts damage, knockback, and hit-stop on Hurtboxes.
 
+signal hit_landed(target: Hurtbox, damage: int, is_finisher: bool)
+
 static var debug_show_hitboxes: bool = false
 
 @export var damage: int = 1
@@ -39,6 +41,9 @@ func _on_area_entered(area: Area2D) -> void:
 		var knockback_vec = Vector2(dir * knockback_force, -knockback_force * 0.4 if is_finisher else -20.0)
 		
 		hurtbox.receive_hit(damage, knockback_vec, hitstop_frames, attacker_owner, is_finisher)
+		hit_landed.emit(hurtbox, damage, is_finisher)
+		if attacker_owner and attacker_owner.has_method("on_hit_landed"):
+			attacker_owner.on_hit_landed(hurtbox, damage, is_finisher)
 
 func _process(_delta: float) -> void:
 	if debug_show_hitboxes:

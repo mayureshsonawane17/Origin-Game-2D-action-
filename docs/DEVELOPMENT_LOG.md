@@ -1,6 +1,36 @@
 # Development Log
 
-## Session 15: Full Tier 1 Regular Boss Expansion Completion (IND-02, MOD-02, FUT-02)
+## Session 16: Endgame Systems, Challenge Portals, Relic Crafting, Arcade Combo Counter, Elysia Playable Character & Accessibility Integration
+- **Date:** 2026-10-21
+- **Goal:** Complete all remaining endgame systems, secondary playable character, secret challenge portals in campaign chapters, relic perk crafting system, arcade combo counter, virtual mobile touch controls, options/accessibility suite, and multiplatform web/desktop export presets with 100% test verification.
+- **Actions Taken:**
+  - **Secondary Playable Character — Elysia the Chrono-Wanderer (`scenes/characters/chrono_wanderer.tscn` / `scripts/characters/player.gd`):**
+    - High-agility, high-mobility combat design: 125.0 Run Speed, -315.0 Jump Velocity, 60 Max Mana, 0.45s Blink Phase Shift cooldown.
+    - Flurry dual chronoblades attack chain and tachyon needle magic projectile.
+    - Procedural visual character rendering in `PlayerVisuals` with silver-amethyst flowing hair, violet/cyan temporal cloak, dual chronoblades, and tachyon gem.
+    - Added character selection toggle to `MainMenu` and `SaveManager.selected_character` persistence ("hero" vs "elysia").
+  - **Arcade Combo Counter & Score Multiplier (`scenes/ui/combo_counter.tscn` / `scripts/ui/combo_counter.gd`):**
+    - Beat-'em-up Dan-the-Man feel with hit streak tracker inside a decaying 2.5s window.
+    - 5 dynamic tiers: `GOOD!` (5+ hits, 1.25x), `GREAT!` (10+ hits, 1.5x), `EXCELLENT!` (20+ hits, 2.0x), `UNSTOPPABLE!` (35+ hits, 3.0x).
+    - Momentum reward: Refunds +3 MP to player every 5 hits past 10 combo.
+    - Animated scale pop punch tween and smooth fade transitions; integrated into `scenes/ui/hud.tscn` and `scripts/systems/hud.gd`.
+  - **Secret Challenge Portals & Campaign Return Routing (`scenes/levels/challenge_portal.tscn` / `scripts/levels/challenge_portal.gd`):**
+    - Swirling dimensional rifts integrated into Chapters 1–6 connecting each era to its Tier 1 Regular Boss arena.
+    - Integrated coordinate return pipeline in `SaveManager` (`set_challenge_return`, `get_challenge_return`), returning players smoothly to their exact campaign coordinates after victory.
+  - **Boss Relic Crafting & Perk System (`scenes/ui/relic_menu.tscn` / `scripts/ui/relic_menu.gd`):**
+    - Complete relic forge UI accessible from Main Menu and HUD listing all 6 boss relics.
+    - Stat perk applications: `Clay Core` (+1 Max HP), `Gargoyle Talons` (+1 Aerial Damage), `Spirit Ribbon` (-5 Spell Mana Cost), `Brass Chassis` (15% Damage Reduction), `Riot Visor` (+0.06s Dodge Iframes), `Ion Cell` (+30% Plasma Magic Velocity & +1 Damage).
+  - **Settings & Accessibility Screen (`scenes/ui/options_menu.tscn` / `scripts/ui/options_menu.gd`):**
+    - Master, SFX, and BGM volume sliders with live bus attenuation.
+    - Photosensitivity "Reduce Flashing" mode, Screen Shake toggle, Touch Controls toggle, and Fullscreen toggle.
+  - **Virtual Mobile Touch Controls (`scenes/ui/touch_controls.tscn` / `scripts/ui/touch_controls.gd`):**
+    - On-screen touch D-pad (`◀`, `▶`) and Action buttons (`JUMP`, `ATTACK`, `MAGIC`, `DODGE`, `HEAL`) emulating native Godot inputs.
+  - **Multiplatform Export Presets (`export_presets.cfg`):**
+    - Configured Web (HTML5), macOS, and Windows Desktop presets.
+    - Verified export pack building (`builds/web/ORIGIN.pck` and `builds/macOS/ORIGIN.pck`).
+  - **Automated Integration Testing:**
+    - Authored `tests/test_endgame_features.tscn` (`tests/test_endgame_features.gd`) validating portals, relics, combo counter, options, touch controls, and Elysia character (7/7 tests passing, 100%).
+    - Executed full headless regression testing across all 15 test suites: **101/101 tests passing (100% green)**.
 - **Date:** 2026-10-21
 - **Goal:** Complete the remaining Tier 1 Regular Bosses from `docs/BOSS_ROSTER.md` across Industrial, Modern, and Futuristic eras, providing full 6-era Tier 1 coverage with custom mechanics, hazards, weaknesses, telegraphs, and automated tests.
 - **Actions Taken:**

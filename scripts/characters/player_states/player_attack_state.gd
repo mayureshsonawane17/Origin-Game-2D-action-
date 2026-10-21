@@ -72,6 +72,10 @@ func enter(msg: Dictionary = {}) -> void:
 		if mods.has("bonus_knockback"):
 			knockback += float(mods["bonus_knockback"])
 
+	# Relic Perk: Gargoyle Talons (+1 damage on aerial/jump attacks)
+	if not player.is_on_floor() and SaveManager and SaveManager.has_relic_perk("gargoyle_talons"):
+		dmg += 1
+
 	player.hitbox.damage = dmg
 	player.hitbox.knockback_force = knockback
 	player.hitbox.hitstop_frames = hitstop

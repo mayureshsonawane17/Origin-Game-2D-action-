@@ -8,6 +8,7 @@ extends Node2D
 @export var weapon_swing_angle: float = 0.0
 @export var show_slash_arc: bool = false
 @export var slash_tier: int = 1 # 1: light, 2: medium, 3: finisher
+@export var character_id: String = "hero" # "hero" or "elysia"
 
 var anim_time: float = 0.0
 
@@ -47,7 +48,7 @@ func _draw() -> void:
 		_draw_collapsed_pose()
 		return
 
-	# Color Palette (Prehistoric/Adventurer Palette)
+	# Color Palette Selection
 	var col_skin = Color(0.92, 0.72, 0.58)
 	var col_hair = Color(0.18, 0.14, 0.16)
 	var col_headband = Color(0.2, 0.55, 0.95)
@@ -59,8 +60,25 @@ func _draw() -> void:
 	var col_blade = Color(0.85, 0.88, 0.95)
 	var col_hilt = Color(0.85, 0.65, 0.2)
 
+	if character_id == "elysia":
+		# Elysia the Chrono-Wanderer (Amethyst / Silver / Cyan temporal aesthetic)
+		col_skin = Color(0.94, 0.76, 0.65)
+		col_hair = Color(0.88, 0.82, 0.96) # Silver-amethyst hair
+		col_headband = Color(0.68, 0.28, 0.95) # Chrono circlet
+		col_tunic = Color(0.22, 0.16, 0.36) # Deep temporal mantle
+		col_belt = Color(0.88, 0.75, 0.32) # Gilded chronometer buckle
+		col_gem = Color(0.15, 0.95, 0.90) # Tachyon focal gem
+		col_pants = Color(0.14, 0.12, 0.24)
+		col_boots = Color(0.30, 0.20, 0.40)
+		col_blade = Color(0.35, 0.95, 1.0) # Dual cyan chronoblades
+		col_hilt = Color(0.65, 0.35, 0.90)
+
 	# 1. Back Arm / Shoulder
 	draw_rect(Rect2(-8, -26 + body_y_offset, 4, 8), col_tunic.darkened(0.2))
+	if character_id == "elysia":
+		# Dual chronoblade off-hand dagger
+		draw_rect(Rect2(-11, -22 + body_y_offset, 3, 2), col_hilt)
+		draw_rect(Rect2(-18, -21 + body_y_offset, 7, 2), col_blade)
 
 	# 2. Legs & Boots
 	# Left Leg

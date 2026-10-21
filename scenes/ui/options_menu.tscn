@@ -1,0 +1,138 @@
+[gd_scene load_steps=3 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/options_menu.gd" id="1_opt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
+bg_color = Color(0.08, 0.1, 0.14, 0.95)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.2, 0.7, 0.9, 0.8)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="OptionsMenu" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_opt")
+
+[node name="Dimmer" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.02, 0.03, 0.05, 0.8)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(340, 220)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
+theme_override_font_sizes/font_size = 12
+text = "SETTINGS & ACCESSIBILITY"
+horizontal_alignment = 1
+
+[node name="AudioLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 8
+text = "AUDIO CONTROLS"
+
+[node name="AudioGrid" type="GridContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Master Volume:"
+
+[node name="MasterSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioGrid"]
+custom_minimum_size = Vector2(180, 12)
+layout_mode = 2
+value = 100.0
+
+[node name="SFXLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "SFX Volume:"
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioGrid"]
+custom_minimum_size = Vector2(180, 12)
+layout_mode = 2
+value = 100.0
+
+[node name="BGMLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BGM Volume:"
+
+[node name="BGMSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioGrid"]
+custom_minimum_size = Vector2(180, 12)
+layout_mode = 2
+value = 80.0
+
+[node name="AccessLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+theme_override_font_sizes/font_size = 8
+text = "ACCESSIBILITY & DISPLAY"
+
+[node name="AccessGrid" type="GridContainer" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_constants/h_separation = 16
+theme_override_constants/v_separation = 4
+columns = 2
+
+[node name="FlashCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Reduce Flashing"
+
+[node name="ShakeCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+button_pressed = true
+text = "Screen Shake"
+
+[node name="TouchCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Touch Controls"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Fullscreen"
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/VBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "CONFIRM & CLOSE"

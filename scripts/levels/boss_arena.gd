@@ -76,10 +76,38 @@ func _start_fight() -> void:
 func _on_boss_defeated() -> void:
 	await get_tree().create_timer(1.0).timeout
 	if current_boss and current_boss.data:
-		reward_label.text = "REWARD ACQUIRED: %s\n\"The gemstone shifts, recording this outcome.\"" % current_boss.data.reward_id.to_upper()
+		var reward = current_boss.data.reward_id
+		if SaveManager:
+			SaveManager.add_relic(reward)
+		var return_hint = "\n[Press Attack / Jump to Return to Chapter]" if (SaveManager and SaveManager.has_challenge_return()) else ""
+		reward_label.text = "REWARD ACQUIRED: %s\n\"The gemstone shifts, recording this outcome.\"%s" % [reward.to_upper(), return_hint]
 	victory_panel.visible = true
 
 func _on_retry_pressed() -> void:
+	if SaveManager and SaveManager.has_challenge_return():
+		_on_return_to_campaign_pressed()
+	else:
+		ResetManager.trigger_reset("boss_replay")
+
+func _on_return_to_campaign_pressed() -> void:
+	if SaveManager and SaveManager.has_challenge_return():
+		var ret = SaveManager.get_challenge_return()
+		var scene_path = str(ret.get("scene_path", ""))
+		var px = float(ret.get("pos_x", 0.0))
+		var py = float(ret.get("pos_y", 0.0))
+		SaveManager.clear_challenge_return()
+
+		if not scene_path.is_empty() and ResourceLoader.exists(scene_path):
+			var next_scene = load(scene_path).instantiate()
+			get_tree().root.add_child(next_scene)
+			get_tree().current_scene.queue_free()
+			get_tree().current_scene = next_scene
+
+			var player_node = next_scene.find_child("Player") as Player
+			if player_node:
+				player_node.global_position = Vector2(px, py)
+			return
+
 	ResetManager.trigger_reset("boss_replay")
 
 func _on_switch_boss_pressed() -> void:

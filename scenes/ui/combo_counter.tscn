@@ -1,0 +1,53 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/combo_counter.gd" id="1_combo"]
+
+[node name="ComboCounter" type="Control"]
+custom_minimum_size = Vector2(70, 36)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 70.0
+offset_bottom = 36.0
+mouse_filter = 2
+script = ExtResource("1_combo")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 1
+
+[node name="Header" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
+theme_override_constants/separation = 4
+
+[node name="TierLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.85, 0.88, 0.92, 1)
+theme_override_font_sizes/font_size = 8
+text = "COMBO"
+
+[node name="MultLabel" type="Label" parent="VBoxContainer/Header"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.65, 0.75, 0.88, 1)
+theme_override_font_sizes/font_size = 8
+text = "1.00x"
+
+[node name="HitLabel" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 13
+text = "0 HITS"
+
+[node name="TimerBar" type="ProgressBar" parent="VBoxContainer"]
+custom_minimum_size = Vector2(60, 2)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 2.5
+value = 2.5
+show_percentage = false

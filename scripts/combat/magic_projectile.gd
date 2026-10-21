@@ -38,6 +38,8 @@ func _on_area_entered(area: Area2D) -> void:
 			return
 		var knockback = Vector2(direction.x * 120.0, -30.0)
 		hurtbox.receive_hit(damage, knockback, 3, caster, false)
+		if caster and caster.has_method("on_hit_landed"):
+			caster.on_hit_landed(hurtbox, damage, false)
 		_explode(true)
 
 func _explode(hit_enemy: bool) -> void:

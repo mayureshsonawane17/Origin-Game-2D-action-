@@ -9,6 +9,7 @@ extends CanvasLayer
 @onready var heal_label: Label = $MarginContainer/VBoxContainer/TopBar/HealContainer/HealLabel
 @onready var dodge_progress: ProgressBar = $MarginContainer/VBoxContainer/TopBar/DodgeContainer/DodgeBar
 @onready var loop_label: Label = $MarginContainer/VBoxContainer/TopBar/LoopLabel
+@onready var combo_counter = $MarginContainer/VBoxContainer/ComboRow/ComboCounter
 
 @onready var defeat_panel: Control = $DefeatPanel
 @onready var defeat_loop_label: Label = $DefeatPanel/CenterContainer/VBox/DefeatLoopLabel
@@ -35,12 +36,23 @@ func _ready() -> void:
 		player.dodge_cooldown_updated.connect(_on_player_dodge_cooldown_updated)
 		player.player_died.connect(_on_player_died)
 
+		if combo_counter:
+			combo_counter.bind_player(player)
+
 		# Initial values
 		_on_player_health_changed(player.current_health, player.tuning.max_health)
 		_on_player_mana_changed(player.current_mana, float(player.tuning.max_mana))
 		_on_player_heal_charges_changed(player.heal_charges, player.tuning.max_heal_charges)
 
 	_setup_touch_buttons()
+
+	# Synchronize touch controls visibility
+	var show_touch = false
+	if SaveManager and SaveManager.touch_controls_enabled:
+		show_touch = true
+	elif DisplayServer.is_touchscreen_available():
+		show_touch = true
+	touch_controls.visible = show_touch
 
 func _update_loop_display() -> void:
 	loop_label.text = "LOOP #%d" % ResetManager.reset_count

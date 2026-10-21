@@ -8,6 +8,7 @@ extends Node2D
 
 const BOSS_GARETH_SCENE = preload("res://scenes/bosses/boss_sir_gareth.tscn")
 const BOSS_MALAKOR_SCENE = preload("res://scenes/bosses/boss_lord_malakor.tscn")
+const CHALLENGE_PORTAL_SCENE = preload("res://scenes/levels/challenge_portal.tscn")
 
 @onready var player: Player = $Player
 @onready var hud: GameHUD = $HUD
@@ -50,6 +51,7 @@ func _ready() -> void:
 		player.camera.limit_bottom = 290
 
 	exit_portal.body_entered.connect(_on_exit_portal_entered)
+	_spawn_challenge_portal()
 
 	await get_tree().create_timer(0.6).timeout
 	if not miniboss_triggered:
@@ -188,3 +190,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if chapter_complete_panel.visible:
 		if event.is_action_pressed("attack") or event.is_action_pressed("jump"):
 			advance_to_next_chapter()
+
+func _spawn_challenge_portal() -> void:
+	var portal = CHALLENGE_PORTAL_SCENE.instantiate()
+	portal.global_position = Vector2(580, 230)
+	portal.target_boss_type = "gargoyle_patriarch"
+	portal.portal_era = "Medieval"
+	portal.required_relic_id = "gargoyle_talons"
+	portal.portal_color = Color(0.55, 0.62, 0.72, 1.0)
+	add_child(portal)
+

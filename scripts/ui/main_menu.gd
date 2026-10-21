@@ -54,11 +54,14 @@ const CHAPTER_SCENES: Array[Dictionary] = [
 
 # UI Nodes
 @onready var loop_badge: Label = $MainLayout/Header/LoopBadge
+@onready var character_btn: Button = $MainLayout/MenuVBox/CharacterButton
 @onready var new_game_btn: Button = $MainLayout/MenuVBox/NewGameButton
 @onready var continue_btn: Button = $MainLayout/MenuVBox/ContinueButton
 @onready var chapter_select_btn: Button = $MainLayout/MenuVBox/ChapterSelectButton
 @onready var boss_rush_btn: Button = $MainLayout/MenuVBox/BossRushButton
+@onready var relic_btn: Button = $MainLayout/MenuVBox/RelicButton
 @onready var controls_btn: Button = $MainLayout/MenuVBox/ControlsButton
+@onready var options_btn: Button = $MainLayout/MenuVBox/OptionsButton
 @onready var quit_btn: Button = $MainLayout/MenuVBox/QuitButton
 
 # Modal Overlays
@@ -73,17 +76,25 @@ const CHAPTER_SCENES: Array[Dictionary] = [
 @onready var confirm_yes_btn: Button = $ConfirmModal/Center/Panel/Margin/VBox/ButtonHBox/YesButton
 @onready var confirm_no_btn: Button = $ConfirmModal/Center/Panel/Margin/VBox/ButtonHBox/NoButton
 
+@onready var options_modal: Control = $OptionsMenu
+@onready var relic_modal: Control = $RelicMenu
+
 func _ready() -> void:
 	chapter_modal.visible = false
 	controls_modal.visible = false
 	confirm_modal.visible = false
+	options_modal.visible = false
+	relic_modal.visible = false
 
 	# Connect main buttons
+	character_btn.pressed.connect(_on_character_toggle_pressed)
 	new_game_btn.pressed.connect(_on_new_game_pressed)
 	continue_btn.pressed.connect(_on_continue_pressed)
 	chapter_select_btn.pressed.connect(_on_chapter_select_pressed)
 	boss_rush_btn.pressed.connect(_on_boss_rush_pressed)
+	relic_btn.pressed.connect(_on_relic_menu_pressed)
 	controls_btn.pressed.connect(_on_controls_pressed)
+	options_btn.pressed.connect(_on_options_pressed)
 	quit_btn.pressed.connect(_on_quit_pressed)
 
 	# Connect modal buttons
@@ -93,9 +104,39 @@ func _ready() -> void:
 	confirm_no_btn.pressed.connect(func(): confirm_modal.visible = false)
 
 	_refresh_menu_state()
+	_update_character_button()
 	if SoundManager:
 		SoundManager.play_bgm("title")
 	menu_started.emit()
+
+func _on_character_toggle_pressed() -> void:
+	if not SaveManager:
+		return
+	var cur = SaveManager.get_selected_character()
+	var next = "elysia" if cur == "hero" else "hero"
+	SaveManager.set_selected_character(next)
+	if SoundManager:
+		SoundManager.play_sfx("ui_confirm")
+	_update_character_button()
+
+func _update_character_button() -> void:
+	if not character_btn:
+		return
+	var cur = SaveManager.get_selected_character() if SaveManager else "hero"
+	if cur == "elysia":
+		character_btn.text = "PLAY AS: ELYSIA (CHRONO-WANDERER)"
+		character_btn.add_theme_color_override("font_color", Color(0.75, 0.45, 1.0))
+	else:
+		character_btn.text = "PLAY AS: HERO (ALTHEUS)"
+		character_btn.add_theme_color_override("font_color", Color(0.9, 0.85, 0.7))
+
+func _on_relic_menu_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_select")
+	if relic_modal and relic_modal.has_method("open"):
+		relic_modal.open()
+	else:
+		relic_modal.visible = true
 
 func _refresh_menu_state() -> void:
 	var reset_count = ResetManager.reset_count if ResetManager else 0
@@ -216,5 +257,14 @@ func _on_controls_pressed() -> void:
 	controls_modal.visible = true
 	controls_close_btn.grab_focus()
 
+func _on_options_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_select")
+	options_modal.visible = true
+	var close_btn = options_modal.find_child("CloseButton", true, false)
+	if close_btn:
+		close_btn.grab_focus()
+
 func _on_quit_pressed() -> void:
 	get_tree().quit()
+

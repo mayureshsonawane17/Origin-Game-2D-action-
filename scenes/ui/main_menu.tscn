@@ -1,7 +1,9 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=7 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/main_menu.gd" id="1_main"]
 [ext_resource type="Script" path="res://scripts/ui/gemstone_title_visual.gd" id="2_gem"]
+[ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="3_options"]
+[ext_resource type="PackedScene" path="res://scenes/ui/relic_menu.tscn" id="4_relic"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
 bg_color = Color(0.06, 0.08, 0.12, 0.96)
@@ -101,6 +103,11 @@ size_flags_vertical = 3
 theme_override_constants/separation = 5
 alignment = 1
 
+[node name="CharacterButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "PLAY AS: HERO (ALTHEUS)"
+
 [node name="ContinueButton" type="Button" parent="MainLayout/MenuVBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
@@ -121,10 +128,20 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "BOSS RUSH [13 Boss Gauntlet]"
 
+[node name="RelicButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BOSS RELICS & FORGE"
+
 [node name="ControlsButton" type="Button" parent="MainLayout/MenuVBox"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "CONTROLS & GUIDE"
+
+[node name="OptionsButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "SETTINGS & ACCESSIBILITY"
 
 [node name="QuitButton" type="Button" parent="MainLayout/MenuVBox"]
 layout_mode = 2
@@ -347,3 +364,10 @@ custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "CANCEL"
+
+[node name="OptionsMenu" parent="." instance=ExtResource("3_options")]
+visible = false
+
+[node name="RelicMenu" parent="." instance=ExtResource("4_relic")]
+visible = false
+

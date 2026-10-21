@@ -30,8 +30,11 @@ func exit() -> void:
 func physics_update(delta: float) -> void:
 	dodge_timer += delta
 
-	# End i-frames slightly before dodge movement ends
-	if dodge_timer >= player.tuning.dodge_invuln_duration:
+	# End i-frames slightly before dodge movement ends (extended with Riot Visor perk)
+	var invuln_dur = player.tuning.dodge_invuln_duration
+	if SaveManager and SaveManager.has_relic_perk("riot_visor"):
+		invuln_dur += 0.06
+	if dodge_timer >= invuln_dur:
 		player.hurtbox.is_invulnerable = false
 
 	# Decelerate slightly

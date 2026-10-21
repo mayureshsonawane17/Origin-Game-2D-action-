@@ -13,6 +13,22 @@ var current_save_data: Dictionary = {}
 var max_unlocked_chapter: int = 1
 var best_boss_rush_time: float = -1.0
 
+# Relic and crafting state
+var unlocked_relics: Array[String] = []
+var crafted_relic_perks: Array[String] = []
+var challenge_return_info: Dictionary = {}
+
+# Settings and accessibility state
+var master_volume: float = 1.0
+var sfx_volume: float = 1.0
+var bgm_volume: float = 0.8
+var reduce_flashing: bool = false
+var screen_shake_enabled: bool = true
+var touch_controls_enabled: bool = false
+
+# Character selection
+var selected_character: String = "hero" # "hero" or "elysia"
+
 # In-memory session equipment state
 var primary_weapon: EquipmentItem
 var secondary_weapon: EquipmentItem
@@ -40,6 +56,22 @@ func _peek_unlocked_chapter() -> void:
 				max_unlocked_chapter = clampi(int(parsed["unlocked_chapter"]), 1, 7)
 			if parsed.has("best_boss_rush_time"):
 				best_boss_rush_time = float(parsed["best_boss_rush_time"])
+			if parsed.has("relics"):
+				for r in parsed["relics"]:
+					if not unlocked_relics.has(str(r)):
+						unlocked_relics.append(str(r))
+			if parsed.has("crafted_perks"):
+				for p in parsed["crafted_perks"]:
+					if not crafted_relic_perks.has(str(p)):
+						crafted_relic_perks.append(str(p))
+			if parsed.has("settings"):
+				var s = parsed["settings"]
+				master_volume = float(s.get("master_volume", 1.0))
+				sfx_volume = float(s.get("sfx_volume", 1.0))
+				bgm_volume = float(s.get("bgm_volume", 0.8))
+				reduce_flashing = bool(s.get("reduce_flashing", false))
+				screen_shake_enabled = bool(s.get("screen_shake_enabled", true))
+				touch_controls_enabled = bool(s.get("touch_controls_enabled", false))
 
 func _load_initial_default_equipment() -> void:
 	if ResourceLoader.exists("res://data/equipment/primordial_blade.tres"):
@@ -65,11 +97,22 @@ func save_game(checkpoint_pos: Vector2 = Vector2.ZERO, scene_path: String = "", 
 	var player = get_tree().get_first_node_in_group("player") as Player
 
 	var save_dict: Dictionary = {
-		"version": "0.3.0",
+		"version": "0.4.0",
 		"timestamp": Time.get_unix_time_from_system(),
 		"reset_count": ResetManager.reset_count if ResetManager else 0,
 		"unlocked_chapter": max_unlocked_chapter,
 		"best_boss_rush_time": best_boss_rush_time,
+		"selected_character": selected_character,
+		"relics": unlocked_relics,
+		"crafted_perks": crafted_relic_perks,
+		"settings": {
+			"master_volume": master_volume,
+			"sfx_volume": sfx_volume,
+			"bgm_volume": bgm_volume,
+			"reduce_flashing": reduce_flashing,
+			"screen_shake_enabled": screen_shake_enabled,
+			"touch_controls_enabled": touch_controls_enabled
+		},
 		"player": {
 			"health": player.current_health if player else 5,
 			"mana": player.current_mana if player else 50.0,
@@ -160,9 +203,42 @@ func load_game() -> bool:
 		if eq.has("active_slot"):
 			active_weapon_slot = int(eq["active_slot"])
 
+	# 6. Restore character selection
+	if current_save_data.has("selected_character"):
+		selected_character = str(current_save_data["selected_character"])
+
+	# 7. Restore relics & crafted perks
+	if current_save_data.has("relics"):
+		unlocked_relics.clear()
+		for r in current_save_data["relics"]:
+			unlocked_relics.append(str(r))
+	if current_save_data.has("crafted_perks"):
+		crafted_relic_perks.clear()
+		for p in current_save_data["crafted_perks"]:
+			crafted_relic_perks.append(str(p))
+
+	# 8. Restore settings
+	if current_save_data.has("settings"):
+		var st = current_save_data["settings"]
+		master_volume = float(st.get("master_volume", master_volume))
+		sfx_volume = float(st.get("sfx_volume", sfx_volume))
+		bgm_volume = float(st.get("bgm_volume", bgm_volume))
+		reduce_flashing = bool(st.get("reduce_flashing", reduce_flashing))
+		screen_shake_enabled = bool(st.get("screen_shake_enabled", screen_shake_enabled))
+		touch_controls_enabled = bool(st.get("touch_controls_enabled", touch_controls_enabled))
+		apply_settings()
+
 	print("[SaveManager] Game successfully loaded. Max Unlocked Chapter: %d" % max_unlocked_chapter)
 	game_loaded.emit()
 	return true
+
+func set_selected_character(char_id: String) -> void:
+	if char_id in ["hero", "elysia"]:
+		selected_character = char_id
+		print("[SaveManager] Selected Character: %s" % selected_character)
+
+func get_selected_character() -> String:
+	return selected_character
 
 func record_boss_rush_time(time_seconds: float) -> bool:
 	if time_seconds <= 0.0:
@@ -246,3 +322,52 @@ func apply_to_player(player: Player) -> void:
 		var py = float(cp.get("pos_y", 0.0))
 		if px != 0.0 or py != 0.0:
 			player.global_position = Vector2(px, py)
+
+# ----------------------------------------------------
+# Relic & Crafting Pipelines
+# ----------------------------------------------------
+func add_relic(relic_id: String) -> void:
+	if not unlocked_relics.has(relic_id):
+		unlocked_relics.append(relic_id)
+		print("[SaveManager] Acquired Relic: %s" % relic_id)
+
+func has_relic(relic_id: String) -> bool:
+	return unlocked_relics.has(relic_id)
+
+func craft_relic_perk(relic_id: String) -> bool:
+	if has_relic(relic_id) and not has_relic_perk(relic_id):
+		crafted_relic_perks.append(relic_id)
+		print("[SaveManager] Crafted Relic Perk for: %s" % relic_id)
+		return true
+	return false
+
+func has_relic_perk(relic_id: String) -> bool:
+	return crafted_relic_perks.has(relic_id)
+
+# ----------------------------------------------------
+# Challenge Return Routing
+# ----------------------------------------------------
+func set_challenge_return(scene_path: String, pos: Vector2) -> void:
+	challenge_return_info = {
+		"scene_path": scene_path,
+		"pos_x": pos.x,
+		"pos_y": pos.y
+	}
+
+func has_challenge_return() -> bool:
+	return not challenge_return_info.is_empty() and str(challenge_return_info.get("scene_path", "")).length() > 0
+
+func get_challenge_return() -> Dictionary:
+	return challenge_return_info
+
+func clear_challenge_return() -> void:
+	challenge_return_info.clear()
+
+# ----------------------------------------------------
+# Settings & Accessibility
+# ----------------------------------------------------
+func apply_settings() -> void:
+	if SoundManager:
+		SoundManager.set_sfx_volume(sfx_volume * master_volume)
+		SoundManager.set_bgm_volume(bgm_volume * master_volume)
+

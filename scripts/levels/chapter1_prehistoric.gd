@@ -7,6 +7,7 @@ extends Node2D
 
 const BOSS_STALKER_SCENE = preload("res://scenes/bosses/boss_primal_stalker.tscn")
 const BOSS_TITAN_SCENE = preload("res://scenes/bosses/boss_titan_deep_earth.tscn")
+const CHALLENGE_PORTAL_SCENE = preload("res://scenes/levels/challenge_portal.tscn")
 
 @onready var player: Player = $Player
 @onready var hud: GameHUD = $HUD
@@ -49,6 +50,7 @@ func _ready() -> void:
 		player.camera.limit_bottom = 290
 
 	exit_portal.body_entered.connect(_on_exit_portal_entered)
+	_spawn_challenge_portal()
 
 	# Trigger opening dialogue sequence after a brief beat
 	await get_tree().create_timer(0.6).timeout
@@ -190,3 +192,13 @@ func _unhandled_input(event: InputEvent) -> void:
 	if chapter_complete_panel.visible:
 		if event.is_action_pressed("attack") or event.is_action_pressed("jump"):
 			advance_to_next_chapter()
+
+func _spawn_challenge_portal() -> void:
+	var portal = CHALLENGE_PORTAL_SCENE.instantiate()
+	portal.global_position = Vector2(580, 230)
+	portal.target_boss_type = "mud_golem"
+	portal.portal_era = "Prehistoric"
+	portal.required_relic_id = "clay_core"
+	portal.portal_color = Color(0.85, 0.5, 0.2, 1.0)
+	add_child(portal)
+
