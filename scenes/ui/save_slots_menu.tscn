@@ -1,0 +1,139 @@
+[gd_scene load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://scripts/ui/save_slots_menu.gd" id="1_slot"]
+
+[node name="SaveSlotsMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_slot")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.03, 0.04, 0.07, 0.95)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="CenterContainer"]
+custom_minimum_size = Vector2(420, 240)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.92, 0.82, 0.74, 1)
+theme_override_font_sizes/font_size = 12
+text = "SELECT SAVE SLOT"
+horizontal_alignment = 1
+
+[node name="SlotsVBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 4
+
+[node name="BottomHBox" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+alignment = 1
+
+[node name="BackButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/BottomHBox"]
+custom_minimum_size = Vector2(80, 22)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "BACK"
+
+[node name="ConfirmModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="ConfirmModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Center" type="CenterContainer" parent="ConfirmModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="ConfirmModal/Center"]
+custom_minimum_size = Vector2(280, 110)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="ConfirmModal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="VBox" type="VBoxContainer" parent="ConfirmModal/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 8
+
+[node name="HeaderLabel" type="Label" parent="ConfirmModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
+theme_override_font_sizes/font_size = 9
+text = "DELETE SAVE FILE"
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="ConfirmModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.8, 1)
+theme_override_font_sizes/font_size = 7
+text = "Are you sure you want to permanently delete this save slot? This cannot be undone."
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ButtonHBox" type="HBoxContainer" parent="ConfirmModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="YesButton" type="Button" parent="ConfirmModal/Center/Panel/Margin/VBox/ButtonHBox"]
+custom_minimum_size = Vector2(70, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "DELETE"
+
+[node name="NoButton" type="Button" parent="ConfirmModal/Center/Panel/Margin/VBox/ButtonHBox"]
+custom_minimum_size = Vector2(70, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CANCEL"

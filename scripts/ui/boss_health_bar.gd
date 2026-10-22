@@ -27,11 +27,15 @@ func bind_boss(boss: BossController) -> void:
 		health_bar.max_value = boss.data.max_health
 		health_bar.value = boss.current_health
 
-		var is_immortal = (boss.data.id in ["VIL-IMMORTAL", "THE-UNBEATABLE-ONE"] or boss.data.title.contains("Immortal"))
+		var is_immortal = boss.data.is_fixed_text_mode or (boss.data.id in ["VIL-IMMORTAL", "THE-UNBEATABLE-ONE"] or boss.data.title.contains("Immortal"))
+		var custom_txt = boss.data.custom_status_text
+		if custom_txt.is_empty() and is_immortal:
+			custom_txt = Loc.get_str("hud.immortal_boss_text", "IMMORTAL — NO WEAKNESS DETECTED")
+
 		if status_label:
-			status_label.visible = is_immortal
-			if is_immortal:
-				status_label.text = "IMMORTAL — NO WEAKNESS DETECTED"
+			status_label.visible = is_immortal or not custom_txt.is_empty()
+			if status_label.visible:
+				status_label.text = custom_txt
 
 		# Phase pips setup
 		for child in pips_container.get_children():
@@ -42,6 +46,13 @@ func bind_boss(boss: BossController) -> void:
 				pip.custom_minimum_size = Vector2(6, 6)
 				pip.color = Color(1.0, 0.85, 0.2)
 				pips_container.add_child(pip)
+
+func set_fixed_text_mode(text: String) -> void:
+	if status_label:
+		status_label.visible = true
+		status_label.text = text
+	if health_bar:
+		health_bar.visible = text.is_empty()
 
 	if not boss.boss_health_changed.is_connected(_on_health_changed):
 		boss.boss_health_changed.connect(_on_health_changed)

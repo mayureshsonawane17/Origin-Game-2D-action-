@@ -2,7 +2,7 @@ class_name MainMenu
 extends Control
 
 ## Main Title Menu for ORIGIN.
-## Provides New Game, Continue, Era Select, Controls Guide, and Quit functionality.
+## Provides New Game, Continue, Save Slots, Options, Credits, and Quit functionality.
 ## Connects all 7 chapters into a seamless campaign with persistent progression.
 
 signal menu_started()
@@ -62,6 +62,7 @@ const CHAPTER_SCENES: Array[Dictionary] = [
 @onready var relic_btn: Button = $MainLayout/MenuVBox/RelicButton
 @onready var controls_btn: Button = $MainLayout/MenuVBox/ControlsButton
 @onready var options_btn: Button = $MainLayout/MenuVBox/OptionsButton
+@onready var credits_btn: Button = $MainLayout/MenuVBox/CreditsButton
 @onready var quit_btn: Button = $MainLayout/MenuVBox/QuitButton
 
 # Modal Overlays
@@ -78,6 +79,8 @@ const CHAPTER_SCENES: Array[Dictionary] = [
 
 @onready var options_modal: Control = $OptionsMenu
 @onready var relic_modal: Control = $RelicMenu
+@onready var save_slots_menu: SaveSlotsMenu = $SaveSlotsMenu
+@onready var credits_menu: CreditsMenu = $CreditsMenu
 
 func _ready() -> void:
 	chapter_modal.visible = false
@@ -85,6 +88,10 @@ func _ready() -> void:
 	confirm_modal.visible = false
 	options_modal.visible = false
 	relic_modal.visible = false
+	if save_slots_menu:
+		save_slots_menu.visible = false
+	if credits_menu:
+		credits_menu.visible = false
 
 	# Connect main buttons
 	character_btn.pressed.connect(_on_character_toggle_pressed)
@@ -95,6 +102,7 @@ func _ready() -> void:
 	relic_btn.pressed.connect(_on_relic_menu_pressed)
 	controls_btn.pressed.connect(_on_controls_pressed)
 	options_btn.pressed.connect(_on_options_pressed)
+	credits_btn.pressed.connect(_on_credits_pressed)
 	quit_btn.pressed.connect(_on_quit_pressed)
 
 	# Connect modal buttons
@@ -102,6 +110,15 @@ func _ready() -> void:
 	controls_close_btn.pressed.connect(func(): controls_modal.visible = false)
 	confirm_yes_btn.pressed.connect(_start_fresh_new_game)
 	confirm_no_btn.pressed.connect(func(): confirm_modal.visible = false)
+
+	if save_slots_menu:
+		save_slots_menu.closed.connect(_on_save_slots_closed)
+	if credits_menu:
+		credits_menu.finished.connect(_on_credits_closed)
+
+	# Mobile check: hide quit button on mobile devices
+	if OS.has_feature("mobile") or OS.has_feature("web"):
+		quit_btn.visible = false
 
 	_refresh_menu_state()
 	_update_character_button()
@@ -113,7 +130,7 @@ func _on_character_toggle_pressed() -> void:
 	if not SaveManager:
 		return
 	var cur = SaveManager.get_selected_character()
-	var next = "elysia" if cur == "hero" else "hero"
+	var next = "riya" if cur == "hero" else "hero"
 	SaveManager.set_selected_character(next)
 	if SoundManager:
 		SoundManager.play_sfx("ui_confirm")
@@ -123,12 +140,15 @@ func _update_character_button() -> void:
 	if not character_btn:
 		return
 	var cur = SaveManager.get_selected_character() if SaveManager else "hero"
-	if cur == "elysia":
+	if cur == "riya":
+		character_btn.text = "PLAY AS: RIYA (THE RADIANT MAGE)"
+		character_btn.add_theme_color_override("font_color", Color("#cbefc0")) # Mint green
+	elif cur == "elysia":
 		character_btn.text = "PLAY AS: ELYSIA (CHRONO-WANDERER)"
 		character_btn.add_theme_color_override("font_color", Color(0.75, 0.45, 1.0))
 	else:
-		character_btn.text = "PLAY AS: HERO (ALTHEUS)"
-		character_btn.add_theme_color_override("font_color", Color(0.9, 0.85, 0.7))
+		character_btn.text = "PLAY AS: NAKSH (THE WAYFARER)"
+		character_btn.add_theme_color_override("font_color", Color("#ebd2bd"))
 
 func _on_relic_menu_pressed() -> void:
 	if SoundManager:
@@ -141,13 +161,16 @@ func _on_relic_menu_pressed() -> void:
 func _refresh_menu_state() -> void:
 	var reset_count = ResetManager.reset_count if ResetManager else 0
 	loop_badge.text = "ACTIVE LOOP: #%d" % reset_count
+	# Hard rule: No spoilers / reset counters in menus
+	loop_badge.visible = false
 
 	var has_save_file = SaveManager.has_save() if SaveManager else false
 	continue_btn.disabled = not has_save_file
-	if has_save_file:
-		continue_btn.text = "CONTINUE [Loop #%d]" % reset_count
-	else:
-		continue_btn.text = "CONTINUE [No Save]"
+	continue_btn.text = Loc.get_str("menu.continue", "CONTINUE")
+	new_game_btn.text = Loc.get_str("menu.new_game", "NEW GAME")
+	options_btn.text = Loc.get_str("menu.options", "OPTIONS")
+	credits_btn.text = Loc.get_str("menu.credits", "CREDITS")
+	quit_btn.text = Loc.get_str("menu.quit", "QUIT")
 
 	var best_rush_time = SaveManager.get_best_boss_rush_time() if SaveManager else -1.0
 	if best_rush_time > 0.0:
@@ -164,7 +187,9 @@ func _refresh_menu_state() -> void:
 func _on_new_game_pressed() -> void:
 	if SoundManager:
 		SoundManager.play_sfx("ui_select")
-	if SaveManager and SaveManager.has_save():
+	if save_slots_menu:
+		save_slots_menu.open(SaveSlotsMenu.Mode.NEW_GAME)
+	elif SaveManager and SaveManager.has_save():
 		confirm_modal.visible = true
 		confirm_yes_btn.grab_focus()
 	else:
@@ -182,13 +207,20 @@ func _start_fresh_new_game() -> void:
 
 	var ch1_path = CHAPTER_SCENES[0]["scene"]
 	if ResourceLoader.exists(ch1_path):
-		get_tree().change_scene_to_file(ch1_path)
+		if UIManager:
+			UIManager.transition_to_scene(ch1_path)
+		else:
+			get_tree().change_scene_to_file(ch1_path)
 
 func _on_continue_pressed() -> void:
 	if not SaveManager or not SaveManager.has_save():
 		return
 	if SoundManager:
 		SoundManager.play_sfx("ui_confirm")
+
+	if save_slots_menu:
+		save_slots_menu.open(SaveSlotsMenu.Mode.LOAD)
+		return
 
 	var loaded = SaveManager.load_game()
 	if not loaded:
@@ -265,6 +297,22 @@ func _on_options_pressed() -> void:
 	if close_btn:
 		close_btn.grab_focus()
 
+func _on_credits_pressed() -> void:
+	if SoundManager:
+		SoundManager.play_sfx("ui_select")
+	if credits_menu:
+		credits_menu.visible = true
+		credits_menu.is_scrolling = true
+		credits_menu._populate_credits()
+
+func _on_save_slots_closed() -> void:
+	if continue_btn and not continue_btn.disabled:
+		continue_btn.grab_focus()
+	else:
+		new_game_btn.grab_focus()
+
+func _on_credits_closed() -> void:
+	credits_btn.grab_focus()
+
 func _on_quit_pressed() -> void:
 	get_tree().quit()
-

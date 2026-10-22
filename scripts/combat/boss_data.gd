@@ -28,3 +28,7 @@ extends Resource
 @export var reward_id: String = ""
 @export var story_flag: String = ""
 @export var arena_scene_path: String = "res://scenes/levels/boss_arena.tscn"
+
+@export_group("UI Display")
+@export var custom_status_text: String = ""
+@export var is_fixed_text_mode: bool = false

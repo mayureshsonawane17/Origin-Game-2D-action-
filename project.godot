@@ -16,6 +16,7 @@ run/main_scene="res://scenes/ui/main_menu.tscn"
 ResetManager="*res://scripts/systems/reset_manager.gd"
 SaveManager="*res://scripts/systems/save_manager.gd"
 SoundManager="*res://scripts/systems/sound_manager.gd"
+UIManager="*res://scripts/ui/ui_manager.gd"
 
 [display]
 
@@ -25,6 +26,12 @@ window/size/window_width_override=960
 window/size/window_height_override=540
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
+mouse_cursor/custom_image="res://assets/ui/gem_cursor.png"
+mouse_cursor/custom_image_hotspot=Vector2(6, 6)
+
+[gui]
+
+theme/custom="res://data/theme/origin_theme.tres"
 
 [rendering]
 

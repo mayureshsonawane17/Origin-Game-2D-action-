@@ -20,11 +20,17 @@ extends CanvasLayer
 var player: Player
 
 func _ready() -> void:
+	add_to_group("hud")
 	defeat_panel.visible = false
 	complete_panel.visible = false
+	loop_label.visible = false # Hard rule: No spoilers / reset counters in gameplay UI
+
+	if UIManager:
+		visible = UIManager.is_hud_visible
+		UIManager.hud_visibility_changed.connect(func(vis): visible = vis)
 	
-	# Update loop counter from ResetManager
-	_update_loop_display()
+	# Update weapon display
+	_update_weapon_display()
 
 	# Find player and connect signals
 	await get_tree().process_frame
@@ -54,8 +60,16 @@ func _ready() -> void:
 		show_touch = true
 	touch_controls.visible = show_touch
 
-func _update_loop_display() -> void:
-	loop_label.text = "LOOP #%d" % ResetManager.reset_count
+func set_hud_visible(val: bool) -> void:
+	visible = val
+
+func _update_weapon_display() -> void:
+	if not SaveManager:
+		return
+	var wep = SaveManager.get_active_weapon()
+	var wep_name = wep.display_name if wep else "Unarmed"
+	if has_node("MarginContainer/VBoxContainer/TopBar/WeaponLabel"):
+		get_node("MarginContainer/VBoxContainer/TopBar/WeaponLabel").text = wep_name
 
 func _on_player_health_changed(current: int, max_hp: int) -> void:
 	# Draw heart / health pips
@@ -86,7 +100,12 @@ func _on_player_dodge_cooldown_updated(remaining: float, total: float) -> void:
 
 func _on_player_died() -> void:
 	await get_tree().create_timer(0.8).timeout
-	defeat_loop_label.text = "RESET #%d\n\"The loop begins again.\"" % (ResetManager.reset_count + 1)
+	var reset_num = (ResetManager.reset_count + 1) if ResetManager else 1
+	var template = Loc.get_str("defeat.message", "RESET #%d\n\"The loop begins again.\"")
+	if "%d" in template:
+		defeat_loop_label.text = template % reset_num
+	else:
+		defeat_loop_label.text = template
 	defeat_panel.visible = true
 
 func show_level_complete() -> void:

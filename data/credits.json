@@ -1,0 +1,57 @@
+{
+	"title": "ORIGIN",
+	"tagline": "Some loops are meant to be broken",
+	"sections": [
+		{
+			"header": "CREATIVE DIRECTION",
+			"entries": [
+				"Game Director: Antigravity Pair Lead",
+				"Lead Designer: [STORY TBD]",
+				"Writing & Lore: [STORY TBD]"
+			]
+		},
+		{
+			"header": "CHARACTERS & COMBAT",
+			"entries": [
+				"Naksh - The Timeless Vanguard",
+				"Riya - The Radiant Mage",
+				"Combat Tuning & Systems",
+				"Procedural Boss Gauntlet Architecture"
+			]
+		},
+		{
+			"header": "PROGRAMMING & SYSTEMS",
+			"entries": [
+				"Core Architecture & Autoloads",
+				"Unified UI & Accessibility Engine",
+				"Multi-Slot Persistence & Input Rebinding",
+				"Procedural Sound Generation Synthesizer"
+			]
+		},
+		{
+			"header": "ART & VISUAL DESIGN",
+			"entries": [
+				"2D Pixel Aesthetic at 480x270",
+				"9-Slice Theme & Gemstone Crystals",
+				"Riya Concept Art & Sheet Adaptation",
+				"Dynamic Particle & Shader Effects"
+			]
+		},
+		{
+			"header": "FONTS & OPEN SOURCE ASSETS",
+			"entries": [
+				"Pixelify Sans (SIL Open Font License 1.1)",
+				"Silkscreen (SIL Open Font License 1.1)",
+				"Built with Godot Engine 4.7"
+			]
+		},
+		{
+			"header": "SPECIAL THANKS",
+			"entries": [
+				"To all who dare challenge the loop",
+				"The Deepmind & Antigravity Teams",
+				"Thank you for playing ORIGIN"
+			]
+		}
+	]
+}

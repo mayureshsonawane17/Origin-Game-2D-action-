@@ -1,0 +1,93 @@
+{
+  "common": {
+    "confirm": "CONFIRM",
+    "cancel": "CANCEL",
+    "close": "CLOSE",
+    "back": "BACK",
+    "on": "ON",
+    "off": "OFF",
+    "delete": "DELETE",
+    "warning": "WARNING"
+  },
+  "menu": {
+    "title": "ORIGIN",
+    "subtitle": "SOME LOOPS ARE MEANT TO BE BROKEN",
+    "new_game": "NEW GAME",
+    "continue": "CONTINUE",
+    "options": "OPTIONS",
+    "credits": "CREDITS",
+    "quit": "QUIT"
+  },
+  "save_slots": {
+    "title": "SELECT SAVE SLOT",
+    "slot_empty": "[ EMPTY SLOT ]",
+    "slot_prefix": "SLOT",
+    "era": "ERA",
+    "area": "AREA",
+    "playtime": "PLAY TIME",
+    "last_saved": "SAVED",
+    "delete_title": "DELETE SAVE FILE",
+    "delete_confirm": "Are you sure you want to permanently delete this save slot? This cannot be undone.",
+    "corrupt_slot": "[ CORRUPTED SAVE FILE - SELECT TO RESET ]"
+  },
+  "options": {
+    "title": "SETTINGS",
+    "tab_audio": "AUDIO",
+    "tab_controls": "CONTROLS",
+    "tab_display": "DISPLAY",
+    "tab_accessibility": "ACCESSIBILITY",
+    "tab_gameplay": "GAMEPLAY",
+    "master_volume": "MASTER VOLUME",
+    "music_volume": "MUSIC VOLUME",
+    "sfx_volume": "EFFECTS VOLUME",
+    "mute": "MUTE ALL AUDIO",
+    "fullscreen": "FULLSCREEN",
+    "integer_scale": "INTEGER PIXEL SCALE",
+    "scale_auto": "AUTO",
+    "reduce_flashing": "REDUCE FLASHING (PHOTOSENSITIVITY)",
+    "screen_shake": "SCREEN SHAKE INTENSITY",
+    "text_speed": "TEXT SCROLL SPEED",
+    "high_contrast": "HIGH CONTRAST UI",
+    "skip_intro": "SKIP INTRO CINEMATIC",
+    "touch_controls": "TOUCH CONTROLS",
+    "touch_scale": "TOUCH BUTTON SIZE",
+    "touch_opacity": "TOUCH BUTTON OPACITY",
+    "reset_defaults": "RESET ALL TO DEFAULTS",
+    "conflict_detected": "Action key is already mapped! Overwrite?",
+    "press_key_to_bind": "PRESS ANY KEY OR BUTTON..."
+  },
+  "pause": {
+    "title": "PAUSED",
+    "resume": "RESUME",
+    "options": "OPTIONS",
+    "restart_checkpoint": "RESTART FROM CHECKPOINT",
+    "quit_to_menu": "QUIT TO TITLE",
+    "restart_confirm_title": "RESTART CHECKPOINT",
+    "restart_confirm_msg": "Restart from the last recorded checkpoint? Unsaved progress will be lost.",
+    "quit_confirm_title": "RETURN TO TITLE",
+    "quit_confirm_msg": "Return to the main title screen? Any unsaved progress will be lost."
+  },
+  "hud": {
+    "health": "HP",
+    "mana": "MP",
+    "heal": "HEAL",
+    "dodge": "DODGE",
+    "immortal_boss_text": "IMMORTAL — NO WEAKNESS DETECTED"
+  },
+  "defeat": {
+    "title": "DEFEAT",
+    "message": "The cycle turns again.",
+    "restart_button": "RETRY"
+  },
+  "toasts": {
+    "autosave": "CHECKPOINT SAVED",
+    "relic_unlocked": "NEW BOSS RELIC DISCOVERED",
+    "item_acquired": "ITEM ACQUIRED"
+  },
+  "characters": {
+    "hero_name": "Naksh",
+    "hero_title": "The Wayfarer",
+    "riya_name": "Riya",
+    "riya_title": "The Radiant Mage"
+  }
+}

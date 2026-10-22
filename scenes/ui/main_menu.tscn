@@ -4,6 +4,8 @@
 [ext_resource type="Script" path="res://scripts/ui/gemstone_title_visual.gd" id="2_gem"]
 [ext_resource type="PackedScene" path="res://scenes/ui/options_menu.tscn" id="3_options"]
 [ext_resource type="PackedScene" path="res://scenes/ui/relic_menu.tscn" id="4_relic"]
+[ext_resource type="PackedScene" path="res://scenes/ui/save_slots_menu.tscn" id="5_slots"]
+[ext_resource type="PackedScene" path="res://scenes/ui/credits_menu.tscn" id="6_credits"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_modal"]
 bg_color = Color(0.06, 0.08, 0.12, 0.96)
@@ -142,6 +144,11 @@ text = "CONTROLS & GUIDE"
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "SETTINGS & ACCESSIBILITY"
+
+[node name="CreditsButton" type="Button" parent="MainLayout/MenuVBox"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CREDITS"
 
 [node name="QuitButton" type="Button" parent="MainLayout/MenuVBox"]
 layout_mode = 2
@@ -369,5 +376,11 @@ text = "CANCEL"
 visible = false
 
 [node name="RelicMenu" parent="." instance=ExtResource("4_relic")]
+visible = false
+
+[node name="SaveSlotsMenu" parent="." instance=ExtResource("5_slots")]
+visible = false
+
+[node name="CreditsMenu" parent="." instance=ExtResource("6_credits")]
 visible = false
 

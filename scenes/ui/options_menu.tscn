@@ -1,18 +1,6 @@
-[gd_scene load_steps=3 format=3]
+[gd_scene load_steps=2 format=3]
 
 [ext_resource type="Script" path="res://scripts/ui/options_menu.gd" id="1_opt"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_panel"]
-bg_color = Color(0.08, 0.1, 0.14, 0.95)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0.2, 0.7, 0.9, 0.8)
-corner_radius_top_left = 4
-corner_radius_top_right = 4
-corner_radius_bottom_right = 4
-corner_radius_bottom_left = 4
 
 [node name="OptionsMenu" type="Control"]
 process_mode = 3
@@ -31,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.02, 0.03, 0.05, 0.8)
+color = Color(0.02, 0.03, 0.05, 0.85)
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 1
@@ -42,97 +30,455 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Panel" type="PanelContainer" parent="CenterContainer"]
-custom_minimum_size = Vector2(340, 220)
+custom_minimum_size = Vector2(440, 250)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_panel")
 
-[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel"]
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin"]
 layout_mode = 2
 theme_override_constants/separation = 6
 
-[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+[node name="HeaderHBox" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.3, 0.9, 1, 1)
-theme_override_font_sizes/font_size = 12
+alignment = 1
+
+[node name="TitleLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/HeaderHBox"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0.92, 0.82, 0.74, 1)
+theme_override_font_sizes/font_size = 11
 text = "SETTINGS & ACCESSIBILITY"
 horizontal_alignment = 1
 
-[node name="AudioLabel" type="Label" parent="CenterContainer/Panel/VBox"]
+[node name="TabContainer" type="TabContainer" parent="CenterContainer/Panel/Margin/VBox"]
+unique_name_in_owner = true
 layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
+size_flags_vertical = 3
 theme_override_font_sizes/font_size = 8
-text = "AUDIO CONTROLS"
 
-[node name="AudioGrid" type="GridContainer" parent="CenterContainer/Panel/VBox"]
+[node name="Audio" type="TabBar" parent="CenterContainer/Panel/Margin/VBox/TabContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="AudioGrid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="MasterLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Master Volume:"
+
+[node name="MasterSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 14)
+layout_mode = 2
+value = 100.0
+
+[node name="SFXLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Effects Volume:"
+
+[node name="SFXSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 14)
+layout_mode = 2
+value = 100.0
+
+[node name="BGMLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Music Volume:"
+
+[node name="BGMSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 14)
+layout_mode = 2
+value = 80.0
+
+[node name="MuteLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Mute All Audio:"
+
+[node name="MuteCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Audio/Margin/AudioGrid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Mute"
+
+[node name="Controls" type="TabBar" parent="CenterContainer/Panel/Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controls"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 6
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 6
+theme_override_constants/margin_bottom = 4
+
+[node name="VBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controls/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Scroll" type="ScrollContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controls/Margin/VBox"]
+layout_mode = 2
+size_flags_vertical = 3
+horizontal_scroll_mode = 0
+
+[node name="ControlsVBox" type="VBoxContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controls/Margin/VBox/Scroll"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 3
+
+[node name="ResetControlsButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Controls/Margin/VBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 18)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 7
+text = "RESET CONTROLS TO DEFAULTS"
+
+[node name="Display" type="TabBar" parent="CenterContainer/Panel/Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Display"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 10
+
+[node name="Grid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Display/Margin"]
+layout_mode = 2
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 8
+columns = 2
+
+[node name="FSLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Display/Margin/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Fullscreen Mode:"
+
+[node name="FullscreenCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Display/Margin/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Fullscreen"
+
+[node name="ScaleLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Display/Margin/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Integer Pixel Scale:"
+
+[node name="IntegerScaleOption" type="OptionButton" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Display/Margin/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="Accessibility" type="TabBar" parent="CenterContainer/Panel/Margin/VBox/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="Grid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin"]
 layout_mode = 2
 theme_override_constants/h_separation = 12
 theme_override_constants/v_separation = 4
 columns = 2
 
-[node name="MasterLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioGrid"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "Master Volume:"
-
-[node name="MasterSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioGrid"]
-custom_minimum_size = Vector2(180, 12)
-layout_mode = 2
-value = 100.0
-
-[node name="SFXLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioGrid"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "SFX Volume:"
-
-[node name="SFXSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioGrid"]
-custom_minimum_size = Vector2(180, 12)
-layout_mode = 2
-value = 100.0
-
-[node name="BGMLabel" type="Label" parent="CenterContainer/Panel/VBox/AudioGrid"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 8
-text = "BGM Volume:"
-
-[node name="BGMSlider" type="HSlider" parent="CenterContainer/Panel/VBox/AudioGrid"]
-custom_minimum_size = Vector2(180, 12)
-layout_mode = 2
-value = 80.0
-
-[node name="AccessLabel" type="Label" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(0.7, 0.75, 0.8, 1)
-theme_override_font_sizes/font_size = 8
-text = "ACCESSIBILITY & DISPLAY"
-
-[node name="AccessGrid" type="GridContainer" parent="CenterContainer/Panel/VBox"]
-layout_mode = 2
-theme_override_constants/h_separation = 16
-theme_override_constants/v_separation = 4
-columns = 2
-
-[node name="FlashCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+[node name="FlashCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin/Grid"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
 text = "Reduce Flashing"
 
-[node name="ShakeCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+[node name="HighContrastCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin/Grid"]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-button_pressed = true
+text = "High Contrast UI"
+
+[node name="ShakeCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
 text = "Screen Shake"
 
-[node name="TouchCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+[node name="ShakeSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 14)
+layout_mode = 2
+value = 100.0
+
+[node name="TextSpeedLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin/Grid"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Touch Controls"
+text = "Text Scroll Speed:"
 
-[node name="FullscreenCheckBox" type="CheckBox" parent="CenterContainer/Panel/VBox/AccessGrid"]
+[node name="TextSpeedSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Accessibility/Margin/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 14)
+layout_mode = 2
+min_value = 50.0
+max_value = 300.0
+value = 100.0
+
+[node name="Gameplay" type="TabBar" parent="CenterContainer/Panel/Margin/VBox/TabContainer"]
+visible = false
 layout_mode = 2
 theme_override_font_sizes/font_size = 8
-text = "Fullscreen"
 
-[node name="CloseButton" type="Button" parent="CenterContainer/Panel/VBox"]
+[node name="Margin" type="MarginContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="Grid" type="GridContainer" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
-text = "CONFIRM & CLOSE"
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 6
+columns = 2
+
+[node name="SkipIntroCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Skip Intro Cinematic"
+
+[node name="TouchCheckBox" type="CheckBox" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin/Grid"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Virtual Touch Controls"
+
+[node name="TouchScaleLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Touch Button Size:"
+
+[node name="TouchScaleSlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 14)
+layout_mode = 2
+min_value = 60.0
+max_value = 160.0
+value = 100.0
+
+[node name="TouchOpacityLabel" type="Label" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin/Grid"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "Touch Button Opacity:"
+
+[node name="TouchOpacitySlider" type="HSlider" parent="CenterContainer/Panel/Margin/VBox/TabContainer/Gameplay/Margin/Grid"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 14)
+layout_mode = 2
+min_value = 20.0
+max_value = 100.0
+value = 80.0
+
+[node name="FooterHBox" type="HBoxContainer" parent="CenterContainer/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 12
+alignment = 1
+
+[node name="ResetDefaultsButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/FooterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(120, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "RESET ALL DEFAULTS"
+
+[node name="CloseButton" type="Button" parent="CenterContainer/Panel/Margin/VBox/FooterHBox"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(70, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CLOSE"
+
+[node name="RebindModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="RebindModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.8)
+
+[node name="Center" type="CenterContainer" parent="RebindModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="RebindModal/Center"]
+custom_minimum_size = Vector2(240, 80)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="RebindModal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="RebindModal/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="PromptLabel" type="Label" parent="RebindModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.8, 1)
+theme_override_font_sizes/font_size = 8
+text = "PRESS ANY KEY OR BUTTON..."
+horizontal_alignment = 1
+
+[node name="EscLabel" type="Label" parent="RebindModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.5, 0.55, 0.6, 1)
+theme_override_font_sizes/font_size = 7
+text = "[ESC] to cancel"
+horizontal_alignment = 1
+
+[node name="ConflictModal" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Dimmer" type="ColorRect" parent="ConflictModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.85)
+
+[node name="Center" type="CenterContainer" parent="ConflictModal"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="PanelContainer" parent="ConflictModal/Center"]
+custom_minimum_size = Vector2(260, 95)
+layout_mode = 2
+
+[node name="Margin" type="MarginContainer" parent="ConflictModal/Center/Panel"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 8
+
+[node name="VBox" type="VBoxContainer" parent="ConflictModal/Center/Panel/Margin"]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 1
+
+[node name="HeaderLabel" type="Label" parent="ConflictModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.8, 0.3, 1)
+theme_override_font_sizes/font_size = 8
+text = "KEYBIND CONFLICT"
+horizontal_alignment = 1
+
+[node name="MessageLabel" type="Label" parent="ConflictModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.9, 0.85, 0.8, 1)
+theme_override_font_sizes/font_size = 7
+text = "Action is already mapped! Overwrite?"
+horizontal_alignment = 1
+autowrap_mode = 3
+
+[node name="ButtonHBox" type="HBoxContainer" parent="ConflictModal/Center/Panel/Margin/VBox"]
+layout_mode = 2
+theme_override_constants/separation = 10
+alignment = 1
+
+[node name="ConfirmButton" type="Button" parent="ConflictModal/Center/Panel/Margin/VBox/ButtonHBox"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "OVERWRITE"
+
+[node name="CancelButton" type="Button" parent="ConflictModal/Center/Panel/Margin/VBox/ButtonHBox"]
+custom_minimum_size = Vector2(60, 20)
+layout_mode = 2
+theme_override_font_sizes/font_size = 8
+text = "CANCEL"

@@ -60,6 +60,13 @@ func play_intro(data: BossData) -> void:
 	# Pause underlying gameplay
 	get_tree().paused = true
 
+	# Disable HUD and Pause Menu while title card plays
+	if UIManager:
+		UIManager.hide_hud()
+	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
+	if pause_menu:
+		pause_menu.is_pause_disabled = true
+
 	# Initial positions
 	player_slide.position.x = -240.0
 	boss_slide.position.x = 480.0
@@ -108,4 +115,12 @@ func finish_intro() -> void:
 	is_active = false
 	visible = false
 	get_tree().paused = false
+
+	# Restore HUD and Pause Menu
+	if UIManager:
+		UIManager.show_hud()
+	var pause_menu = get_tree().root.find_child("PauseMenu", true, false)
+	if pause_menu:
+		pause_menu.is_pause_disabled = false
+
 	intro_finished.emit()
