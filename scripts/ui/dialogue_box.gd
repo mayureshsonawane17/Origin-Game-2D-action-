@@ -15,7 +15,7 @@ signal dialogue_finished()
 
 @export var characters_per_second: float = 40.0
 
-var dialogue_lines: Array[Dictionary] = [] # [{"speaker": "Hero", "text": "..."}]
+var dialogue_lines: Array = [] # [{"speaker": "Hero", "text": "..."}]
 var current_line_index: int = 0
 var displayed_char_count: float = 0.0
 var full_current_text: String = ""
@@ -49,7 +49,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		advance()
 		get_viewport().set_input_as_handled()
 
-func start_dialogue(lines: Array[Dictionary]) -> void:
+func start_dialogue(lines: Array) -> void:
 	if lines.is_empty():
 		return
 

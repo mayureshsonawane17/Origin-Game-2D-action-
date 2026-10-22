@@ -189,7 +189,7 @@ func advance_to_next_chapter() -> void:
 		ResetManager.trigger_reset("chapter_advance_fallback")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if chapter_complete_panel.visible:
+	if chapter_complete_panel and chapter_complete_panel.visible:
 		if event.is_action_pressed("attack") or event.is_action_pressed("jump"):
 			advance_to_next_chapter()
 

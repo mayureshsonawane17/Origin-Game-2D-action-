@@ -47,13 +47,6 @@ func bind_boss(boss: BossController) -> void:
 				pip.color = Color(1.0, 0.85, 0.2)
 				pips_container.add_child(pip)
 
-func set_fixed_text_mode(text: String) -> void:
-	if status_label:
-		status_label.visible = true
-		status_label.text = text
-	if health_bar:
-		health_bar.visible = text.is_empty()
-
 	if not boss.boss_health_changed.is_connected(_on_health_changed):
 		boss.boss_health_changed.connect(_on_health_changed)
 	if not boss.boss_armor_changed.is_connected(_on_armor_changed):
@@ -68,6 +61,13 @@ func set_fixed_text_mode(text: String) -> void:
 	position.y = -40.0
 	var tween = create_tween()
 	tween.tween_property(self, "position:y", 12.0, 0.5).set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+
+func set_fixed_text_mode(text: String) -> void:
+	if status_label:
+		status_label.visible = true
+		status_label.text = text
+	if health_bar:
+		health_bar.visible = text.is_empty()
 
 func _on_health_changed(current: int, _max_hp: int) -> void:
 	health_bar.value = current
